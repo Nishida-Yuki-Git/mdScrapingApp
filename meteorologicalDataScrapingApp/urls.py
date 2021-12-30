@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 urlpatterns = [
-    path('scrapingSystem/', include('scrapingSystem.urls')),
+    path('login/', obtain_jwt_token),
+    path('token-refresh/', refresh_jwt_token),
+    path('token-verify/', verify_jwt_token),
+    path('account/', include('presentation.url.account')),
+    path('md-data/', include('presentation.url.mdData')),
     path('admin/', admin.site.urls),
 ]
 
-##アップロードしないので、いらないかも
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

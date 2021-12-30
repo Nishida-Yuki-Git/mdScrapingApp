@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import pymysql
+import datetime
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -34,12 +34,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'scrapingSystem.apps.ScrapingsystemConfig',
+    'presentation.apps.PresentationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -54,6 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'meteorologicalDataScrapingApp.urls'
+
 
 TEMPLATES = [
     {
@@ -81,12 +84,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'PASSWORD': 'gyudon176',
-        'NAME': 'mdsdb',
+        'NAME': 'mdsystemdb',
         'USER': 'root',
         'HOST': '',
         'PORT': '',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,11 +135,49 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-##個別設定
-START_YEAR = 1998 ##気象庁データ収取可能範囲の最小値(現在は、仮の値)
-YEAR_MONTH = [i + 1 for i in range(12)] #1月~12月
+##以下個別設定
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'scrapingSystem.Account' ##ここに認証用テーブルを記載
+
+# 全てのXMLHTMLを許可する
+CORS_ORIGIN_ALLOW_ALL = True
+
+# JWTの認証追加
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LEEWAY': 0,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=86400),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    'JWT_ALLOW_REFRESH': True,
+}
+
+REST_FRAMEWORK = {
+    # ページネーションの設定
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.LimitOffsetPagination'
+    ),
+    # JWTの認証設定
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+    'NON_FIELD_ERRORS_KEY': 'detail',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+
+
+
+
+
 
 
 
