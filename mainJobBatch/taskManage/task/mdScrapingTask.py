@@ -25,7 +25,6 @@ class MdScrapingTaskExecute():
                 md_scraping_service.updateUserTaskStatus(self.task_id, self.process_rest_id)
             else:
                 logging.debug("===CURENT_USER_" + self.user_id + "_IS_PROCESSING===")
-                md_scraping_service.updateUserTaskStatus(self.task_id, self.process_rest_id) ##これを早く除去したい
             md_scraping_service.disConnect()
         except:
             traceback.print_exc()

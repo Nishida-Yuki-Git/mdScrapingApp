@@ -1,8 +1,9 @@
 from application.domainLayer.account.account_repository import AccountRepository
+from scrapingSystem.repositoryImple.account.account_repository import AccountRepositoryImple
 
 class AccountService():
-    def __init__(self, account_repo : AccountRepository): ##ここに実際はインプルを入れる
-        self.account_repo = account_repo
+    def __init__(self):
+        self.account_repo: AccountRepository = AccountRepositoryImple()
 
     ##ユーザーデータオブジェクトの取得
     def getAccountObj(self):

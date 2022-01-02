@@ -42,10 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    "corsheaders",
     'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,8 +58,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'meteorologicalDataScrapingApp.urls'
+##この部分の改修が必要
+CORS_ALLOWED_ORIGINS = [
+    "https://stark-wildwood-77835.herokuapp.com:443",
+]
 
+ROOT_URLCONF = 'meteorologicalDataScrapingApp.urls'
 
 TEMPLATES = [
     {

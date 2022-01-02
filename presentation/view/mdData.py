@@ -32,6 +32,13 @@ def MainBusiness(request):
             return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
     return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
 
+##ファイルダウンロード
+@api_view(["POST"])
+@permission_classes((permissions.AllowAny,))
+def FileDownload(request):
+    if request.method == "POST":
+        return Response()
+    return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
 
 ##ユーザー用データ作成共通処理
 def UserInputItemCreate(user_id):

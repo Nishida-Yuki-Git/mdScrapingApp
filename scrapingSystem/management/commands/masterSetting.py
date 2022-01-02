@@ -104,12 +104,10 @@ class Command(BaseCommand):
         ProcessResultDetailData.objects.all().delete()
         FileManageData.objects.all().delete()
         TaskManageData.objects.all().delete()
+        Account.objects.all().delete()
         ##--開発用トラン削除--
 
         print("task-end")
-
-
-
 
 
 
