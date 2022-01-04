@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from django.db import transaction
 from presentation.serializer.mdData.userInputItem import *
 from presentation.serializer.mdData.mainBusiness import *
+from presentation.serializer.mdData.errorRequest import ErrorRequestCommunicater
+from presentation.serializer.mdData.fileDownload import FileDownloadCommunicater
 import traceback
 
 ##画面入力項目設定
@@ -32,43 +34,72 @@ def MainBusiness(request):
             return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
     return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
 
+##エラーファイル作成ビュー
+@api_view(["POST"])
+@permission_classes((permissions.AllowAny,))
+def ErrorRequest(request):
+    userid = request.data["userid"]
+    if request.method == "POST":
+        try:
+            error_request_seria = ErrorRequestCommunicater(request)
+            error_request_seria.serveParam()
+            return Response(UserInputItemCreate(userid))
+        except:
+            traceback.print_exc()
+            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
+    return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
+
 ##ファイルダウンロード
 @api_view(["POST"])
 @permission_classes((permissions.AllowAny,))
 def FileDownload(request):
+    userid = request.data["userid"]
     if request.method == "POST":
-        return Response()
+        try:
+            file_download_seria = FileDownloadCommunicater(request)
+            file = file_download_seria.getFile()
+            url = file.url
+
+            user_item = UserInputItemCreate(userid)
+            user_item['file_url'] = url
+            return Response(user_item)
+        except:
+            traceback.print_exc()
+            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
     return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
 
 ##ユーザー用データ作成共通処理
 def UserInputItemCreate(user_id):
-    communicater = UserInputItemCommunicater(user_id)
+    try:
+        communicater = UserInputItemCommunicater(user_id)
 
-    year_serializer = YearManageMTSerializer(communicater.getYearManageMTObj(), many=True)
-    month_serializer = MonthManageMTSerializer(communicater.getMonthManageMTObj(), many=True)
-    ken_serializer = KenParamMTSerializer(communicater.getKenParamMTObj(), many=True)
-    md_item_serializer = MDItemMTSerializer(communicater.getMDItemMTObj(), many=True)
+        year_serializer = YearManageMTSerializer(communicater.getYearManageMTObj(), many=True)
+        month_serializer = MonthManageMTSerializer(communicater.getMonthManageMTObj(), many=True)
+        ken_serializer = KenParamMTSerializer(communicater.getKenParamMTObj(), many=True)
+        md_item_serializer = MDItemMTSerializer(communicater.getMDItemMTObj(), many=True)
 
-    user_result_serializer = ProcessResultDataSerializer(communicater.getProcessResultDataObj(), many=True)
+        user_result_serializer = ProcessResultDataSerializer(communicater.getProcessResultDataObj(), many=True)
 
-    ##ユーザー入力項目
-    user_input_item_list = {
-        "year_field": year_serializer.data,
-        "month_field": month_serializer.data,
-        "ken_filed": ken_serializer.data,
-        "md_item_filed": md_item_serializer.data,
-    }
+        ##ユーザー入力項目
+        user_input_item_list = {
+            "year_field": year_serializer.data,
+            "month_field": month_serializer.data,
+            "ken_filed": ken_serializer.data,
+            "md_item_filed": md_item_serializer.data,
+        }
 
-    ##ユーザー処理結果
-    user_process_result = {
-        "user_result_field": user_result_serializer.data,
-    }
+        ##ユーザー処理結果
+        user_process_result = {
+            "user_result_field": user_result_serializer.data,
+        }
 
-    user_response = {
-        "user_input_item_list": user_input_item_list,
-        "user_process_result": user_process_result,
-    }
-    return user_response
+        user_response = {
+            "user_input_item_list": user_input_item_list,
+            "user_process_result": user_process_result,
+        }
+        return user_response
+    except:
+        raise
 
 
 

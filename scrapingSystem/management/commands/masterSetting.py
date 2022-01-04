@@ -2,7 +2,7 @@ from scrapingSystem.models import *
 from django.core.management.base import BaseCommand
 import datetime
 
-##マスタ設定バッチ(マスタに変更が入れば、ここにも変更を適応したい)
+##マスタ設定バッチ(マスタ設定という名前だが、トランデータのセッティングも入っている)
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("task-start")

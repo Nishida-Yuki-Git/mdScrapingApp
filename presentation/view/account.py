@@ -2,6 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from presentation.serializer.account.account import AccountSerializer
 from django.db import transaction
+import traceback
 
 #ユーザー作成(POST)
 class AuthRegister(generics.CreateAPIView):
@@ -10,11 +11,15 @@ class AuthRegister(generics.CreateAPIView):
 
     @transaction.atomic
     def post(self, request, format=None):
-        serializer = AccountSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            serializer = AccountSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            traceback.print_exc()
+            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
 
 # ユーザ情報取得のView(GET)
 class AuthInfoGetView(generics.RetrieveAPIView):

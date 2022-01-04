@@ -43,34 +43,52 @@ class UserInputItemCommunicater():
         self.user_id = user_id
 
     def getYearManageMTObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
-        return service.getYearManageMTObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository)
+            return service.getYearManageMTObj()
+        except:
+            raise
 
     def getMonthManageMTObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
-        return service.getMonthManageMTObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository)
+            return service.getMonthManageMTObj()
+        except:
+            raise
 
     def getKenParamMTObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
-        return service.getKenParamMTObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository)
+            return service.getKenParamMTObj()
+        except:
+            raise
 
     def getMDItemMTObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
-        return service.getMDItemMTObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository)
+            return service.getMDItemMTObj()
+        except:
+            raise
 
     def getProcessResultDataObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository, self.user_id)
-        return service.getProcessResultDataObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository, self.user_id)
+            return service.getProcessResultDataObj()
+        except:
+            raise
 
     def getFileManageDataObj(self):
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository, self.user_id)
-        return service.getFileManageDataObj()
+        try:
+            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
+            service = UserInputItemGetService(repository, self.user_id)
+            return service.getFileManageDataObj()
+        except:
+            raise
 
 
 

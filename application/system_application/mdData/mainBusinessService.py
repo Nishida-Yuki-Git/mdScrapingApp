@@ -6,6 +6,7 @@ from scrapingSystem.repositoryImple.util.saiban_repository import saibanReposito
 from scrapingSystem.repositoryImple.mdData.mainBusiness_repository import MainBusinessRepositoryImple
 import datetime
 from mainJobBatch.taskManage.job import jobExecute
+from application.system_application.enum.exeBatchType import ExeBatchType
 import threading
 
 class FileCreateService():
@@ -29,7 +30,11 @@ class FileCreateService():
             main_repository.userProcessResultRegister(file_num_date_time, first_status_code, self.service_dto)
             main_repository.fileManageDataRegister(file_num_date_time, self.service_dto)
 
-            thread = threading.Thread(target=jobExecute.goFlow, args=(self.service_dto.getUserId(),))
+            exe_batch_type = ExeBatchType.NEW_FILE_CREATE_BATCH
+            batch_exe_param_json = {
+                "user_id": self.service_dto.getUserId()
+            }
+            thread = threading.Thread(target=jobExecute.goBatch, args=(batch_exe_param_json,exe_batch_type,))
             thread.start()
         except:
             raise

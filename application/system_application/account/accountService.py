@@ -7,8 +7,14 @@ class AccountService():
 
     ##ユーザーデータオブジェクトの取得
     def getAccountObj(self):
-        return self.account_repo.getAccountObj()
+        try:
+            return self.account_repo.getAccountObj()
+        except:
+            raise
 
     ##ユーザーアカウント作成
     def createAccount(self, validated_data):
-        return self.account_repo.createAccount(validated_data)
+        try:
+            return self.account_repo.createAccount(validated_data)
+        except:
+            raise

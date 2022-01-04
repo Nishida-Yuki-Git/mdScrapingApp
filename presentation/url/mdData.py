@@ -5,5 +5,6 @@ app_name = 'presentation'
 urlpatterns = [
     path('init/', UserInputItemView),
     path('main-logic/', MainBusiness),
+    path('error-request/', ErrorRequest),
     path('download/', FileDownload),
 ]

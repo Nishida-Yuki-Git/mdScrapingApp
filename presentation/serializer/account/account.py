@@ -10,8 +10,11 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ('userid', 'username', 'email', 'profile', 'password')
 
     def create(self, validated_data):
-        service = AccountService()
-        return service.createAccount(validated_data)
+        try:
+            service = AccountService()
+            return service.createAccount(validated_data)
+        except:
+            raise
 
 
 

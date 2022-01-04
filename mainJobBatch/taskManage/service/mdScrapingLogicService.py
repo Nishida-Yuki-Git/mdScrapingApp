@@ -68,15 +68,10 @@ class MeteorologicaldataScraping():
         return self.end
 
     def __logBackPrint(self):
+        logging.disable(logging.NOTSET)
         logging.basicConfig(level=logging.DEBUG)
-        logging.debug("===KEN===")
-        logging.debug(self.ken_name_list[self.Ken_count])
-        logging.debug("===MD_ITEM===")
-        logging.debug(self.user_select_md_item_list)
-        logging.debug("===YEAR===")
-        logging.debug(self.start_year)
-        logging.debug("===MONTH===")
-        logging.debug(self.start_month)
+        logging.debug('県：'+self.ken_name_list[self.Ken_count]+' 年：'+str(self.start_year)+' 月：'+str(self.start_month))
+        logging.disable(logging.FATAL)
 
     def __DateNumCount(self):
         self.day_num_list.append(calendar.monthrange(self.start_year, self.start_month)[1])

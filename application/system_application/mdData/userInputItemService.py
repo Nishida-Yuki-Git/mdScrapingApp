@@ -6,34 +6,64 @@ class UserInputItemGetService():
         self.user_id = user_id
 
     def getYearManageMTModel(self):
-        return self.user_input_item_get_repo.getYearManageMTModel()
+        try:
+            return self.user_input_item_get_repo.getYearManageMTModel()
+        except:
+            raise
 
     def getYearManageMTObj(self):
-        return self.user_input_item_get_repo.getYearManageMTObj()
+        try:
+            return self.user_input_item_get_repo.getYearManageMTObj()
+        except:
+            raise
 
     def getMonthManageMTModel(self):
-        return self.user_input_item_get_repo.getMonthManageMTModel()
+        try:
+            return self.user_input_item_get_repo.getMonthManageMTModel()
+        except:
+            raise
 
     def getMonthManageMTObj(self):
-        return self.user_input_item_get_repo.getMonthManageMTObj()
+        try:
+            return self.user_input_item_get_repo.getMonthManageMTObj()
+        except:
+            raise
 
     def getKenParamMTModel(self):
-        return self.user_input_item_get_repo.getKenParamMTModel()
+        try:
+            return self.user_input_item_get_repo.getKenParamMTModel()
+        except:
+            raise
 
     def getKenParamMTObj(self):
-        return self.user_input_item_get_repo.getKenParamMTObj()
+        try:
+            return self.user_input_item_get_repo.getKenParamMTObj()
+        except:
+            raise
 
     def getMDItemMTModel(self):
-        return self.user_input_item_get_repo.getMDItemMTModel()
+        try:
+            return self.user_input_item_get_repo.getMDItemMTModel()
+        except:
+            raise
 
     def getMDItemMTObj(self):
-        return self.user_input_item_get_repo.getMDItemMTObj()
+        try:
+            return self.user_input_item_get_repo.getMDItemMTObj()
+        except:
+            raise
 
     def getProcessResultDataModel(self):
-        return self.user_input_item_get_repo.getProcessResultDataModel()
+        try:
+            return self.user_input_item_get_repo.getProcessResultDataModel()
+        except:
+            raise
 
     def getProcessResultDataObj(self):
-        return self.user_input_item_get_repo.getProcessResultDataObj(self.user_id)
+        try:
+            return self.user_input_item_get_repo.getProcessResultDataObj(self.user_id)
+        except:
+            raise
 
 
 

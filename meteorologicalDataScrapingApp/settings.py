@@ -42,13 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    "corsheaders",
     'django_cleanup.apps.CleanupConfig',
+    'corsheaders', ##CSRF用に追加
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware', ##CSRF用に追加
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,10 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-##この部分の改修が必要
-CORS_ALLOWED_ORIGINS = [
-    "https://stark-wildwood-77835.herokuapp.com:443",
-]
+CORS_ORIGIN_ALLOW_ALL = True ##実験用(フロントPythonのみで動作するなら、削除する)
 
 ROOT_URLCONF = 'meteorologicalDataScrapingApp.urls'
 

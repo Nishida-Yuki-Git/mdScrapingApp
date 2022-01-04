@@ -78,6 +78,8 @@ class MdScrapingTaskService():
             cur = self.conn.cursor()
 
             select_job_que_data_result = self.md_scraping_dao.getJobQueData(cur, self.user_id)
+            print(select_job_que_data_result)
+            print(select_job_que_data_result['result_file_num_list'])
             result_file_num = select_job_que_data_result['result_file_num_list'][0]
             self.md_scraping_dao.updateFileCreateStatus(cur, result_file_num, general_group_key, general_key)
 
@@ -133,6 +135,7 @@ class MdScrapingTaskService():
                 md_url_list = self.md_scraping_dao.getJMAgencyURL(cur)
 
                 logging.debug("===MAIN_LOGIC_SERVICE_START===")
+                logging.disable(logging.FATAL)
                 main_logic_service = MeteorologicaldataScraping(
                     cur,
                     result_file_num,
@@ -151,6 +154,7 @@ class MdScrapingTaskService():
                     if endSign == '終了':
                         break
                 main_logic_service.MDOutput()
+                logging.disable(logging.NOTSET)
 
                 self.updateFileCreateStatus(self.general_group_key, self.end_general_key)
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
