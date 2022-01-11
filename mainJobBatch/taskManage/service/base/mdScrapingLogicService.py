@@ -3,12 +3,12 @@ from bs4 import BeautifulSoup
 import re
 import openpyxl
 import calendar
-import logging
 import numpy as np
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 import os
+from logging import getLogger
 
-##気象データ収集&ファイル作成ビジネスロジック
+##気象データ収集&ファイル作成ビジネスロジッククラス
 class MeteorologicaldataScraping():
     def __init__(self, cur, file_num, md_scraping_dao, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list):
         self.cur = cur
@@ -46,6 +46,7 @@ class MeteorologicaldataScraping():
 
         self.end = None
         self.batch_setting = OnlineBatchSetting()
+        self.logger = getLogger("OnlineBatchLog").getChild("logicService")
 
     def mainSoup(self): ##メイン処理
         ##ループ用の初期化
@@ -55,39 +56,42 @@ class MeteorologicaldataScraping():
         self.rh_list = []
         self.ab_hu_list = []
 
-        self.__logBackPrint()
-        self.__DateNumCount()
-        self.__MdUrlCreate()
-        self.__HtmlParser()
-        self.__TempDataScraping()
-        self.__RhDataScraping()
-        self.__AbHumidCalc()
-        self.__OutputData()
-        self.__YearMonthMethod()
+        try:
+            self.__logBackPrint()
+            self.__DateNumCount()
+            self.__MdUrlCreate()
+            self.__HtmlParser()
+            self.__TempDataScraping()
+            self.__RhDataScraping()
+            self.__AbHumidCalc()
+            self.__OutputData()
+            self.__YearMonthMethod()
 
-        return self.end
+            return self.end
+        except:
+            raise
 
     def __logBackPrint(self):
-        logging.disable(logging.NOTSET)
-        logging.basicConfig(level=logging.DEBUG)
-        logging.debug('県：'+self.ken_name_list[self.Ken_count]+' 年：'+str(self.start_year)+' 月：'+str(self.start_month))
-        logging.disable(logging.FATAL)
+        self.logger.debug('県：'+self.ken_name_list[self.Ken_count]+' 年：'+str(self.start_year)+' 月：'+str(self.start_month))
 
     def __DateNumCount(self):
         self.day_num_list.append(calendar.monthrange(self.start_year, self.start_month)[1])
 
     def MDOutput(self):
-        output = []
-        for md_item in self.user_select_md_item_list:
-            if md_item == '気温':
-                output.append(self.temp_output_list)
-            elif md_item == '相対湿度':
-                output.append(self.rh_output_list)
-            elif md_item == '絶対湿度':
-                output.append(self.ab_hu_output_list)
-            else:
-                pass
-        self.__createXl(output)
+        try:
+            output = []
+            for md_item in self.user_select_md_item_list:
+                if md_item == '気温':
+                    output.append(self.temp_output_list)
+                elif md_item == '相対湿度':
+                    output.append(self.rh_output_list)
+                elif md_item == '絶対湿度':
+                    output.append(self.ab_hu_output_list)
+                else:
+                    pass
+            self.__createXl(output)
+        except:
+            raise
 
     def __MdUrlCreate(self):
         self.main_clowling_url = ''

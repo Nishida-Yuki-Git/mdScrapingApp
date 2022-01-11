@@ -1,20 +1,38 @@
-from mainJobBatch.taskManage.task.mdScrapingTask import MdScrapingTaskExecute
+from mainJobBatch.taskManage.task.newFileCreateTask import NewFileCreateTaskExecute
+from mainJobBatch.taskManage.task.errorFileCreateTask import ErrorFileCreateTaskExecute
 from application.system_application.enum.exeBatchType import ExeBatchType
+import logging
+from logging import getLogger, StreamHandler, Formatter
 
+##起動クラス
 class JobExecuter():
     def __init__(self, batch_exe_param_json, exe_batch_type):
         self.batch_exe_param_json = batch_exe_param_json
         self.exe_batch_type = exe_batch_type
+        self.logger = self.setLogger()
 
     def jobExecute(self):
         if self.exe_batch_type == ExeBatchType.NEW_FILE_CREATE_BATCH:
-            md_scraping_job_batch = MdScrapingTaskExecute(self.batch_exe_param_json['user_id'])
-            md_scraping_job_batch.jobControl()
+            self.logger.debug("==NEW_FILE_CREATE_BATCH==")
+            new_file_create_task = NewFileCreateTaskExecute(self.batch_exe_param_json['user_id'])
+            new_file_create_task.jobControl()
         elif self.exe_batch_type == ExeBatchType.ERROR_FILE_CREATE_BATCH:
-            pass
+            self.logger.debug("==ERROR_FILE_CREATE_BATCH==")
+            error_file_create_task = ErrorFileCreateTaskExecute(self.batch_exe_param_json['user_id'], self.batch_exe_param_json['result_file_num'])
+            error_file_create_task.jobControl()
         else:
-            print('起動バッチがありませんでした')
             pass
+
+    def setLogger(self):
+        logger = getLogger("OnlineBatchLog")
+        logger.setLevel(logging.DEBUG)
+        if not logger.hasHandlers():
+            stream_handler = StreamHandler()
+            stream_handler.setLevel(logging.DEBUG)
+            handler_format = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            stream_handler.setFormatter(handler_format)
+            logger.addHandler(stream_handler)
+        return logger
 
 def goBatch(batch_exe_param_json, exe_batch_type):
     executer = JobExecuter(batch_exe_param_json, exe_batch_type)

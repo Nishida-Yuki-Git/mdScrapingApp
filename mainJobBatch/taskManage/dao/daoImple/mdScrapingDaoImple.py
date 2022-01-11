@@ -1,5 +1,4 @@
 from mainJobBatch.taskManage.dao.mdScrapingDao import MdScrapingDao
-import logging
 import mysql.connector as mydb
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 
@@ -24,19 +23,13 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_TASK_MANAGE===")
             cur.execute(select_sql_str)
             cur.fetchall()
-            logging.debug("count:" + str(cur.rowcount))
 
             if cur.rowcount == 0:
-                logging.debug("===SELECT_TASK_MANAGE = NO===")
-                logging.debug("===INSERT_TASK_MANAGE===")
                 cur.execute(insert_sql_id, (task_id, user_id, '0'))
-                logging.debug("count:" + str(cur.rowcount))
             else:
-                logging.debug("===SELECT_TASK_MANAGE = OK===")
+                pass
         except:
             raise
 
@@ -44,16 +37,12 @@ class MdScrapingDaoImple(MdScrapingDao):
         select_sql_str = "SELECT TMDATA.task_process_flag FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_TASK_MANAGE===")
             cur.execute(select_sql_str)
             rows = cur.fetchall()
             result = ''
             for row in rows:
                 result = row
-            logging.debug("count:" + str(cur.rowcount))
             result_str = result[0]
-            logging.debug("result := " + result_str)
 
             return result_str
         except:
@@ -70,76 +59,8 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===DELETE_TASK_MANAGE===")
             cur.execute(delete_task_manage_record)
-            logging.debug("count:" + str(cur.rowcount))
-
-            logging.debug("===INSERT_TASK_MANAGE===")
             cur.execute(insert_task_manage_record, (task_id, user_id, user_process_status))
-            logging.debug("count:" + str(cur.rowcount))
-        except:
-            raise
-
-    def jadgeJobNumStock(self, cur, user_id):
-        select_user_job_num = ("""
-        SELECT
-          JOB_QUE_DATA.job_num
-        FROM
-          scrapingSystem_jobquedata AS JOB_QUE_DATA
-        INNER JOIN scrapingSystem_processresultdata AS PROCESS_RESULT
-          ON PROCESS_RESULT.result_file_num = JOB_QUE_DATA.result_file_num
-        WHERE
-          JOB_QUE_DATA.user_id = '""" + user_id + """'
-          AND PROCESS_RESULT.file_create_status <> 'エラー'
-        ORDER BY JOB_QUE_DATA.job_num ASC""")
-
-        try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===JADGE_JOB_STOCK===")
-            cur.execute(select_user_job_num)
-            cur.fetchall()
-            logging.debug("count:" + str(cur.rowcount))
-            if cur.rowcount == 0:
-                return True
-            else:
-                return False
-        except:
-            raise
-
-    def getJobQueData(self, cur, user_id):
-        select_user_job_id = ("""
-        SELECT
-          JOB_QUE_DATA.job_num,
-          JOB_QUE_DATA.result_file_num
-        FROM
-          scrapingSystem_jobquedata AS JOB_QUE_DATA
-        INNER JOIN scrapingSystem_processresultdata AS PROCESS_RESULT
-          ON PROCESS_RESULT.result_file_num = JOB_QUE_DATA.result_file_num
-        WHERE
-          JOB_QUE_DATA.user_id = '""" + user_id + """'
-          AND PROCESS_RESULT.file_create_status <> 'エラー'
-        ORDER BY JOB_QUE_DATA.job_num ASC""")
-
-        try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_MIN_JOB_ID===")
-            cur.execute(select_user_job_id)
-            rows = cur.fetchall()
-
-            job_num_list = []
-            result_file_num_list = []
-            print(rows)
-            for row in rows:
-                job_num_list.append(row[0])
-                result_file_num_list.append(row[1])
-            logging.debug("job_num_list.length:" + str(len(job_num_list)))
-
-            result_list = {
-                "job_num_list": job_num_list,
-                "result_file_num_list": result_file_num_list,
-            }
-            return result_list
         except:
             raise
 
@@ -164,8 +85,6 @@ class MdScrapingDaoImple(MdScrapingDao):
           job_num = '""" + job_num + """'""")
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_JOB_PARAM===")
             cur.execute(select_user_job_param)
             rows = cur.fetchall()
 
@@ -178,9 +97,7 @@ class MdScrapingDaoImple(MdScrapingDao):
                 job_end_year = row[1]
                 job_start_month = row[2]
                 job_end_month = row[3]
-            logging.debug("count:" + str(cur.rowcount))
 
-            logging.debug("===SELECT_JOB_PARAM_DETAIL===")
             cur.execute(select_user_job_param_detail)
             rows_detail = cur.fetchall()
 
@@ -189,7 +106,6 @@ class MdScrapingDaoImple(MdScrapingDao):
             for row_detail in rows_detail:
                 job_ken_list.append(row_detail[0])
                 job_md_item_list.append(row_detail[1])
-            logging.debug("count:" + str(cur.rowcount))
 
             job_param_result = {
                 "job_start_year": job_start_year,
@@ -205,8 +121,6 @@ class MdScrapingDaoImple(MdScrapingDao):
 
     def getKenUrlParam(self, cur, ken_list):
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_KEN_URL_PARAM===")
 
             ken_no_list = []
             ken_block_list = []
@@ -244,15 +158,12 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_JM_AGENCY_URL===")
             cur.execute(select_jm_agency_url)
             rows = cur.fetchall()
 
             md_url_list = []
             for row in rows:
                 md_url_list.append(row[0])
-            logging.debug("count:" + str(cur.rowcount))
 
             return md_url_list
         except:
@@ -270,13 +181,9 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===SELECT_GENEAL_CODE_MT===")
             cur.execute(select_general_code_MT)
             rows = cur.fetchall()
-            logging.debug("count:" + str(cur.rowcount))
 
-            logging.debug("===UPDATE_FILE_CEATE_STATUS===")
             update_file_create_status_sql = ("""
             UPDATE
               scrapingSystem_processresultdata AS PRMT
@@ -286,7 +193,6 @@ class MdScrapingDaoImple(MdScrapingDao):
               PRMT.result_file_num = '""" + result_file_num + """'
             """)
             cur.execute(update_file_create_status_sql)
-            logging.debug("count:" + str(cur.rowcount))
 
         except:
             raise
@@ -303,18 +209,9 @@ class MdScrapingDaoImple(MdScrapingDao):
         WHERE job_num = '""" + job_num + """'""")
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===DELETE_JOB_QUE_DATA===")
             cur.execute(delete_job_que_data)
-            logging.debug("count:" + str(cur.rowcount))
-
-            logging.debug("===DELETE_JOB_PARAM_DATA===")
             cur.execute(delete_job_param_data)
-            logging.debug("count:" + str(cur.rowcount))
-
-            logging.debug("===DELETE_JOB_PARAM_DETAIL_DATA===")
             cur.execute(delete_job_param_detail_data)
-            logging.debug("count:" + str(cur.rowcount))
         except:
             raise
 
@@ -329,10 +226,7 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            logging.basicConfig(level=logging.DEBUG)
-            logging.debug("===REGIST_CEATE_FILE===")
             cur.execute(regist_create_file)
-            logging.debug("count:" + str(cur.rowcount))
         except:
             raise
 

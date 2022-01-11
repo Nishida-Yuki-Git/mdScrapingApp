@@ -201,7 +201,7 @@ class GeneralCodeMT(models.Model):
 
 ##タスク管理データ
 '''
-task_id -> 0001：気象データ収集(現段階はこれしかない)
+task_id -> 0001：新規ファイル作成, 0002：エラーファイル作成
 task_process_flag -> 0：待機中, 1：実行中
 '''
 class TaskManageData(models.Model):

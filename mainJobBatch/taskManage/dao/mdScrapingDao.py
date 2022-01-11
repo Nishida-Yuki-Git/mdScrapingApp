@@ -18,14 +18,6 @@ class MdScrapingDao(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def jadgeJobNumStock(self, cur, user_id):
-        pass
-
-    @abstractmethod
-    def getJobQueData(self, cur, user_id):
-        pass
-
-    @abstractmethod
     def getJobParamData(self, cur, job_num):
         pass
 
