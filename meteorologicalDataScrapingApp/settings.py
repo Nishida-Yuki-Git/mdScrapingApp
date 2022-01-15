@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import pymysql
 import datetime
+import environ
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,13 +23,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
+##SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+##DEBUG = True
 
-ALLOWED_HOSTS = []
+##ALLOWED_HOSTS = []
 
+##Linux環境用
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+DATABASES = {
+    'default': env.db(),
+}
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+##endLinux
 
 # Application definition
 
@@ -83,6 +94,7 @@ WSGI_APPLICATION = 'meteorologicalDataScrapingApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -93,6 +105,7 @@ DATABASES = {
         'PORT': '',
     }
 }
+'''
 
 
 # Password validation
@@ -146,7 +159,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = 'scrapingSystem.Account' ##ここに認証用テーブルを記載
 
-# 全てのXMLHTMLを許可する
+# 全てのXMLHTMLを許可する(これはTrueにしていていいのか？)
 CORS_ORIGIN_ALLOW_ALL = True
 
 # JWTの認証追加
@@ -175,8 +188,6 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'detail',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
-
-
 
 
 
