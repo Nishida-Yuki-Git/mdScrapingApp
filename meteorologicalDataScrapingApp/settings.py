@@ -23,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-##SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
+'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-##DEBUG = True
+DEBUG = True
 
-##ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []'''
 
 ##Linux環境用
 env = environ.Env()
@@ -94,8 +94,8 @@ WSGI_APPLICATION = 'meteorologicalDataScrapingApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-'''
-DATABASES = {
+
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'PASSWORD': 'gyudon176',
@@ -104,8 +104,7 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
     }
-}
-'''
+}'''
 
 
 # Password validation

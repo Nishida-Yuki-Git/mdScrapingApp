@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import re
 import openpyxl
 import calendar
-import numpy as np
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 import os
 from logging import getLogger
@@ -216,7 +215,7 @@ class MeteorologicaldataScraping():
             raise
 
     def __xlWriting(self, output, sheet):
-        output = np.array(output).T.tolist()
+        output = [list(x) for x in zip(*output)]
 
         xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
         data_write_column_list = []
