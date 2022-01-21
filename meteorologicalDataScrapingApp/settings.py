@@ -16,18 +16,13 @@ import datetime
 import environ
 pymysql.install_as_MySQLdb()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+##上記のBASE_DIRでデプロイできなかったら、下記のBASEを参照する
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+##ローカル環境用
 '''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []'''
 
 ##Linux環境用
@@ -40,9 +35,18 @@ DATABASES = {
 }
 #ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 ALLOWED_HOSTS = ['*'] #一旦全てのホストを受け入れている
-##endLinux
 
-# Application definition
+##ローカル開発用DB
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'PASSWORD': 'gyudon176',
+        'NAME': 'mdsystemdb',
+        'USER': 'root',
+        'HOST': '',
+        'PORT': '',
+    }
+}'''
 
 INSTALLED_APPS = [
     'scrapingSystem.apps.ScrapingsystemConfig',
@@ -69,7 +73,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True ##実験用(フロントPythonのみで動作するなら、削除する)
+CORS_ORIGIN_ALLOW_ALL = True ##実験用(Falseでも試して、疎通できるならFalseにしてから鯖に乗せること)
 
 ROOT_URLCONF = 'meteorologicalDataScrapingApp.urls'
 
@@ -91,29 +95,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meteorologicalDataScrapingApp.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'PASSWORD': 'gyudon176',
-        'NAME': 'mdsystemdb',
-        'USER': 'root',
-        'HOST': '',
-        'PORT': '',
-    }
-}'''
-
-
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -129,10 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Tokyo'
@@ -143,27 +120,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+##collectstatic用
 STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-##以下個別設定
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = 'scrapingSystem.Account' ##ここに認証用テーブルを記載
-
-# 全てのXMLHTMLを許可する(これはTrueにしていていいのか？)
-CORS_ORIGIN_ALLOW_ALL = True
 
 # JWTの認証追加
 JWT_AUTH = {
@@ -191,10 +162,5 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'detail',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
-
-
-
-
-
 
 
