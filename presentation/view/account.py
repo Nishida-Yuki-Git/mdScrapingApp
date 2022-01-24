@@ -46,6 +46,7 @@ class AuthInfoGetView(generics.RetrieveAPIView):
             'username': request.user.username,
             'email': request.user.email,
             'profile': request.user.profile,
+            'status_code': ResStatusCode.getSuccessCode()
             },
             status=status.HTTP_200_OK)
 
@@ -53,10 +54,10 @@ class AuthInfoGetView(generics.RetrieveAPIView):
 ##認証確認用ビュー(メインBL起動前に毎回ここで確認させる)
 class AuthenticationCheckView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, format=None):
         front_res = {
-            'status_code': None
+            'status_code': ResStatusCode.getSuccessCode()
         }
-        front_res['status_code'] = ResStatusCode.getSuccessCode()
         return Response(front_res, status=status.HTTP_200_OK)
 

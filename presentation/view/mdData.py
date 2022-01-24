@@ -101,8 +101,8 @@ def UserInputItemCreate(user_id):
         user_input_item_list = {
             'year_field': year_serializer.data,
             'month_field': month_serializer.data,
-            'ken_filed': ken_serializer.data,
-            'md_item_filed': md_item_serializer.data,
+            'ken_field': ken_serializer.data,
+            'md_item_field': md_item_serializer.data,
         }
 
         ##ユーザー処理結果
@@ -117,22 +117,5 @@ def UserInputItemCreate(user_id):
         return user_response
     except:
         raise
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

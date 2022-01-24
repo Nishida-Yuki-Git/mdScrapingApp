@@ -1,6 +1,7 @@
 from scrapingSystem.models import *
 from django.core.management.base import BaseCommand
 import datetime
+from django.db import connection
 
 ##マスタ設定バッチ(マスタ設定という名前だが、トランデータのセッティングも入っている)
 class Command(BaseCommand):
@@ -105,7 +106,6 @@ class Command(BaseCommand):
         FileManageData.objects.all().delete()
         TaskManageData.objects.all().delete()
         Account.objects.all().delete()
-        ##--開発用トラン削除--
 
         print("task-end")
 
