@@ -4,9 +4,19 @@ from pathlib import Path
 ##プレーンPython用設定クラス
 class OnlineBatchSetting():
     def __init__(self):
+        ##開発環境用
+        '''
         self.host_id = 'localhost'
         self.port_num = '3306'
         self.db_user = 'root'
+        self.db_password = 'gyudon176'
+        self.database_name = 'mdsystemdb'
+        '''
+
+        ##本番環境用
+        self.host_id = 'apidb'
+        self.port_num = '3306'
+        self.db_user = 'yuki'
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
 
