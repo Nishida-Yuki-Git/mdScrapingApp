@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 '''
 SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 DEBUG = True
-ALLOWED_HOSTS = []
-'''
+ALLOWED_HOSTS = []'''
 
 ##Linux環境用
+
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
