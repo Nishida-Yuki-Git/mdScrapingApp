@@ -39,14 +39,24 @@ def UserInputItemView(request):
 def MainBusiness(request):
     userid = request.data['userid']
     if request.method == 'POST':
+        user_input_item = {
+            'user_input_item_list': None,
+            'user_process_result': None,
+            'status_code': None,
+        }
         try:
             file_create_serializer = FileCreateCommunicater(request)
             file_create_serializer.serveDto()
-            return Response(UserInputItemCreate(userid))
+            get_user_item = UserInputItemCreate(userid)
+            user_input_item['user_input_item_list'] = get_user_item['user_input_item_list']
+            user_input_item['user_process_result'] = get_user_item['user_process_result']
+            user_input_item['status_code'] = ResStatusCode.getSuccessCode()
+            return Response(user_input_item)
         except:
             traceback.print_exc()
-            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
-    return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
+            user_input_item['status_code'] = ResStatusCode.getErrorCode()
+            return Response(user_input_item)
+    return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
 ##エラーファイル作成ビュー
@@ -55,14 +65,24 @@ def MainBusiness(request):
 def ErrorRequest(request):
     userid = request.data['userid']
     if request.method == 'POST':
+        user_input_item = {
+            'user_input_item_list': None,
+            'user_process_result': None,
+            'status_code': None,
+        }
         try:
             error_request_seria = ErrorRequestCommunicater(request)
             error_request_seria.serveParam()
-            return Response(UserInputItemCreate(userid))
+            get_user_item = UserInputItemCreate(userid)
+            user_input_item['user_input_item_list'] = get_user_item['user_input_item_list']
+            user_input_item['user_process_result'] = get_user_item['user_process_result']
+            user_input_item['status_code'] = ResStatusCode.getSuccessCode()
+            return Response(user_input_item)
         except:
             traceback.print_exc()
-            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
-    return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
+            user_input_item['status_code'] = ResStatusCode.getErrorCode()
+            return Response(user_input_item)
+    return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
 ##ファイルダウンロード
@@ -71,6 +91,10 @@ def ErrorRequest(request):
 def FileDownload(request):
     userid = request.data['userid']
     if request.method == 'POST':
+        user_item = {
+            'file_url': None,
+            'status_code': None,
+        }
         try:
             file_download_seria = FileDownloadCommunicater(request)
             file = file_download_seria.getFile()
@@ -78,11 +102,13 @@ def FileDownload(request):
 
             user_item = UserInputItemCreate(userid)
             user_item['file_url'] = url
+            user_item['status_code'] = ResStatusCode.getSuccessCode()
             return Response(user_item)
         except:
             traceback.print_exc()
-            return Response(data={'error': 'サーバーでエラーが発生しました'}, status=500)
-    return Response(data={'error': 'POSTでリクエストを送ってください'}, status=400)
+            user_item['status_code'] = ResStatusCode.getSuccessCode()
+            return Response(user_item)
+    return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
 ##ユーザー用データ作成共通処理
