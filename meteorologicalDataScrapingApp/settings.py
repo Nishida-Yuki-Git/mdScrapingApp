@@ -122,17 +122,24 @@ USE_L10N = True
 
 USE_TZ = True
 
-##collectstatic用
+####collectstatic用
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+##開発用static_root
+##STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+##本番環境用static_root
+STATIC_ROOT = '/var/www/html/static'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+####media_rootの設定
 MEDIA_URL = '/media/'
+##開発用media_root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+##本番環境用media_root
+MEDIA_ROOT = '/var/www/html/media'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_CREDENTIALS = True
 
