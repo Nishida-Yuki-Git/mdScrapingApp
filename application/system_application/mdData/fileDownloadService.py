@@ -11,12 +11,13 @@ class FileDownloadService():
             user_file_obj = file_download_repo.getUserFileObject(self.result_file_num)
 
             file = user_file_obj.create_file
-            return file
+            name = user_file_obj.create_file.name
+            file_obj = {
+                'file': file,
+                'name': name
+            }
+            return file_obj
         except:
             raise
-
-
-
-
 
 

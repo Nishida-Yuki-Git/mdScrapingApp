@@ -7,19 +7,3 @@ class FileDownloadRepositoryImple(FileDownloadRepository):
             result_file_num = result_file_num)
         return user_file_obj
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

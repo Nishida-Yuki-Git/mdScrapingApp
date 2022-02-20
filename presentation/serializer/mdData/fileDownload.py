@@ -11,11 +11,3 @@ class FileDownloadCommunicater():
         except:
             raise
 
-
-
-
-
-
-
-
-
