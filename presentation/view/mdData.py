@@ -8,9 +8,6 @@ from presentation.serializer.mdData.errorRequest import ErrorRequestCommunicater
 from presentation.serializer.mdData.fileDownload import FileDownloadCommunicater
 import traceback
 from presentation.enum.resStatusCode import ResStatusCode
-import shutil
-from django.http import HttpResponse
-import mimetypes
 
 ##画面入力項目設定
 @api_view(['POST'])
@@ -94,25 +91,14 @@ def ErrorRequest(request):
 def FileDownload(request):
     if request.method == 'POST':
         user_item = {
-            'file_response': None,
+            'file_url': None,
             'status_code': None,
         }
         try:
             file_download_seria = FileDownloadCommunicater(request)
-            file_obj = file_download_seria.getFile()
+            file_url = file_download_seria.getFile()
 
-            file = file_obj['file']
-            name = file_obj['name']
-            response = HttpResponse(content_type=mimetypes.guess_type(name)[0] or 'application/octet-stream')
-            response['Content-Disposition'] = f'attachment; filename={name}'
-            shutil.copyfileobj(file, response)
-            print(file)
-            print(name)
-            print(type(file))
-            print(type(name))
-            print(response)
-
-            user_item['file_response'] = response
+            user_item['file_url'] = file_url['file_url']
             user_item['status_code'] = ResStatusCode.getSuccessCode()
             return Response(user_item)
         except:
