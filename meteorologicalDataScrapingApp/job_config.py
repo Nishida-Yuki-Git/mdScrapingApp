@@ -5,6 +5,7 @@ from pathlib import Path
 class OnlineBatchSetting():
     def __init__(self):
         ##開発環境用
+        '''
         self.host_id = 'localhost'
         self.port_num = '3306'
         self.db_user = 'root'
@@ -15,10 +16,10 @@ class OnlineBatchSetting():
         self.MEDIA_URL = '/media/'
         self.MEDIA_ROOT = os.path.join(self.BASE_DIR, 'media')
         self.FILE_SAVE_DIR = '/file/'
+        '''
 
 
         ##本番環境用
-        '''
         self.host_id = 'apidb'
         self.port_num = '3306'
         self.db_user = 'yuki'
@@ -28,7 +29,6 @@ class OnlineBatchSetting():
         self.MEDIA_URL = '/media/'
         self.MEDIA_ROOT = '/var/www/html/media'
         self.FILE_SAVE_DIR = '/file/'
-        '''
 
     def getHostId(self):
         return self.host_id

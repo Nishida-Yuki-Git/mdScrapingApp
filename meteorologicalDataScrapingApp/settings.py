@@ -21,12 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ##ローカル環境用
-SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
+'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []'''
 
 ##Linux環境用
-'''
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
@@ -35,10 +34,10 @@ DATABASES = {
     'default': env.db(),
 }
 #ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-ALLOWED_HOSTS = ['*'] #一旦全てのホストを受け入れている'''
+ALLOWED_HOSTS = ['*'] #一旦全てのホストを受け入れている
 
 ##ローカル開発用DB
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'PASSWORD': 'gyudon176',
@@ -47,7 +46,7 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
     }
-}
+}'''
 
 INSTALLED_APPS = [
     'scrapingSystem.apps.ScrapingsystemConfig',
@@ -124,9 +123,9 @@ USE_TZ = True
 ####collectstatic用
 STATIC_URL = '/static/'
 ##開発用static_root
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 ##本番環境用static_root
-#STATIC_ROOT = '/var/www/html/static'
+STATIC_ROOT = '/var/www/html/static'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -134,9 +133,9 @@ STATICFILES_DIRS = (
 ####media_rootの設定
 MEDIA_URL = '/media/'
 ##開発用media_root
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ##本番環境用media_root
-#MEDIA_ROOT = '/var/www/html/media'
+MEDIA_ROOT = '/var/www/html/media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
