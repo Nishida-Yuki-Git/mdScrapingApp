@@ -1,8 +1,9 @@
-from application.system_application.enum.exeBatchType import ExeBatchType
+from application.service.enum.exeBatchType import ExeBatchType
 import threading
 from mainJobBatch.taskManage.job import jobExecute
+from application.service.mdData.errorRequestService import ErrorRequestService
 
-class ErrorRequestService():
+class ErrorRequestServiceImpl(ErrorRequestService):
     def __init__(self, user_id, result_file_num):
         self.user_id = user_id
         self.result_file_num = result_file_num

@@ -1,4 +1,4 @@
-from application.domainLayer.mdData.mainBusiness_repository import MainBusinessRepository
+from application.repository.mdData.mainBusiness_repository import MainBusinessRepository
 from scrapingSystem.models import *
 
 class MainBusinessRepositoryImple(MainBusinessRepository):

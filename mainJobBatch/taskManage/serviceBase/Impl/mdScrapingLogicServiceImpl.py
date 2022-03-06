@@ -6,9 +6,10 @@ import calendar
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 import os
 from logging import getLogger
+from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 
 ##気象データ収集&ファイル作成ビジネスロジッククラス
-class MeteorologicaldataScraping():
+class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
     def __init__(self, cur, file_num, md_scraping_dao, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list):
         self.cur = cur
         self.file_num = file_num

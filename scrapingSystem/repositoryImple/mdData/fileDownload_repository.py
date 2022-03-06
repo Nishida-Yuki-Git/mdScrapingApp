@@ -1,4 +1,4 @@
-from application.domainLayer.mdData.fileDownload_repository import FileDownloadRepository
+from application.repository.mdData.fileDownload_repository import FileDownloadRepository
 from scrapingSystem.models import *
 
 class FileDownloadRepositoryImple(FileDownloadRepository):

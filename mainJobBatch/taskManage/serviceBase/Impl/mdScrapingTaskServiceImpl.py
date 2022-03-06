@@ -2,10 +2,12 @@ from mainJobBatch.taskManage.dao.mdScrapingDao import MdScrapingDao
 from mainJobBatch.taskManage.dao.daoImple.mdScrapingDaoImple import MdScrapingDaoImple
 from logging import getLogger
 import traceback
-from mainJobBatch.taskManage.service.base.mdScrapingLogicService import MeteorologicaldataScraping
+from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
+from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingLogicServiceImpl import MeteorologicaldataScrapingServiceImpl
+from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
 
 ##気象データ収集タスク基底クラス
-class MdScrapingTaskService():
+class MdScrapingTaskServiceImpl(MdScrapingTaskService):
     def __init__(self, user_id):
         self.user_id = user_id
         self.md_scraping_dao: MdScrapingDao = MdScrapingDaoImple()
@@ -118,7 +120,7 @@ class MdScrapingTaskService():
 
                 md_url_list = self.md_scraping_dao.getJMAgencyURL(cur)
 
-                md_scraping_logic_service = MeteorologicaldataScraping(
+                md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
                     cur,
                     result_file_num,
                     self.md_scraping_dao,

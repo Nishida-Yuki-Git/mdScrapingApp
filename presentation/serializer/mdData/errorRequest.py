@@ -1,4 +1,5 @@
-from application.system_application.mdData.errorRequestService import ErrorRequestService
+from application.service.mdData.errorRequestService import ErrorRequestService
+from application.service.mdData.Impl.errorRequestServiceImpl import ErrorRequestServiceImpl
 
 class ErrorRequestCommunicater():
     def __init__(self, request):
@@ -7,7 +8,7 @@ class ErrorRequestCommunicater():
 
     def serveParam(self):
         try:
-            error_request_service = ErrorRequestService(self.user_id, self.result_file_num)
+            error_request_service: ErrorRequestService = ErrorRequestServiceImpl(self.user_id, self.result_file_num)
             error_request_service.mainLogic()
         except:
             raise

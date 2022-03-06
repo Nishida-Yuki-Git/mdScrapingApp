@@ -1,9 +1,9 @@
-from mainJobBatch.taskManage.service.base.mdScrapingTaskService import MdScrapingTaskService
+from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingTaskServiceImpl import MdScrapingTaskServiceImpl
 from mainJobBatch.taskManage.dao.newFileCreateDao import NewFileCreateDao
 from mainJobBatch.taskManage.dao.daoImple.newFileCreateDaoImple import NewFileCreateDaoImple
 
 ##新規作成サービスクラス
-class NewFileCreateTaskService(MdScrapingTaskService):
+class NewFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
     def __init__(self, user_id):
         super().__init__(user_id)
         self.batch_break_count = 10

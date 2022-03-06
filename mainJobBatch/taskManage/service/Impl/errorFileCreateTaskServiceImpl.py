@@ -1,9 +1,9 @@
-from mainJobBatch.taskManage.service.base.mdScrapingTaskService import MdScrapingTaskService
+from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingTaskServiceImpl import MdScrapingTaskServiceImpl
 from mainJobBatch.taskManage.dao.errorFileCreateDao import ErrorFileCreateDao
 from mainJobBatch.taskManage.dao.daoImple.errorFileCreateDaoImple import ErrorFileCreateDaoImple
 
 ##エラーファイル再作成サービスクラス
-class ErrorFileCreateTaskService(MdScrapingTaskService):
+class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
     def __init__(self, user_id, result_file_num):
         super().__init__(user_id)
         self.result_file_num = result_file_num

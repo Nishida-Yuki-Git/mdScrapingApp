@@ -4,30 +4,28 @@ from pathlib import Path
 ##プレーンPython用設定クラス
 class OnlineBatchSetting():
     def __init__(self):
-        ##開発環境用
+        ##開発環境用Database設定
         '''
         self.host_id = 'localhost'
         self.port_num = '3306'
         self.db_user = 'root'
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
-
-        self.BASE_DIR = Path(__file__).resolve().parent.parent
-        self.MEDIA_URL = '/media/'
-        self.MEDIA_ROOT = os.path.join(self.BASE_DIR, 'media')
-        self.FILE_SAVE_DIR = '/file/'
         '''
 
-
-        ##本番環境用
+        ##本番環境用Databse設定
         self.host_id = 'apidb'
         self.port_num = '3306'
         self.db_user = 'yuki'
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
 
+        ##エラーログ格納パス
+        self.error_log_path = Path('meteorologicalDataScrapingApp/errorLog/error_log.txt')
+
+        self.BASE_DIR = Path(__file__).resolve().parent.parent
         self.MEDIA_URL = '/media/'
-        self.MEDIA_ROOT = '/var/www/html/media'
+        self.MEDIA_ROOT = os.path.join(self.BASE_DIR, 'media')
         self.FILE_SAVE_DIR = '/file/'
 
     def getHostId(self):
@@ -40,6 +38,8 @@ class OnlineBatchSetting():
         return self.db_password
     def getDatabaseName(self):
         return self.database_name
+    def getErrorLogPath(self):
+        return self.error_log_path
     def getBaseDir(self):
         return self.BASE_DIR
     def getMediaUrl(self):

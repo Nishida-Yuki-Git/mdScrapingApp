@@ -1,4 +1,4 @@
-from application.domainLayer.account.account_repository import AccountRepository
+from application.repository.account.account_repository import AccountRepository
 from scrapingSystem.models import Account, AccountManager
 
 class AccountRepositoryImple(AccountRepository):

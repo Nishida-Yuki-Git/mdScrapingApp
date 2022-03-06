@@ -1,7 +1,8 @@
-from application.domainLayer.mdData.fileDownload_repository import FileDownloadRepository
+from application.repository.mdData.fileDownload_repository import FileDownloadRepository
 from scrapingSystem.repositoryImple.mdData.fileDownload_repository import FileDownloadRepositoryImple
+from application.service.mdData.fileDownloadService import FileDownloadService
 
-class FileDownloadService():
+class FileDownloadServiceImpl(FileDownloadService):
     def __init__(self, result_file_num):
         self.sheet_name = 'sheet1'
         self.result_file_num = result_file_num

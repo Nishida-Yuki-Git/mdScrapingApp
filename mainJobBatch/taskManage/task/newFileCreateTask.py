@@ -1,5 +1,6 @@
 from mainJobBatch.taskManage.task.base.mdScrapingTask import MdScrapingTaskExecute
-from mainJobBatch.taskManage.service.newFileCreateTaskService import NewFileCreateTaskService
+from mainJobBatch.taskManage.service.Impl.newFileCreateTaskServiceImpl import NewFileCreateTaskServiceImpl
+from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
 
 ##新規ファイル作成タスク
 class NewFileCreateTaskExecute(MdScrapingTaskExecute):
@@ -9,7 +10,8 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
 
     def setNewService(self):
         super().setNewService()
-        return NewFileCreateTaskService(self.user_id)
+        service: MdScrapingTaskService = NewFileCreateTaskServiceImpl(self.user_id)
+        return service
 
     def getTaskManageDataFlag(self, md_scraping_service):
         super().getTaskManageDataFlag(md_scraping_service)

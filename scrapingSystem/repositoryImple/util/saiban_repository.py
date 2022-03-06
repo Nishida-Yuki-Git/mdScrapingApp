@@ -1,4 +1,4 @@
-from application.domainLayer.util.saiban_repository import saibanRepository
+from application.repository.util.saiban_repository import saibanRepository
 from scrapingSystem.models import SaibanMT
 
 class saibanRepositoryImple(saibanRepository):

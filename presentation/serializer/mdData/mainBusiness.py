@@ -1,6 +1,6 @@
-from application.system_application.mdData.mainBusinessService import *
-from application.system_application.dto.mainBusinessServiceDto import MainBusinessServiceDto
-from application.system_application.mdData.mainBusinessService import FileCreateService
+from application.service.mdData.mainBusinessService import FileCreateService
+from application.service.mdData.Impl.mainBusinessServiceImpl import FileCreateServiceImpl
+from application.service.dto.mainBusinessServiceDto import MainBusinessServiceDto
 
 class FileCreateCommunicater():
     def __init__(self, request):
@@ -27,7 +27,7 @@ class FileCreateCommunicater():
             service_dto.addMdItemList(md_item)
 
         try:
-            my_service = FileCreateService(service_dto)
+            my_service : FileCreateService = FileCreateServiceImpl(service_dto)
             my_service.mainLogic()
         except:
             raise

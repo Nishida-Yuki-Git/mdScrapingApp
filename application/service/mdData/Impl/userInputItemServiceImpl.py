@@ -1,8 +1,10 @@
-from application.domainLayer.mdData.userInputItem_repository import UserInputItemGetRepository
+from application.repository.mdData.userInputItem_repository import UserInputItemGetRepository
+from scrapingSystem.repositoryImple.mdData.userInputItem_repository import UserInputItemGetRepositoryImple
+from application.service.mdData.userInputItemService import UserInputItemGetService
 
-class UserInputItemGetService():
-    def __init__(self, user_input_item_get_repo : UserInputItemGetRepository, user_id='null_user'):
-        self.user_input_item_get_repo = user_input_item_get_repo
+class UserInputItemGetServiceImpl(UserInputItemGetService):
+    def __init__(self, user_id='null_user'):
+        self.user_input_item_get_repo : UserInputItemGetRepository = UserInputItemGetRepositoryImple()
         self.user_id = user_id
 
     def getYearManageMTModel(self):

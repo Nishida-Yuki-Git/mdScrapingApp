@@ -1,4 +1,4 @@
-from application.domainLayer.mdData.userInputItem_repository import UserInputItemGetRepository
+from application.repository.mdData.userInputItem_repository import UserInputItemGetRepository
 from scrapingSystem.models import *
 
 class UserInputItemGetRepositoryImple(UserInputItemGetRepository):

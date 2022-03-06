@@ -1,5 +1,6 @@
 from mainJobBatch.taskManage.task.base.mdScrapingTask import MdScrapingTaskExecute
-from mainJobBatch.taskManage.service.errorFileCreateTaskService import ErrorFileCreateTaskService
+from mainJobBatch.taskManage.service.Impl.errorFileCreateTaskServiceImpl import ErrorFileCreateTaskServiceImpl
+from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
 
 ##エラーファイル再作成タスク
 class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
@@ -10,7 +11,8 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
 
     def setNewService(self):
         super().setNewService()
-        return ErrorFileCreateTaskService(self.user_id, self.result_file_num)
+        service: MdScrapingTaskService = ErrorFileCreateTaskServiceImpl(self.user_id, self.result_file_num)
+        return service
 
     def getTaskManageDataFlag(self, md_scraping_service):
         super().getTaskManageDataFlag(md_scraping_service)

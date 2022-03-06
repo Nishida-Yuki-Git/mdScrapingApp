@@ -1,4 +1,4 @@
-from application.domainLayer.util.generalCode_repository import generalCodeRepository
+from application.repository.util.generalCode_repository import generalCodeRepository
 from scrapingSystem.models import GeneralCodeMT
 
 class generalCodeRepositoryImple(generalCodeRepository):

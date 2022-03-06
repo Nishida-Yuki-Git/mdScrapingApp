@@ -1,40 +1,34 @@
 from rest_framework import serializers
-from application.system_application.mdData.userInputItemService import UserInputItemGetService
-from application.domainLayer.mdData.userInputItem_repository import UserInputItemGetRepository
-from scrapingSystem.repositoryImple.mdData.userInputItem_repository import UserInputItemGetRepositoryImple
+from application.service.mdData.userInputItemService import UserInputItemGetService
+from application.service.mdData.Impl.userInputItemServiceImpl import UserInputItemGetServiceImpl
 
 class YearManageMTSerializer(serializers.ModelSerializer):
     class Meta:
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
+        service : UserInputItemGetService = UserInputItemGetServiceImpl()
         model = service.getYearManageMTModel()
         fields = ('year_param',)
 
 class MonthManageMTSerializer(serializers.ModelSerializer):
     class Meta:
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
+        service : UserInputItemGetService = UserInputItemGetServiceImpl()
         model = service.getMonthManageMTModel()
         fields = ('month_param',)
 
 class KenParamMTSerializer(serializers.ModelSerializer):
     class Meta:
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
+        service : UserInputItemGetService = UserInputItemGetServiceImpl()
         model = service.getKenParamMTModel()
         fields = ('ken_name',)
 
 class MDItemMTSerializer(serializers.ModelSerializer):
     class Meta:
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
+        service : UserInputItemGetService = UserInputItemGetServiceImpl()
         model = service.getMDItemMTModel()
         fields = ('md_item',)
 
 class ProcessResultDataSerializer(serializers.ModelSerializer):
     class Meta:
-        repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-        service = UserInputItemGetService(repository)
+        service : UserInputItemGetService = UserInputItemGetServiceImpl()
         model = service.getProcessResultDataModel()
         fields = ('result_file_num','user_id','file_create_status','create_date_time',)
 
@@ -44,48 +38,42 @@ class UserInputItemCommunicater():
 
     def getYearManageMTObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl()
             return service.getYearManageMTObj()
         except:
             raise
 
     def getMonthManageMTObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl()
             return service.getMonthManageMTObj()
         except:
             raise
 
     def getKenParamMTObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl()
             return service.getKenParamMTObj()
         except:
             raise
 
     def getMDItemMTObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl()
             return service.getMDItemMTObj()
         except:
             raise
 
     def getProcessResultDataObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository, self.user_id)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl(self.user_id)
             return service.getProcessResultDataObj()
         except:
             raise
 
     def getFileManageDataObj(self):
         try:
-            repository: UserInputItemGetRepository = UserInputItemGetRepositoryImple()
-            service = UserInputItemGetService(repository, self.user_id)
+            service : UserInputItemGetService = UserInputItemGetServiceImpl(self.user_id)
             return service.getFileManageDataObj()
         except:
             raise
