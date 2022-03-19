@@ -190,7 +190,7 @@ class MdScrapingDaoImple(MdScrapingDao):
             SET
               PRMT.file_create_status = '""" + rows[0][0] + """'
             WHERE
-              PRMT.result_file_num = '""" + result_file_num + """'
+              PRMT.result_file_num = '""" + str(result_file_num) + """'
             """)
             cur.execute(update_file_create_status_sql)
 

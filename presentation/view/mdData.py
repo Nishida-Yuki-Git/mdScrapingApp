@@ -63,7 +63,6 @@ def MainBusiness(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def ErrorRequest(request):
-    userid = request.data['userid']
     if request.method == 'POST':
         user_input_item = {
             'user_input_item_list': None,
@@ -72,8 +71,9 @@ def ErrorRequest(request):
         }
         try:
             error_request_seria = ErrorRequestCommunicater(request)
-            error_request_seria.serveParam()
-            get_user_item = UserInputItemCreate(userid)
+            error_request_user_id =  error_request_seria.serveParam()
+
+            get_user_item = UserInputItemCreate(error_request_user_id)
             user_input_item['user_input_item_list'] = get_user_item['user_input_item_list']
             user_input_item['user_process_result'] = get_user_item['user_process_result']
             user_input_item['status_code'] = ResStatusCode.getSuccessCode()
