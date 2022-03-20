@@ -33,8 +33,7 @@ DEBUG = env('DEBUG')
 DATABASES = {
     'default': env.db(),
 }
-#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-ALLOWED_HOSTS = ['*'] #一旦全てのホストを受け入れている
+ALLOWED_HOSTS = ['*']
 
 ##ローカル開発用DB
 '''DATABASES = {

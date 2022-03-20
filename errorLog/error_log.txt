@@ -674,3 +674,283 @@
 2022-03-19 10:45:57,329 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
 2022-03-19 10:45:57,338 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
 2022-03-19 10:45:57,341 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 09:55:35,646 - OnlineBatchLog - DEBUG - ==NEW_FILE_CREATE_BATCH==
+2022-03-20 09:55:35,740 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 09:55:35,745 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 09:55:35,747 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 09:55:36,362 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：2
+2022-03-20 09:55:36,911 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：3
+2022-03-20 09:55:37,444 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 09:55:37,988 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：2
+2022-03-20 09:55:38,437 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：3
+2022-03-20 09:55:39,620 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 10:11:18,014 - OnlineBatchLog - DEBUG - ==NEW_FILE_CREATE_BATCH==
+2022-03-20 10:11:18,054 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 10:11:18,059 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 10:11:18,063 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 10:11:18,852 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:12:39,190 - OnlineBatchLog - DEBUG - ==NEW_FILE_CREATE_BATCH==
+2022-03-20 11:12:39,260 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:12:39,265 - OnlineBatchLog.task - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:12:39,275 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:12:46,145 - OnlineBatchLog - DEBUG - ==NEW_FILE_CREATE_BATCH==
+2022-03-20 11:12:46,191 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:12:46,197 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 11:12:46,199 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:12:46,203 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:12:46,209 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:12:59,265 - OnlineBatchLog - DEBUG - ==NEW_FILE_CREATE_BATCH==
+2022-03-20 11:12:59,314 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:12:59,323 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 11:12:59,325 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:12:59,333 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:13:14,660 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:13:14,729 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:13:14,734 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 11:13:14,738 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:34:04,356 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:34:04,472 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:34:04,480 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 11:34:04,480 - OnlineBatchLog.task - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:34:04,501 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:37:31,208 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:37:31,306 - OnlineBatchLog.task - DEBUG - ==USER_IS_PASSIVE_OK==
+2022-03-20 11:37:31,313 - OnlineBatchLog.taskService - DEBUG - ==GO_MAIN_SCRAPING==
+2022-03-20 11:37:31,318 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:32,459 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:32,954 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:33,477 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:33,951 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:34,768 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:35,394 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:35,964 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:36,501 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:36,975 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:37,490 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:37,505 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:37,891 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:38,332 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:38,756 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:39,110 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:39,458 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:39,885 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:40,243 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:40,656 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:41,075 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:41,445 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:41,452 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:41,906 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:42,256 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:42,672 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:43,152 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:43,546 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:44,010 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:44,333 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:44,728 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:45,236 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:45,628 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:45,635 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:46,068 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:46,433 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:46,820 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:47,285 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:47,586 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:47,996 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:48,369 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:48,809 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:49,166 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:49,547 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:49,554 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:49,942 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:50,306 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:50,712 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:51,079 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:51,879 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:52,269 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:52,597 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:52,997 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:54,013 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:54,343 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:54,348 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:54,697 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:55,066 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:55,433 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:55,759 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:37:56,120 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:37:56,509 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:37:56,932 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:37:57,024 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:37:57,083 - OnlineBatchLog.task - DEBUG - ==USER_IS_ACTIVE_NO==
+2022-03-20 11:37:57,083 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:37:57,271 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:37:57,699 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:37:58,093 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:37:58,099 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:37:58,613 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:37:58,987 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:37:59,346 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:37:59,722 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:00,253 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:00,621 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:00,977 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:01,328 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:01,672 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:02,031 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:02,038 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:02,383 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:02,846 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:03,227 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:03,578 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:03,965 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:04,353 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:04,695 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:05,030 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:05,375 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:05,775 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:05,782 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:06,165 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:06,530 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:06,941 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:07,315 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:07,649 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:08,087 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:08,423 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:08,922 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:09,484 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:10,003 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:10,009 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:10,403 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:10,870 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:11,202 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:11,587 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:11,942 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:12,522 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:13,141 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:13,539 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:13,909 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:14,292 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:14,299 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:14,814 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:15,246 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:15,604 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:16,029 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:16,384 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:16,781 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:17,175 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:17,529 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:17,858 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:18,230 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:18,238 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:18,651 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:19,030 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:19,421 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:19,765 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:20,109 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:20,483 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:20,863 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:21,245 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:21,634 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:21,980 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:21,987 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:22,588 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:22,997 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:23,364 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:23,751 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:24,088 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:24,442 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:24,797 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:25,139 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:25,479 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:25,889 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:25,896 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:26,303 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:26,640 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:27,034 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:27,359 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:28,194 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:28,520 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:28,915 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:29,324 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:29,656 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:30,029 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:30,036 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:30,351 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:30,802 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:31,180 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:31,603 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:31,970 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:32,345 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:32,800 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:33,159 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:33,519 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:33,863 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:33,871 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:34,230 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:34,585 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:34,978 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:35,346 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:35,688 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:36,087 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:36,441 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:36,814 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:37,210 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:37,585 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:37,593 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:37,934 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:38,304 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:38,688 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:39,019 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:39,408 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:39,787 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:40,191 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:40,539 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:40,923 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:41,260 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:41,267 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:41,592 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:41,947 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:42,303 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:42,664 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:43,007 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:43,425 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:43,819 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:44,206 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:44,628 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:45,046 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:45,053 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:45,431 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:45,809 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:46,140 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:46,501 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:46,861 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:47,195 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:47,687 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:48,058 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:48,410 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:48,751 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:48,757 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:49,093 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:49,455 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:49,837 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:50,167 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:50,515 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:38:50,857 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1998 月：1
+2022-03-20 11:38:51,207 - OnlineBatchLog.logicService - DEBUG - 県：山形 年：1999 月：1
+2022-03-20 11:38:51,596 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1998 月：1
+2022-03-20 11:38:51,945 - OnlineBatchLog.logicService - DEBUG - 県：宮城 年：1999 月：1
+2022-03-20 11:38:52,299 - OnlineBatchLog.taskService - DEBUG - ==GET_EXCEPTION==
+2022-03-20 11:38:52,307 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1998 月：1
+2022-03-20 11:38:52,655 - OnlineBatchLog.logicService - DEBUG - 県：青森 年：1999 月：1
+2022-03-20 11:38:53,010 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1998 月：1
+2022-03-20 11:38:53,359 - OnlineBatchLog.logicService - DEBUG - 県：秋田 年：1999 月：1
+2022-03-20 11:38:53,712 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1998 月：1
+2022-03-20 11:38:54,121 - OnlineBatchLog.logicService - DEBUG - 県：岩手 年：1999 月：1
+2022-03-20 11:43:23,648 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:43:23,746 - OnlineBatchLog.task - DEBUG - ==USER_IS_ACTIVE_NO==
+2022-03-20 11:43:23,746 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:43:41,033 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:43:41,090 - OnlineBatchLog.task - DEBUG - ==USER_IS_ACTIVE_NO==
+2022-03-20 11:43:41,090 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==
+2022-03-20 11:43:46,959 - OnlineBatchLog - DEBUG - ==ERROR_FILE_CREATE_BATCH==
+2022-03-20 11:43:47,048 - OnlineBatchLog.task - DEBUG - ==USER_IS_ACTIVE_NO==
+2022-03-20 11:43:47,048 - OnlineBatchLog.taskService - DEBUG - ==SQL_CONN_END==

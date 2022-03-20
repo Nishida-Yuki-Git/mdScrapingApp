@@ -5,7 +5,9 @@ class ErrorFileCreateDao(metaclass=ABCMeta):
     def getJobNum(self, cur, result_file_num):
         pass
 
-
+    @abstractmethod
+    def jadgeQueStock(self, cur, result_file_num):
+        pass
 
 
 

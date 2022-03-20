@@ -30,7 +30,7 @@ class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
     def countJob(self, cur):
         super().countJob(cur)
         try:
-            return True
+            return self.error_file_create_dao.jadgeQueStock(cur, self.user_id)
         except:
             raise
 
