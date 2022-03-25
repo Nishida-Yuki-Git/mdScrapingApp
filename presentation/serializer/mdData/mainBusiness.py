@@ -13,6 +13,22 @@ class FileCreateCommunicater():
         self.ken_name_list = request.data['ken']
         self.md_item_list = request.data['md_item']
 
+    def checkMainBusinessParam(self):
+        if (int(self.start_year) - int(self.end_year)) > 0:
+            check_message = "開始年が終了年より未来です"
+            return check_message
+        elif (int(self.start_month) - int(self.end_month)) > 0:
+            check_message = "開始月が終了月より未来です"
+            return check_message
+        elif len(self.ken_name_list) == 0:
+            check_message = "「県」が選択されていません"
+            return check_message
+        elif len(self.md_item_list) == 0:
+            check_message = "「気象データ項目」が選択されていません"
+            return check_message
+        else:
+            return None
+
     def serveDto(self):
         service_dto = MainBusinessServiceDto(
             self.user_id,

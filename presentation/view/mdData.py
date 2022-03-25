@@ -43,9 +43,20 @@ def MainBusiness(request):
             'user_input_item_list': None,
             'user_process_result': None,
             'status_code': None,
+            'check_message': None,
         }
         try:
             file_create_serializer = FileCreateCommunicater(request)
+
+            check_message = file_create_serializer.checkMainBusinessParam()
+            if check_message != None:
+                get_user_item = UserInputItemCreate(userid)
+                user_input_item['user_input_item_list'] = get_user_item['user_input_item_list']
+                user_input_item['user_process_result'] = get_user_item['user_process_result']
+                user_input_item['status_code'] = ResStatusCode.getSuccessCode()
+                user_input_item['check_message'] = check_message
+                return Response(user_input_item)
+
             file_create_serializer.serveDto()
             get_user_item = UserInputItemCreate(userid)
             user_input_item['user_input_item_list'] = get_user_item['user_input_item_list']
