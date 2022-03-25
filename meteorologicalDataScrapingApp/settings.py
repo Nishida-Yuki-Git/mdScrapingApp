@@ -20,11 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ##上記のBASE_DIRでデプロイできなかったら、下記のBASEを参照する
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-##ローカル環境用
-'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
-DEBUG = True
-ALLOWED_HOSTS = []'''
-
 ##Linux環境用
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -34,6 +29,11 @@ DATABASES = {
     'default': env.db(),
 }
 ALLOWED_HOSTS = ['*']
+
+##ローカル環境用
+'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
+DEBUG = True
+ALLOWED_HOSTS = []'''
 
 ##ローカル開発用DB
 '''DATABASES = {
