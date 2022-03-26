@@ -11,7 +11,7 @@ class JobExecuter():
         self.batch_setting = OnlineBatchSetting()
         self.batch_exe_param_json = batch_exe_param_json
         self.exe_batch_type = exe_batch_type
-        self.logger = self.setLogger()
+        self.logger = self.__setLogger()
 
     def jobExecute(self):
         if self.exe_batch_type == ExeBatchType.NEW_FILE_CREATE_BATCH:
@@ -25,7 +25,7 @@ class JobExecuter():
         else:
             pass
 
-    def setLogger(self):
+    def __setLogger(self):
         logger = getLogger("OnlineBatchLog")
         logger.setLevel(logging.DEBUG)
         if not logger.hasHandlers():

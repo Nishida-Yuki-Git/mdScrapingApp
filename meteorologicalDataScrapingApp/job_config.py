@@ -5,20 +5,20 @@ from pathlib import Path
 class OnlineBatchSetting():
     def __init__(self):
         ##開発環境用Database設定
-        '''
         self.host_id = 'localhost'
         self.port_num = '3306'
         self.db_user = 'root'
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
-        '''
 
         ##本番環境用Databse設定
+        '''
         self.host_id = 'apidb'
         self.port_num = '3306'
         self.db_user = 'yuki'
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
+        '''
 
         ##エラーログ格納パス
         self.error_log_path = Path('meteorologicalDataScrapingApp/errorLog/error_log.txt')

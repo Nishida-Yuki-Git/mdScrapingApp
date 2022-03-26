@@ -216,54 +216,61 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             raise
 
     def __xlWriting(self, output, sheet):
-        output = [list(x) for x in zip(*output)]
+        #実データリストの行列の入れ替え
+        output_data_list = [list(x) for x in zip(*output)]
 
         xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
-        data_write_column_list = []
-        md_item_index_num_list = []
+        data_write_column_list = [] #column名リスト
         for i in range(len(self.user_select_md_item_list)):
             data_write_column_list.append(xl_column_alphabet_list[i])
-            md_item_index_num_list.append(i)
 
-        init_count = 0 ##一番最初にしか使わない値
-        data_count = 0 ##1件のデータをカウントする
-        day_num_list_index = 0
-        ken_list_index = 0
-        xl_count = 2
-        year_num = int(self.start_year_init) - 1
-        month_num = int(self.start_month_init)
-        for scraping_data in output:
-            for (md_item_column, data) in zip(data_write_column_list, scraping_data):
-                sheet[md_item_column + str(xl_count - 1)] = data
-            xl_count += 1
-            '''
+        #データ書き込みロジック
+        init_count = 0 #最初のループでのみ使用する
+        xl_count = 1 #セルカウント(リセットなし)
+        ken_init_count = 0 #対象の県名ごとに1になる値
+        ken_list_index = 0 #フィールドの「県」リストのインデックス番号リスト
+        year_init_count = 0 #1の時に、年を書き込む
+        write_year = int(self.start_year_init) #書き込み年
+        write_month = int(self.start_month_init) #書き込み月
+        write_day = 1 #書き込み日
+        for output_data in output_data_list:
             init_count += 1
-            data_count += 1
-
-            if init_count == 1:
-                sheet['A' + str(xl_count)] = self.ken_name_list[ken_list_index]
-                sheet['B' + str(xl_count - 1)] = '年'
-                sheet['C' + str(xl_count - 1)] = '月'
-                for (md_item_column, index) in zip(data_write_column_list, md_item_index_num_list):
-                    sheet[md_item_column + str(xl_count - 1)] = self.user_select_md_item_list[index]
-
-            if data_count == 1:
-                year_num += 1 ##まず、これが違うわ
-                sheet['B' + str(xl_count)] = str(year_num) + '年'
-
-            sheet['C' + str(xl_count)] = str(month_num) + '月' + str(data_count) + '日'
-            for (md_item_column, data) in zip(data_write_column_list, scraping_data):
-                sheet[md_item_column + str(xl_count - 1)] = data
-
+            ken_init_count += 1
             xl_count += 1
+            year_init_count += 1
 
-            if data_count == self.day_num_list[day_num_list_index]:
-                data_count = 0
-                day_num_list_index += 1
-                month_num += 1
-                if month_num == self.end_month:
-                    month_num = int(self.start_month_init)
-            '''
+            #1行目に気象データ項目のカラム書き込み処理
+            if init_count == 1:
+                for (data_write_column, md_item_name) in zip(data_write_column_list, self.user_select_md_item_list):
+                    sheet[data_write_column + "1"] = md_item_name
+
+            #「県」の書き込み処理
+            if ken_init_count == 1:
+                sheet['A' + str(xl_count)] = self.ken_name_list[ken_list_index]
+
+            #「年」の書き込み処理
+            if year_init_count == 1:
+                sheet['B' + str(xl_count)] = str(write_year)+'年'
+
+            #「月」と「日」の書き込み処理
+            sheet['C' + str(xl_count)] = str(write_month)+'月'+str(write_day)+'日'
+            write_day += 1
+            if write_day == (int(calendar.monthrange(write_year, write_month)[1]) + 1):
+                write_day = 1
+                write_month += 1
+                if write_month == (int(self.end_month) + 1):
+                    write_month = int(self.start_month_init)
+                    year_init_count = 0
+                    write_year += 1
+                    if write_year == (int(self.end_year) + 1):
+                        write_year = int(self.start_year_init)
+                        ken_init_count = 0
+                        ken_list_index += 1
+
+            #実データ書き込み処理
+            for i in range(len(data_write_column_list)):
+                sheet[data_write_column_list[i] + str(xl_count)] = output_data[i]
+
 
 
 
