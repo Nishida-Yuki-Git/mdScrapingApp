@@ -8,6 +8,12 @@ from presentation.serializer.mdData.errorRequest import ErrorRequestCommunicater
 from presentation.serializer.mdData.fileDownload import FileDownloadCommunicater
 import traceback
 from presentation.enum.resStatusCode import ResStatusCode
+from django.shortcuts import get_object_or_404
+import mimetypes
+from django.http import HttpResponse
+import shutil
+from scrapingSystem.models import *
+from django.views.decorators.csrf import csrf_exempt
 
 ##画面入力項目設定
 @api_view(['POST'])
@@ -97,26 +103,17 @@ def ErrorRequest(request):
 
 
 ##ファイルダウンロード
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def FileDownload(request):
-    if request.method == 'POST':
-        user_item = {
-            'file_url': None,
-            'status_code': None,
-        }
-        try:
-            file_download_seria = FileDownloadCommunicater(request)
-            file_url = file_download_seria.getFile()
+    user_file = get_object_or_404(FileManageData, result_file_num='20220409104839703306')
+    file = user_file.create_file
+    name = file.name
 
-            user_item['file_url'] = file_url['file_url']
-            user_item['status_code'] = ResStatusCode.getSuccessCode()
-            return Response(user_item)
-        except:
-            traceback.print_exc()
-            user_item['status_code'] = ResStatusCode.getSuccessCode()
-            return Response(user_item)
-    return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
+    response = HttpResponse(content_type=mimetypes.guess_type(name)[0] or 'application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename={name}'
+    shutil.copyfileobj(file, response)
+
+    return response
 
 
 ##ユーザー用データ作成共通処理
