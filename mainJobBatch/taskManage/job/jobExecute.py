@@ -5,6 +5,10 @@ import logging
 from logging import getLogger, StreamHandler, FileHandler, Formatter
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 
+import os
+import traceback
+import stat
+
 ##起動クラス
 class JobExecuter():
     def __init__(self, batch_exe_param_json, exe_batch_type):
@@ -43,5 +47,14 @@ class JobExecuter():
 
 def goBatch(batch_exe_param_json, exe_batch_type):
     executer = JobExecuter(batch_exe_param_json, exe_batch_type)
-    executer.jobExecute()
+
+    error_log_path = '../../../error_log.txt'
+    try:
+        executer.jobExecute()
+    except:
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        os.chmod(path=error_log_path, mode=stat.S_IWRITE)
+        with open(error_log_path, 'a') as file:
+            traceback.print_exc(file=file)
+        os.chmod(path=error_log_path, mode=stat.S_IREAD)
 
