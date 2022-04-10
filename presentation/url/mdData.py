@@ -6,5 +6,5 @@ urlpatterns = [
     path('init/', UserInputItemView),
     path('main-logic/', MainBusiness),
     path('error-request/', ErrorRequest),
-    path('download/', FileDownload),
+    path('download/<str:result_file_num>/', FileDownload),
 ]

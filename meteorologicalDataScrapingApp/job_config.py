@@ -20,9 +20,6 @@ class OnlineBatchSetting():
         self.db_password = 'gyudon176'
         self.database_name = 'mdsystemdb'
 
-        ##エラーログ格納パス
-        self.error_log_path = Path('meteorologicalDataScrapingApp/errorLog/error_log.txt')
-
         self.BASE_DIR = Path(__file__).resolve().parent.parent
         self.MEDIA_URL = '/media/'
         self.MEDIA_ROOT = os.path.join(self.BASE_DIR, 'media')
@@ -38,8 +35,6 @@ class OnlineBatchSetting():
         return self.db_password
     def getDatabaseName(self):
         return self.database_name
-    def getErrorLogPath(self):
-        return self.error_log_path
     def getBaseDir(self):
         return self.BASE_DIR
     def getMediaUrl(self):

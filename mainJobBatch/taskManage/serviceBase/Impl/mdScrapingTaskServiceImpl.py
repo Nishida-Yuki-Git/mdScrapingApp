@@ -5,6 +5,8 @@ import traceback
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingLogicServiceImpl import MeteorologicaldataScrapingServiceImpl
 from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
+import os
+import stat
 
 ##気象データ収集タスク基底クラス
 class MdScrapingTaskServiceImpl(MdScrapingTaskService):
@@ -16,6 +18,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.end_general_key = '03'
         self.error_general_key = '04'
         self.logger = getLogger("OnlineBatchLog").getChild("taskService")
+        self.error_log_path = '../../../../error_log.txt'
 
     def taskManageRegister(self, task_id):
         self.conn.autocommit = False
@@ -146,6 +149,13 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             except:
                 self.logger.debug("==GET_EXCEPTION==")
                 traceback.print_exc()
+
+                os.chdir(os.path.dirname(os.path.abspath(__file__)))
+                os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
+                with open(self.error_log_path, 'a') as file:
+                    traceback.print_exc(file=file)
+                os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
+
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)
                 continue

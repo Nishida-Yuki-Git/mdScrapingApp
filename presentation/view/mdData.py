@@ -104,16 +104,10 @@ def ErrorRequest(request):
 
 ##ファイルダウンロード
 @csrf_exempt
-def FileDownload(request):
-    user_file = get_object_or_404(FileManageData, result_file_num='20220409104839703306')
+def FileDownload(request, result_file_num):
+    user_file = get_object_or_404(FileManageData, result_file_num=result_file_num)
     file = user_file.create_file
-    name = file.name
-
-    response = HttpResponse(content_type=mimetypes.guess_type(name)[0] or 'application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename={name}'
-    shutil.copyfileobj(file, response)
-
-    return response
+    return file
 
 
 ##ユーザー用データ作成共通処理
