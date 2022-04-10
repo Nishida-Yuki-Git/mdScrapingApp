@@ -15,7 +15,7 @@ class JobExecuter():
         self.batch_setting = OnlineBatchSetting()
         self.batch_exe_param_json = batch_exe_param_json
         self.exe_batch_type = exe_batch_type
-        #self.logger = self.__setLogger()
+        self.logger = self.__setLogger()
 
     def jobExecute(self):
         if self.exe_batch_type == ExeBatchType.NEW_FILE_CREATE_BATCH:
@@ -47,14 +47,5 @@ class JobExecuter():
 
 def goBatch(batch_exe_param_json, exe_batch_type):
     executer = JobExecuter(batch_exe_param_json, exe_batch_type)
-
-    error_log_path = '../../../error_log.txt'
-    try:
-        executer.jobExecute()
-    except:
-        os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        os.chmod(path=error_log_path, mode=stat.S_IWRITE)
-        with open(error_log_path, 'a') as file:
-            traceback.print_exc(file=file)
-        os.chmod(path=error_log_path, mode=stat.S_IREAD)
+    executer.jobExecute()
 
