@@ -151,6 +151,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 traceback.print_exc()
 
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+                os.chmod(self.error_log_path, 755)
                 os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
                 with open(self.error_log_path, 'a') as file:
                     traceback.print_exc(file=file)
