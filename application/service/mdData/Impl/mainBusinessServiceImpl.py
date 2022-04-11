@@ -35,9 +35,8 @@ class FileCreateServiceImpl(FileCreateService):
             batch_exe_param_json = {
                 "user_id": self.service_dto.getUserId()
             }
-            '''thread = threading.Thread(target=jobExecute.goBatch, args=(batch_exe_param_json,exe_batch_type,))
-            thread.start()'''
-            jobExecute.goBatch(batch_exe_param_json,exe_batch_type)
+            thread = threading.Thread(target=jobExecute.goBatch, args=(batch_exe_param_json,exe_batch_type,))
+            thread.start()
         except:
             raise
 
