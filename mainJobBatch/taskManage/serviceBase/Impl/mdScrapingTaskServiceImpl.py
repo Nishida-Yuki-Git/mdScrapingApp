@@ -154,7 +154,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
                 with open(self.error_log_path, 'a') as file:
                     traceback.print_exc(file=file)
-                os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
+                #os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
 
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)

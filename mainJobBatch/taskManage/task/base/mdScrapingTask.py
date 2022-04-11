@@ -40,7 +40,7 @@ class MdScrapingTaskExecute():
             #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
             with open(self.error_log_path, 'a') as file:
                 traceback.print_exc(file=file)
-            os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
+            #os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
 
             if self.last_user_process_flag == "PASSIVE_OK":
                 self.userStatusUpdateRest(md_scraping_service)
