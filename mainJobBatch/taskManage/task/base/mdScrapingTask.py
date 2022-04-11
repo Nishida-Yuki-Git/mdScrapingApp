@@ -37,7 +37,7 @@ class MdScrapingTaskExecute():
             traceback.print_exc()
 
             os.chdir(os.path.dirname(os.path.abspath(__file__)))
-            os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
+            #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
             with open(self.error_log_path, 'a') as file:
                 traceback.print_exc(file=file)
             os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
