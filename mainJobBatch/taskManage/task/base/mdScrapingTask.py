@@ -14,7 +14,7 @@ class MdScrapingTaskExecute():
         self.user_id = user_id
         self.logger = getLogger("OnlineBatchLog").getChild("task")
         self.last_user_process_flag = None
-        #self.error_log_path = '../../../../error_log.txt'
+        self.error_log_path = '../../../../error_log.txt'
 
     def jobControl(self):
         try:
@@ -36,12 +36,12 @@ class MdScrapingTaskExecute():
             self.logger.debug("==GET_EXCEPTION==")
             traceback.print_exc()
 
-            '''os.chdir(os.path.dirname(os.path.abspath(__file__)))
-            os.chmod(self.error_log_path, 755)
+            os.chdir(os.path.dirname(os.path.abspath(__file__)))
+            os.chmod(self.error_log_path, 0o700)
             os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
             with open(self.error_log_path, 'a') as file:
                 traceback.print_exc(file=file)
-            os.chmod(path=self.error_log_path, mode=stat.S_IREAD)'''
+            os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
 
             if self.last_user_process_flag == "PASSIVE_OK":
                 self.userStatusUpdateRest(md_scraping_service)
