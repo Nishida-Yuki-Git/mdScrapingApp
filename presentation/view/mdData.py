@@ -9,11 +9,7 @@ from presentation.serializer.mdData.fileDownload import FileDownloadCommunicater
 import traceback
 from presentation.enum.resStatusCode import ResStatusCode
 from django.shortcuts import get_object_or_404
-import mimetypes
-from django.http import HttpResponse
-import shutil
 from scrapingSystem.models import *
-from django.views.decorators.csrf import csrf_exempt
 
 ##画面入力項目設定
 @api_view(['POST'])
@@ -103,11 +99,23 @@ def ErrorRequest(request):
 
 
 ##ファイルダウンロード
-@csrf_exempt
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
 def FileDownload(request, result_file_num):
     user_file = get_object_or_404(FileManageData, result_file_num=result_file_num)
-    file = user_file.create_file
-    return file
+    file = user_file.create_file.name
+    with open(file, "rb") as f:
+        data = f.read()
+
+    byte_in_list = []
+    for i in data:
+        byte_in_list.append(i)
+
+    user_byte_data = {
+        'byte_data_list': None,
+    }
+    user_byte_data['byte_data_list'] = byte_in_list
+    return Response(user_byte_data)
 
 
 ##ユーザー用データ作成共通処理
