@@ -102,9 +102,9 @@ def ErrorRequest(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def FileDownload(request, result_file_num):
-    user_file = get_object_or_404(FileManageData, result_file_num=result_file_num)
-    file = user_file.create_file.name
-    with open(file, "rb") as f:
+    file_download_commu = FileDownloadCommunicater(result_file_num)
+    user_file = file_download_commu.getFile()
+    with open(user_file, "rb") as f:
         data = f.read()
 
     byte_in_list = []

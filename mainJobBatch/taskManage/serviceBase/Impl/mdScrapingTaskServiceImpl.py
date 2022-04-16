@@ -8,7 +8,7 @@ from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScraping
 import os
 import stat
 
-##気象データ収集タスク基底クラス
+##気象データ収集タスクサービス基底クラス
 class MdScrapingTaskServiceImpl(MdScrapingTaskService):
     def __init__(self, user_id):
         self.user_id = user_id

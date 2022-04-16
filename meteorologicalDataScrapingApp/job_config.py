@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-##プレーンPython用設定クラス
+##バッチ基盤用設定クラス
 class OnlineBatchSetting():
     def __init__(self):
         ##開発環境用Database設定
