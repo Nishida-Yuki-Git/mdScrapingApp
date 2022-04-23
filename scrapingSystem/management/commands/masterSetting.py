@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
         ##YearManageMTの設定
         YearManageMT.objects.all().delete()
-        start_year = 1998
+        start_year = 1945
         today = datetime.date.today()
         year_list = []
         for i in range(start_year, today.year):

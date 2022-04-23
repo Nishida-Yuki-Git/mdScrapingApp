@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Applications/Eclipse_2019-06.app/Contents/workspace/meteorologicalDataScrapingApp/mainJobBatch/taskManage/task/base/mdScrapingTask.py", line 27, in jobControl
+    md_scraping_service.updateFileCreateStatus(self.general_group_key, self.processing_general_key)
+  File "/Applications/Eclipse_2019-06.app/Contents/workspace/meteorologicalDataScrapingApp/mainJobBatch/taskManage/serviceBase/Impl/mdScrapingTaskServiceImpl.py", line 72, in updateFileCreateStatus
+    process_param = self.getResultFileNumAndJobNum(cur)
+  File "/Applications/Eclipse_2019-06.app/Contents/workspace/meteorologicalDataScrapingApp/mainJobBatch/taskManage/service/Impl/newFileCreateTaskServiceImpl.py", line 16, in getResultFileNumAndJobNum
+    job_num = select_job_que_data_result['job_num_list'][0]
+IndexError: list index out of range
