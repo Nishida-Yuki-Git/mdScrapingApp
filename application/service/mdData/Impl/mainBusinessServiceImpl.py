@@ -11,19 +11,49 @@ import threading
 from application.service.mdData.mainBusinessService import FileCreateService
 
 class FileCreateServiceImpl(FileCreateService):
+    """
+    新規ファイル作成サービス実装クラス
+
+    Attributes
+    ----------
+    service_dto : MainBusinessServiceDto
+        新規ファイル作成サービスDto
+    saiban_key : str
+        採番キー
+    file_num_format : str
+        ファイル番号フォーマット
+    general_group_key : str
+        汎用グループキー
+    general_key : str
+        汎用キー
+    """
+
     def __init__(self, service_dto):
+        """
+        Parameters
+        ----------
+        service_dto : MainBusinessServiceDto
+            新規ファイル作成サービスDto
+        """
+
         self.service_dto = service_dto
         self.saiban_key = 'jobKey'
+        self.file_num_format = '%Y%m%d%H%M%S%f'
+        self.general_group_key = 'GR000001'
+        self.general_key = '01'
 
     def mainLogic(self):
+        """ 新規ファイル作成リクエスト実行
+        """
+
         try:
             saiban_repository: saibanRepository = saibanRepositoryImple()
             saiban_job_num = saiban_repository.getSaibanCode(self.saiban_key)
 
-            file_num_date_time = (datetime.datetime.now().strftime('%Y%m%d%H%M%S%f'))
+            file_num_date_time = (datetime.datetime.now().strftime(self.file_num_format))
 
             general_code_repository: generalCodeRepository = generalCodeRepositoryImple()
-            first_status_code = general_code_repository.getGeneralCode('GR000001', '01')
+            first_status_code = general_code_repository.getGeneralCode(self.general_group_key, self.general_key)
 
             main_repository: MainBusinessRepository = MainBusinessRepositoryImple()
             main_repository.jobQueRegister(saiban_job_num, self.service_dto.getUserId(), file_num_date_time)

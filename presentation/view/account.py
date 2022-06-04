@@ -6,13 +6,30 @@ import traceback
 from presentation.enum.resStatusCode import ResStatusCode
 
 
-#ユーザー作成(POST)
 class AuthRegister(generics.CreateAPIView):
+    """ ユーザー作成(POST)
+    """
+
     permission_classes = (permissions.AllowAny,)
     serializer_class = AccountSerializer
 
     @transaction.atomic
     def post(self, request, format=None):
+        """
+        ユーザーアカウント作成を実行する
+
+        Parameters
+        ----------
+        request : HttpRequest
+            HttpRequestオブジェクト
+        format : str
+
+        Returns
+        ----------
+        Response
+            HttpResponseオブジェクト
+        """
+
         front_res = {
             'serializer_data': None,
             'status_code': None
@@ -35,12 +52,29 @@ class AuthRegister(generics.CreateAPIView):
             return Response(front_res, status=500)
 
 
-# ユーザ情報取得のView(GET)
 class AuthInfoGetView(generics.RetrieveAPIView):
+    """ ユーザ情報取得のView(GET)
+    """
+
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = AccountSerializer
 
     def get(self, request, format=None):
+        """
+        ユーザー情報を取得する
+
+        Parameters
+        ----------
+        request : HttpRequest
+            HttpRequestオブジェクト
+        format : str
+
+        Returns
+        ----------
+        Response
+            HttpResponseオブジェクト
+        """
+
         return Response(data={
             'userid': request.user.userid,
             'username': request.user.username,
@@ -51,11 +85,28 @@ class AuthInfoGetView(generics.RetrieveAPIView):
             status=status.HTTP_200_OK)
 
 
-##認証確認用ビュー(メインBL起動前に毎回ここで確認させる)
 class AuthenticationCheckView(generics.RetrieveAPIView):
+    """ 認証確認用ビュー
+    """
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
+        """
+        認証確認用を実行する(メインBL起動前に毎回ここで確認させる)
+
+        Parameters
+        ----------
+        request : HttpRequest
+            HttpRequestオブジェクト
+        format : str
+
+        Returns
+        ----------
+        Response
+            HttpResponseオブジェクト
+        """
+
         front_res = {
             'status_code': ResStatusCode.getSuccessCode()
         }

@@ -2,7 +2,24 @@ from application.repository.util.saiban_repository import saibanRepository
 from scrapingSystem.models import SaibanMT
 
 class saibanRepositoryImple(saibanRepository):
+    """ 採番レポジトリインターフェース
+    """
+
     def getSaibanCode(self, saibanKey):
+        """
+        採番値取得
+
+        Parameters
+        ----------
+        saibanKey : str
+            採番管理キー
+
+        Returns
+        ----------
+        create_str : str
+            採番値
+        """
+
         saiban_data_obj = SaibanMT.objects.get(pk=saibanKey)
         saiban_count = saiban_data_obj.saiban_count
         saiban_ketasu = saiban_data_obj.saiban_ketasu

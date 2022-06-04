@@ -3,6 +3,17 @@ import mysql.connector as mydb
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 
 class MdScrapingDaoImple(MdScrapingDao):
+    """
+    バッチ共通Daoインターフェース
+
+    Attributes
+    ----------
+    batch_setting : OnlineBatchSetting
+        オンライン随時バッチ設定クラスオブジェクト
+    conn : MySQLdb.connections.Connection
+        MySQLコネクタ
+    """
+
     def __init__(self):
         self.batch_setting = OnlineBatchSetting()
         self.conn = mydb.connect(host=self.batch_setting.getHostId(),
@@ -12,9 +23,31 @@ class MdScrapingDaoImple(MdScrapingDao):
                     database=self.batch_setting.getDatabaseName())
 
     def getConnection(self):
+        """
+        MySQLコネクタの返却
+
+        Returns
+        ----------
+        conn : MySQLdb.connections.Connection
+            MySQLコネクタ
+        """
+
         return self.conn
 
     def taskManageRegist(self, cur, task_id, user_id):
+        """
+        ユーザーバッチプロセス登録
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        task_id : str
+            バッチプロセスタスクID
+        user_id : str
+            ユーザーID
+        """
+
         select_sql_str = "SELECT * FROM scrapingSystem_taskmanagedata WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
         insert_sql_id = ("""
         INSERT INTO scrapingSystem_taskmanagedata
@@ -34,6 +67,24 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def getUserProcessFlag(self, cur, task_id, user_id):
+        """
+        ユーザーバッチプロセス取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        task_id : str
+            バッチプロセスタスクID
+        user_id : str
+            ユーザーID
+
+        Returns
+        ----------
+        resulr_str : list
+            ユーザーバッチプロセス
+        """
+
         select_sql_str = "SELECT TMDATA.task_process_flag FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
 
         try:
@@ -49,6 +100,21 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def updateUserProcessFlag(self, cur, task_id, user_id, user_process_status):
+        """
+        ユーザーバッチプロセス更新
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        task_id : str
+            バッチプロセスタスクID
+        user_id : str
+            ユーザーID
+        user_process_status : str
+            ユーザーバッチプロセスステータス
+        """
+
         delete_task_manage_record = ("""
         DELETE FROM scrapingSystem_taskmanagedata
         WHERE task_id = '""" + task_id + """' AND user_id = '""" + user_id + """'""")
@@ -65,6 +131,22 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def getJobParamData(self, cur, job_num):
+        """
+        ジョブパラメータ取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        job_num : str
+            ジョブID
+
+        Returns
+        ----------
+        job_param_result : dict
+            ジョブパラメータ
+        """
+
         select_user_job_param = ("""
         SELECT
           JOB_PARAM_DATA.job_start_year,
@@ -120,6 +202,22 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def getKenUrlParam(self, cur, ken_list):
+        """
+        県パラメータ取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        ken_list : list
+            県名リスト
+
+        Returns
+        ----------
+        result_ken_param_list : dict
+            県パラメータ
+        """
+
         try:
 
             ken_no_list = []
@@ -148,6 +246,20 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def getJMAgencyURL(self, cur):
+        """
+        気象庁URLパーツ取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+
+        Returns
+        ----------
+        md_url_list : list
+            気象庁URLパーツリスト
+        """
+
         select_jm_agency_url = ("""
         SELECT
           URL_MT.md_url
@@ -170,6 +282,21 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def updateFileCreateStatus(self, cur, result_file_num, general_group_key, general_key):
+        """
+        ファイル作成ステータス更新
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        result_file_num : str
+            ファイル番号
+        general_group_key : str
+            汎用グループキー
+        general_key : str
+            汎用キー
+        """
+
         select_general_code_MT = ("""
         SELECT
           GENERAL_CODE_MT.general_code
@@ -198,6 +325,17 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def deleteUserJobData(self, cur, job_num):
+        """
+        処理済みジョブキューの削除
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        job_nu, : str
+            ジョブ番号
+        """
+
         delete_job_que_data = ("""
         DELETE FROM scrapingSystem_jobquedata
         WHERE job_num = '""" + job_num + """'""")
@@ -216,6 +354,19 @@ class MdScrapingDaoImple(MdScrapingDao):
             raise
 
     def registFilePath(self, cur, result_file_num, save_path):
+        """
+        物理ファイル格納パス登録
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        result_file_num : str
+            ファイル番号
+        save_path : str
+            物理ファイル格納パス
+        """
+
         regist_create_file = ("""
         UPDATE
           scrapingSystem_filemanagedata AS FILE_MANAGE_MT

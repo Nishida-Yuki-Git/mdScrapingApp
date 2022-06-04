@@ -11,10 +11,24 @@ from presentation.enum.resStatusCode import ResStatusCode
 from django.shortcuts import get_object_or_404
 from scrapingSystem.models import *
 
-##画面入力項目設定
+
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def UserInputItemView(request):
+    """
+    画面入力項目設定
+
+    Parameters
+    ----------
+    request : HttpRequest
+        HttpRequestオブジェクト
+
+    Returns
+    ----------
+    Response
+        HttpResponseオブジェクト
+    """
+
     userid = request.data['userid']
     if request.method == 'POST':
         user_input_item = {
@@ -34,11 +48,24 @@ def UserInputItemView(request):
     return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
-##メインBL(JSON配列は ‘{“name_filed":["ジャイアン", "スネ夫", "のび太"]}' この形式を想定)
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 @transaction.atomic
 def MainBusiness(request):
+    """
+    メインBL(JSON配列は ‘{“name_filed":["ジャイアン", "スネ夫", "のび太"]}' この形式を想定)
+
+    Parameters
+    ----------
+    request : HttpRequest
+        HttpRequestオブジェクト
+
+    Returns
+    ----------
+    Response
+        HttpResponseオブジェクト
+    """
+
     userid = request.data['userid']
     if request.method == 'POST':
         user_input_item = {
@@ -72,10 +99,23 @@ def MainBusiness(request):
     return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
-##エラーファイル作成ビュー
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def ErrorRequest(request):
+    """
+    エラーファイル作成ビュー
+
+    Parameters
+    ----------
+    request : HttpRequest
+        HttpRequestオブジェクト
+
+    Returns
+    ----------
+    Response
+        HttpResponseオブジェクト
+    """
+
     if request.method == 'POST':
         user_input_item = {
             'user_input_item_list': None,
@@ -98,10 +138,25 @@ def ErrorRequest(request):
     return Response(data={'status_code': ResStatusCode.getErrorCode()}, status=400)
 
 
-##ファイルダウンロード
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def FileDownload(request, result_file_num):
+    """
+    ファイルダウンロード
+
+    Parameters
+    ----------
+    request : HttpRequest
+        HttpRequestオブジェクト
+    result_file_num : str
+        ファイル番号
+
+    Returns
+    ----------
+    Response
+        HttpResponseオブジェクト
+    """
+
     file_download_commu = FileDownloadCommunicater(result_file_num)
     user_file = file_download_commu.getFile()
     with open(user_file, "rb") as f:
@@ -118,8 +173,21 @@ def FileDownload(request, result_file_num):
     return Response(user_byte_data)
 
 
-##ユーザー用データ作成共通処理
 def UserInputItemCreate(user_id):
+    """
+    ユーザー用データ作成共通処理
+
+    Parameters
+    ----------
+    user_id : str
+        ユーザーID
+
+    Returns
+    ----------
+    user_response : dict
+        画面表示用ユーザーデータ
+    """
+
     try:
         communicater = UserInputItemCommunicater(user_id)
 
@@ -130,7 +198,6 @@ def UserInputItemCreate(user_id):
 
         user_result_serializer = ProcessResultDataSerializer(communicater.getProcessResultDataObj(), many=True)
 
-        ##ユーザー入力項目
         user_input_item_list = {
             'year_field': year_serializer.data,
             'month_field': month_serializer.data,
@@ -138,7 +205,6 @@ def UserInputItemCreate(user_id):
             'md_item_field': md_item_serializer.data,
         }
 
-        ##ユーザー処理結果
         user_process_result = {
             'user_result_field': user_result_serializer.data,
         }

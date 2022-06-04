@@ -4,20 +4,46 @@ from application.service.enum.exeBatchType import ExeBatchType
 import logging
 from logging import getLogger, StreamHandler, FileHandler, Formatter
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
-
 import os
 import traceback
 import stat
 
-##起動クラス
+
 class JobExecuter():
+    """
+    オンライン随時バッチ起動クラス
+
+    Attributes
+    ----------
+    batch_setting : OnlineBatchSetting
+        バッチ用設定ファイル
+    batch_exe_param_json : dict
+        バッチ起動パラメータ
+    exe_batch_type : ExeBatchType
+        バッチ区分列挙型
+    logger : logging
+        ログ出力オブジェクト
+    """
+
     def __init__(self, batch_exe_param_json, exe_batch_type):
+        """
+        Parameters
+        ----------
+        batch_exe_param_json : dict
+            バッチ起動パラメータ
+        exe_batch_type : ExeBatchType
+            バッチ区分列挙型
+        """
+
         self.batch_setting = OnlineBatchSetting()
         self.batch_exe_param_json = batch_exe_param_json
         self.exe_batch_type = exe_batch_type
         self.logger = self.__setLogger()
 
     def jobExecute(self):
+        """ バッチ実行
+        """
+
         if self.exe_batch_type == ExeBatchType.NEW_FILE_CREATE_BATCH:
             self.logger.debug("==NEW_FILE_CREATE_BATCH==")
             new_file_create_task = NewFileCreateTaskExecute(self.batch_exe_param_json['user_id'])
@@ -30,6 +56,9 @@ class JobExecuter():
             pass
 
     def __setLogger(self):
+        """ ログ出力オブジェクト設定
+        """
+
         logger = getLogger("OnlineBatchLog")
         logger.setLevel(logging.DEBUG)
         if not logger.hasHandlers():

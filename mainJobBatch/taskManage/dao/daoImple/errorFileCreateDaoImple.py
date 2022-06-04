@@ -1,7 +1,26 @@
 from mainJobBatch.taskManage.dao.errorFileCreateDao import ErrorFileCreateDao
 
 class ErrorFileCreateDaoImple(ErrorFileCreateDao):
+    """ エラーファイル再作成バッチ個別Daoインターフェース
+    """
+
     def getJobNum(self, cur, result_file_num):
+        """
+        ジョブ番号の取得
+
+        Parameters
+        ----------
+        conn : MySQLdb.connections.Connection
+            MySQLコネクタ
+        result_file_num : str
+            ファイル番号
+
+        Returns
+        ----------
+        str
+            ジョブ番号
+        """
+
         select_user_job_num = ("""
         SELECT
           JOB_QUE_DATA.job_num
@@ -19,6 +38,22 @@ class ErrorFileCreateDaoImple(ErrorFileCreateDao):
             raise
 
     def jadgeQueStock(self, cur, result_file_num):
+        """
+        ジョブキュー残数の確認
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        result_file_num : str
+            ファイル番号
+
+        Returns
+        ----------
+        bool
+            検索結果(0：True, 1 < False)
+        """
+
         select_user_job_num = ("""
         SELECT
           JOB_QUE_DATA.job_num
@@ -30,8 +65,8 @@ class ErrorFileCreateDaoImple(ErrorFileCreateDao):
 
         try:
             cur.execute(select_user_job_num)
-            cur.fetchall()
-            if cur.rowcount == 0:
+            rows = cur.fetchall()
+            if len(rows) == 0:
                 return True
             else:
                 return False

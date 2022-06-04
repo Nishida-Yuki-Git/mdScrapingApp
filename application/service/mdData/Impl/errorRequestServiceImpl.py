@@ -6,10 +6,35 @@ from application.repository.mdData.errorRequest_repository import ErrorRequestRe
 from scrapingSystem.repositoryImple.mdData.errorRequest_repository import ErrorRequestRepositoryImple
 
 class ErrorRequestServiceImpl(ErrorRequestService):
+    """
+    エラーファイル作成リクエストサービス実装クラス
+
+    Attributes
+    ----------
+    result_file_num : str
+        ファイル番号
+    """
+
     def __init__(self, result_file_num):
+        """
+        Parameters
+        ----------
+        result_file_num : str
+            ファイル番号
+        """
+
         self.result_file_num = result_file_num
 
     def mainLogic(self):
+        """
+        エラーファイル作成リクエスト実行
+
+        Returns
+        ----------
+        userid : str
+            ユーザーID
+        """
+
         try:
             error_request_repository: ErrorRequestRepository = ErrorRequestRepositoryImple()
             user_id = error_request_repository.getErrorUserId(self.result_file_num)

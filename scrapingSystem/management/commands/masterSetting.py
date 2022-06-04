@@ -3,12 +3,13 @@ from django.core.management.base import BaseCommand
 import datetime
 from django.db import connection
 
-##マスタ設定バッチ(マスタ設定という名前だが、トランデータのセッティングも入っている)
 class Command(BaseCommand):
+    """ マスタ設定及びトラン初期化オフラインバッチ
+    """
+
     def handle(self, *args, **options):
         print("task-start")
 
-        ##YearManageMTの設定
         YearManageMT.objects.all().delete()
         start_year = 1945
         today = datetime.date.today()
@@ -20,7 +21,6 @@ class Command(BaseCommand):
                 year_param=year)
             year_obj.save()
 
-        ##MonthManageMtの設定
         MonthManageMT.objects.all().delete()
         month_list = [i + 1 for i in range(12)]
         for month in month_list:
@@ -28,7 +28,6 @@ class Command(BaseCommand):
                 month_param=month)
             month_obj.save()
 
-        ##KenParamMTの設定
         KenParamMT.objects.all().delete()
         Ken_name_list = ['北海道', '青森', '秋田', '岩手', '山形', '宮城', '福島', '新潟', '茨城', '千葉', '栃木', '群馬', '東京', '神奈川', '山梨', '長野', '静岡', '富山', '岐阜', '石川', '愛知', '三重', '京都', '奈良', '大阪', '和歌山', '兵庫', '鳥取', '岡山', '香川', '徳島', '島根', '広島', '高知', '愛媛', '山口', '大分', '宮崎', '熊本', '佐賀', '長崎', '鹿児島', '沖縄', '埼玉', '福井', '滋賀', '福岡']
         no_list = [14, 31, 32, 33, 35, 34, 36, 54, 40, 45, 41, 42, 44, 46, 49, 48, 50, 55, 52, 56, 51, 53, 61, 64, 62, 65, 63, 69, 66, 72, 71, 68, 67, 74, 73, 81, 83, 87, 86, 85, 84, 88, 91, 43, 57, 60, 82]
@@ -40,7 +39,6 @@ class Command(BaseCommand):
                 ken_block_no=block)
             ken_param_obj.save()
 
-        ##MdUrlMTの設定
         MdUrlMT.objects.all().delete()
         md_url_seq_list = [1, 2, 3, 4, 5]
         md_url_list = ['https://www.data.jma.go.jp/obd/stats/etrn/view/daily_s1.php?prec_no=',
@@ -54,7 +52,6 @@ class Command(BaseCommand):
                 md_url=url)
             md_url_obj.save()
 
-        ##MDItemMTの設定
         MDItemMT.objects.all().delete()
         md_item_list = ['気温',
                         '相対湿度',
@@ -64,7 +61,6 @@ class Command(BaseCommand):
                 md_item=md_item)
             md_item_obj.save()
 
-        ##SaibanMTの設定
         SaibanMT.objects.all().delete()
         key_list = ['jobKey']
         saiban_count_list = [0]
@@ -76,7 +72,6 @@ class Command(BaseCommand):
                 saiban_ketasu=ketasu)
             saiban_obj.save()
 
-        ##GeneralCodeMTの設定
         GeneralCodeMT.objects.all().delete()
         group_key_list = ['GR000001',
                           'GR000001',
@@ -97,7 +92,6 @@ class Command(BaseCommand):
                 general_code=general_code)
             general_code_obj.save()
 
-        ##--開発用トラン削除--
         JobQueData.objects.all().delete()
         JobParamData.objects.all().delete()
         JobParamDetailData.objects.all().delete()

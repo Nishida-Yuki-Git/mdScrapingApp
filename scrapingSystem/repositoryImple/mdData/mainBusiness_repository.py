@@ -2,7 +2,23 @@ from application.repository.mdData.mainBusiness_repository import MainBusinessRe
 from scrapingSystem.models import *
 
 class MainBusinessRepositoryImple(MainBusinessRepository):
+    """ 新規ファイル作成レポジトリインターフェース
+    """
+
     def jobQueRegister(self, saiban_job_num, user_id, result_file_num):
+        """
+        ジョブキュー登録実行
+
+        Parameters
+        ----------
+        saiban_job_num : str
+            ジョブ番号
+        user_id : str
+            ユーザーID
+        result_file_num : str
+            ファイル番号
+        """
+
         user_job_data = JobQueData(
             job_num=saiban_job_num,
             user_id=user_id,
@@ -10,6 +26,17 @@ class MainBusinessRepositoryImple(MainBusinessRepository):
         user_job_data.save()
 
     def jobParamRegister(self, saiban_job_num, serviceDto):
+        """
+        ジョブパラメータ登録実行
+
+        Parameters
+        ----------
+        saiban_job_num : str
+            ジョブ番号
+        serviceDto : MainBusinessServiceDto
+            メインビジネスサービスDTO
+        """
+
         job_param_obj = JobParamData(
             job_num=saiban_job_num,
             job_start_year=serviceDto.getStartYear(),
@@ -37,6 +64,19 @@ class MainBusinessRepositoryImple(MainBusinessRepository):
             job_param_detail_obj.save()
 
     def userProcessResultRegister(self, result_file_num, first_status_code, serviceDto):
+        """
+        ユーザー処理結果登録実行
+
+        Parameters
+        ----------
+        result_file_num : str
+            ファイル番号
+        first_status_code : str
+            ユーザー初期ステータス
+        serviceDto : MainBusinessServiceDto
+            メインビジネスサービスDTO
+        """
+
         process_result_obj = ProcessResultData(
             result_file_num=result_file_num,
             user_id=serviceDto.getUserId(),
@@ -66,6 +106,17 @@ class MainBusinessRepositoryImple(MainBusinessRepository):
             process_result_detail_obj.save()
 
     def fileManageDataRegister(self, result_file_num, serviceDto):
+        """
+        ファイル管理データ登録実行
+
+        Parameters
+        ----------
+        result_file_num : str
+            ファイル番号
+        serviceDto : MainBusinessServiceDto
+            メインビジネスサービスDTO
+        """
+
         file_manage_data_obj = FileManageData(
             result_file_num=result_file_num,
             user_id=serviceDto.getUserId())

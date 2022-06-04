@@ -7,20 +7,63 @@ from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingLogicServiceImpl import 
 from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
 import os
 import stat
+import time
 
-##気象データ収集タスクサービス基底クラス
+
 class MdScrapingTaskServiceImpl(MdScrapingTaskService):
+    """
+    気象データ収集タスクサービス基底実装クラス
+
+    Attributes
+    ----------
+    user_id : str
+        ユーザーID
+    md_scraping_dao : MdScrapingDao
+        気象データ収集バッチDaoインターフェース
+    conn : MySQLdb.connections.Connection
+        MySQLコネクタ
+    general_group_key : str
+        汎用グループキー
+    processing_general_key : str
+        汎用キー(ファイル作成中)
+    end_general_key : str
+        汎用キー(ファイル作成済みステータス)
+    error_general_key : str
+        汎用キー(エラーステータス)
+    logger : logging
+        ログ出力オブジェクト
+    error_log_path : str
+        デバッグトレース内容出力用ファイルパス
+    """
+
     def __init__(self, user_id):
+        """
+        Parameters
+        ----------
+        user_id : str
+            ユーザーID
+        """
+
         self.user_id = user_id
         self.md_scraping_dao: MdScrapingDao = MdScrapingDaoImple()
         self.conn = self.md_scraping_dao.getConnection()
         self.general_group_key = 'GR000001'
+        self.processing_general_key = '02'
         self.end_general_key = '03'
         self.error_general_key = '04'
         self.logger = getLogger("OnlineBatchLog").getChild("taskService")
         self.error_log_path = '../../../../error_log.txt'
 
     def taskManageRegister(self, task_id):
+        """
+        ユーザーのバッチプロセス登録
+
+        Parameters
+        ----------
+        task_id : str
+            バッチタスクID
+        """
+
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
@@ -36,6 +79,20 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             raise
 
     def getUserTaskStatus(self, task_id):
+        """
+        個別バッチのプロセスステータスを取得する
+
+        Parameters
+        ----------
+        task_id : str
+            バッチタスクID
+
+        Returns
+        ----------
+        user_status : str
+            ユーザーバッチプロセスステータス
+        """
+
         try:
             self.conn.ping(reconnect=True)
             cur = self.conn.cursor()
@@ -49,6 +106,17 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             raise
 
     def updateUserTaskStatus(self, task_id, user_process_status):
+        """
+        個別バッチのプロセスステータスを更新する
+
+        Parameters
+        ----------
+        task_id : str
+            バッチタスクID
+        user_process_status : str
+            バッチプロセスステータス
+        """
+
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
@@ -64,6 +132,17 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             raise
 
     def updateFileCreateStatus(self, general_group_key, general_key):
+        """
+        ファイル作成ステータスを更新する
+
+        Parameters
+        ----------
+        general_group_key : str
+            汎用グループキー
+        general_key : str
+            汎用キー
+        """
+
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
@@ -81,9 +160,26 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             raise
 
     def getResultFileNumAndJobNum(self, cur):
+        """
+        ファイル番号及びジョブIDの取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+
+        Returns
+        ----------
+        process_param : dict
+            ファイル番号及びジョブID
+        """
+
         pass
 
     def scrapingTask(self):
+        """ 気象データ収集実行
+        """
+
         self.logger.debug("==GO_MAIN_SCRAPING==")
         self.conn.ping(reconnect=True)
         cur = self.conn.cursor()
@@ -91,17 +187,30 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
         while True:
             if job_non_count == self.getBatchBreakCount():
+                self.logger.debug("==バッチ処理終了==")
                 break
 
             try:
                 if self.countJob(cur):
                     job_non_count += 1
+                    self.logger.debug("==キュー残数0カウント + " + str(job_non_count) + "==")
+
+                    cur.close()
+                    self.disConnect()
+                    self.md_scraping_dao: MdScrapingDao = MdScrapingDaoImple()
+                    self.conn = self.md_scraping_dao.getConnection()
+                    cur = self.conn.cursor()
+
+                    time.sleep(5)
                     continue
             except:
                 raise
 
             try:
                 self.conn.autocommit = False
+
+                job_non_count = 0
+                self.updateFileCreateStatus(self.general_group_key, self.processing_general_key)
 
                 process_param = self.getResultFileNumAndJobNum(cur)
                 job_num = process_param['job_num']
@@ -163,12 +272,38 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         cur.close()
 
     def getBatchBreakCount(self):
+        """
+        バッチプロセス終了カウント値の取得
+
+        Returns
+        ----------
+        int
+            バッチプロセス終了カウント値
+        """
+
         pass
 
     def countJob(self, cur):
+        """
+        ユーザーIDに紐づくジョブキューの残数の確認
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+
+        Returns
+        ----------
+        bool
+            ジョブキュー残数カウント結果(True：0, False：1以上)
+        """
+
         pass
 
     def disConnect(self):
+        """ DBコネクションの終了
+        """
+
         self.logger.debug("==SQL_CONN_END==")
         self.conn.close()
 

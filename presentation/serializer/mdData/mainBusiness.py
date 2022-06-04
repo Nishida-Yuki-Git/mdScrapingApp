@@ -3,7 +3,35 @@ from application.service.mdData.Impl.mainBusinessServiceImpl import FileCreateSe
 from application.service.dto.mainBusinessServiceDto import MainBusinessServiceDto
 
 class FileCreateCommunicater():
+    """
+    新規ファイル作成セリアライズクラス
+
+    Attributes
+    ----------
+    user_id : str
+        ユーザーID
+    start_year : str
+        気象データ収集開始年
+    end_year : str
+        気象データ収集終了年
+    start_month : str
+        気象データ収集開始月
+    end_month : str
+        気象データ収集終了月
+    ken_name_list : list
+        気象データ収集対象県名称リスト
+    md_item_list : list
+        収集対象気象データ項目名称リスト
+    """
+
     def __init__(self, request):
+        """
+        Parameters
+        ----------
+        request : HttpRequest
+            HttpRequestオブジェクト
+        """
+
         self.user_id = request.data['userid']
         self.start_year = request.data['start_year']
         self.end_year = request.data['end_year']
@@ -14,6 +42,15 @@ class FileCreateCommunicater():
         self.md_item_list = request.data['md_item']
 
     def checkMainBusinessParam(self):
+        """
+        POSTデータチェック
+
+        Returns
+        ----------
+        check_message : str
+            チェックエラーメッセージ
+        """
+
         if (int(self.start_year) - int(self.end_year)) > 0:
             check_message = "開始年が終了年より未来です"
             return check_message
@@ -30,6 +67,9 @@ class FileCreateCommunicater():
             return None
 
     def serveDto(self):
+        """ サービス層へのデータ受け渡し
+        """
+
         service_dto = MainBusinessServiceDto(
             self.user_id,
             self.start_year,

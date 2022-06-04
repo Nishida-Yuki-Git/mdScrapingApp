@@ -1,7 +1,26 @@
 from mainJobBatch.taskManage.dao.newFileCreateDao import NewFileCreateDao
 
 class NewFileCreateDaoImple(NewFileCreateDao):
+    """ 新規ファイル作成バッチDaoインターフェース
+    """
+
     def jadgeJobNumStock(self, cur, user_id):
+        """
+        ジョブキュー残数の確認
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        user_id : str
+            ユーザーID
+
+        Returns
+        ----------
+        bool
+            検索結果(0：True, 1 < False)
+        """
+
         select_user_job_num = ("""
         SELECT
           JOB_QUE_DATA.job_num
@@ -16,8 +35,8 @@ class NewFileCreateDaoImple(NewFileCreateDao):
 
         try:
             cur.execute(select_user_job_num)
-            cur.fetchall()
-            if cur.rowcount == 0:
+            rows = cur.fetchall()
+            if len(rows) == 0:
                 return True
             else:
                 return False
@@ -25,6 +44,22 @@ class NewFileCreateDaoImple(NewFileCreateDao):
             raise
 
     def getJobQueData(self, cur, user_id):
+        """
+        ジョブ番号及びファイル番号を取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        user_id : str
+            ユーザーID
+
+        Returns
+        ----------
+        result_list : dict
+            ジョブ番号及びファイル番号
+        """
+
         select_user_job_id = ("""
         SELECT
           JOB_QUE_DATA.job_num,
