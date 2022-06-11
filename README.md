@@ -9,6 +9,7 @@
 $ tree
 .
 ├── application #オンラインビジネスロジック及び永続化レポジトリインターフェースを管理
+│   │
 │   ├── repository #永続化レポジトリインターフェース
 │   │   ├── account #認証系永続化レポジトリインターフェース
 │   │   │   └── account_repository.py
@@ -20,15 +21,16 @@ $ tree
 │   │   └── util #汎用系永続化レポジトリインターフェース
 │   │       ├── generalCode_repository.py
 │   │       └── saiban_repository.py
+│   │
 │   └── service #オンラインビジネスロジック
 │       ├── account #認証系ロジック
 │       │   ├── accountService.py
 │       │   └── impl
 │       │       └── accountServiceImpl.py
-│       ├── dto
-│       │   └── mainBusinessServiceDto.py #メインビジネスロジック(新規ファイル作成)で使用するserviceDto
-│       ├── enum
-│       │   └── exeBatchType.py #起動バッチ区分の列挙型
+│       ├── dto #ServiceDto
+│       │   └── mainBusinessServiceDto.py
+│       ├── enum #起動バッチ区分の列挙型を管理
+│       │   └── exeBatchType.py
 │       └── mdData #ビジネスロジック
 │           ├── Impl
 │           │   ├── errorRequestServiceImpl.py
@@ -39,47 +41,57 @@ $ tree
 │           ├── fileDownloadService.py
 │           ├── mainBusinessService.py
 │           └── userInputItemService.py
+│
 ├── error_log.txt #デバッグトレース内容出力用ファイル(本番環境専用)
+│
 ├── mainJobBatch #随時バッチ
+│   │
 │   └── taskManage
-│       ├── dao
+│       ├── dao #Dao層
 │       │   ├── daoImple
-│       │   │   ├── errorFileCreateDaoImple.py #エラーファイル再作成バッチDAO実装クラス
-│       │   │   ├── mdScrapingDaoImple.py #バッチ共通Dao実装クラス
-│       │   │   └── newFileCreateDaoImple.py #新規ファイル作成バッチDAO実装クラス
-│       │   ├── errorFileCreateDao.py #エラーファイル再作成バッチDAOインターフェース
-│       │   ├── mdScrapingDao.py #バッチ共通DAOインターフェース
-│       │   └── newFileCreateDao.py #新規ファイル作成バッチDAOインターフェース
-│       ├── job
-│       │   └── jobExecute.py #起動バッチを判別してバッチ処理を開始する
-│       ├── service #サービス
+│       │   │   ├── errorFileCreateDaoImple.py
+│       │   │   ├── mdScrapingDaoImple.py
+│       │   │   └── newFileCreateDaoImple.py
+│       │   ├── errorFileCreateDao.py
+│       │   ├── mdScrapingDao.py
+│       │   └── newFileCreateDao.py
+│       ├── job #バッチ起動クラス
+│       │   └── jobExecute.py
+│       ├── service #バッチ個別サービス実装
 │       │   └── Impl
-│       │       ├── errorFileCreateTaskServiceImpl.py #エラーファイル再作成バッチタスクサービス
-│       │       └── newFileCreateTaskServiceImpl.py #新規ファイル作成バッチタスクサービス
-│       ├── serviceBase #基底サービス
+│       │       ├── errorFileCreateTaskServiceImpl.py
+│       │       └── newFileCreateTaskServiceImpl.py
+│       ├── serviceBase #バッチ共通基底サービス
 │       │   ├── Impl
-│       │   │   ├── mdScrapingLogicServiceImpl.py #ビジネスロジックサービスクラス
-│       │   │   └── mdScrapingTaskServiceImpl.py #バッチ共通タスクサービス基底クラス 
-│       │   ├── mdScrapingLogicService.py #ビジネスロジックサービスインターフェース
-│       │   └── mdScrapingTaskService.py #バッチ共通タスクサービス基底インターフェース
+│       │   │   ├── mdScrapingLogicServiceImpl.py
+│       │   │   └── mdScrapingTaskServiceImpl.py 
+│       │   ├── mdScrapingLogicService.py
+│       │   └── mdScrapingTaskService.py
 │       └── task #タスクコントローラー
 │           ├── base
-│           │   └── mdScrapingTask.py #バッチ共通タスクコントローラー基底クラス
-│           ├── errorFileCreateTask.py #エラーファイル再作成バッチタスクコントローラー
-│           └── newFileCreateTask.py #新規ファイル作成バッチタスクコントローラー
-├── manage.py #オフラインバッチ起動ソース
-├── media #バッチで作成したエクセルファイルの格納場所
+│           │   └── mdScrapingTask.py
+│           ├── errorFileCreateTask.py
+│           └── newFileCreateTask.py
+│
+├── manage.py #オフラインバッチ起動クラス
+│
+├── media #随時バッチで作成したエクセルファイルの格納場所
 │   └── file
-├── meteorologicalDataScrapingApp
+│
+├── meteorologicalDataScrapingApp #オンライン・バッチそれぞれの設定ファイルを管理
 │   ├── asgi.py
-│   ├── job_config.py #随時バッチ設定ファイル
-│   ├── settings.py #オンライン設定ファイル
-│   ├── urls.py #ルーティング設定
+│   ├── job_config.py
+│   ├── settings.py
+│   ├── urls.py
 │   └── wsgi.py
+│
 ├── presentation #ルーティング及びJSONデータのIn/Out処理を行う
+│   │
 │   ├── apps.py
+│   │
 │   ├── enum
 │   │   └── resStatusCode.py #レスポンス時のステータス定義
+│   │
 │   ├── serializer #認証系とビジネス系それぞれのシリアライズ
 │   │   ├── account
 │   │   │   └── account.py
@@ -88,21 +100,31 @@ $ tree
 │   │       ├── fileDownload.py
 │   │       ├── mainBusiness.py
 │   │       └── userInputItem.py
+│   │
 │   ├── url #ルーティング設定
 │   │   ├── account.py
 │   │   └── mdData.py
+│   │
 │   └── view #JSONデータのIn/Out等のメイン処理、View単位のトランザクション管理等を行う
 │       ├── account.py
 │       └── mdData.py
+│
 ├── requirements.txt #プロジェクトで使用しているライブラリのバージョン管理ファイル(本番環境で使用)
+│
 ├── scrapingSystem #スキーマ管理や永続化処理、オフラインバッチコマンドの管理等を行う
+│   │
 │   ├── admin.py #管理画面の設定
+│   │
 │   ├── apps.py
+│   │
 │   ├── management #オフラインバッチ管理フォルダ
 │   │   └── commands
-│   │       └── masterSetting.py #トランとマスタの初期化バッチ
+│   │       └── masterSetting.py
+│   │
 │   ├── migrations #マイグレーション管理フォルダ
+│   │
 │   ├── models.py #DBスキーマ定義ソース
+│   │
 │   └── repositoryImple #認証系、ビジネス系、汎用系それぞれのレポジトリ実装
 │       ├── account
 │       │   └── account_repository.py
@@ -114,7 +136,9 @@ $ tree
 │       └── util
 │           ├── generalCode_repository.py
 │           └── saiban_repository.py
+│
 ├── static #デプロイ時のcollectStatic用ディレクトリ
+│
 └── staticfiles #デプロイ時のcollectStatic用ディレクトリ
 ```
  
