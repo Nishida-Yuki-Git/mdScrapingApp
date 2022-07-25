@@ -27,8 +27,8 @@ class FileDownloadCommunicater():
 
         Returns
         ----------
-        str
-            ファイル格納パス
+        list
+            int変換後バイナリデータ
         """
 
         try:

@@ -11,8 +11,8 @@ class FileDownloadService(metaclass=ABCMeta):
 
         Returns
         ----------
-        str
-            ファイル格納パス
+        list
+            int変換後バイナリデータ
         """
 
         pass

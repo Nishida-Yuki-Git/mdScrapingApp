@@ -158,18 +158,12 @@ def FileDownload(request, result_file_num):
     """
 
     file_download_commu = FileDownloadCommunicater(result_file_num)
-    user_file = file_download_commu.getFile()
-    with open(user_file, "rb") as f:
-        data = f.read()
-
-    byte_in_list = []
-    for i in data:
-        byte_in_list.append(i)
+    user_file_data = file_download_commu.getFile()
 
     user_byte_data = {
         'byte_data_list': None,
     }
-    user_byte_data['byte_data_list'] = byte_in_list
+    user_byte_data['byte_data_list'] = user_file_data
     return Response(user_byte_data)
 
 
