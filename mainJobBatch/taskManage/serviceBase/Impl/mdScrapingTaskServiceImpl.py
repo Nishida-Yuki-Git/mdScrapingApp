@@ -5,6 +5,8 @@ import traceback
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingLogicServiceImpl import MeteorologicaldataScrapingServiceImpl
 from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
+from mainJobBatch.taskManage.serviceBase.mdScrapingMailService import MdScrapingMailService
+from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingMailServiceImpl import MdScrapingMailServiceImpl
 import os
 import stat
 import time
@@ -185,6 +187,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         cur = self.conn.cursor()
         job_non_count = 0
 
+        mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
+
         while True:
             if job_non_count == self.getBatchBreakCount():
                 self.logger.debug("==バッチ処理終了==")
@@ -255,6 +259,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
 
                 self.conn.commit()
+                mail_send_service.mailSender(cur, self.user_id, result_file_num)
             except:
                 self.logger.debug("==GET_EXCEPTION==")
                 traceback.print_exc()
