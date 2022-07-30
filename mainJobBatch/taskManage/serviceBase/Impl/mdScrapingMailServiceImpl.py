@@ -21,7 +21,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
     smtp_password : str
         メールサーバーパスワード
     mail_subject : str
-        メール県名
+        メール件名
     mail_body_text : str
         メール本文
     mail_from_address : str
