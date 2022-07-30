@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 ##Linux環境用
-SECRET_KEY = decryptInstance.decryptMethod('0Pdsa6oikmhhJzR5WcPQCtPtw/EqQRazeDZ1sESUITs83Stwn0KjPRyBxrA0111TXIC1IbQOg9iSF+6QWNiMqaC5w+pyZqDxnDIYdZopxug=')
+SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 DEBUG = False
 DATABASES = {
     'default': {
@@ -40,7 +40,7 @@ DATABASES = {
 ALLOWED_HOSTS = ['*']
 
 ##ローカル環境用
-'''SECRET_KEY = decryptInstance.decryptMethod('0Pdsa6oikmhhJzR5WcPQCtPtw/EqQRazeDZ1sESUITs83Stwn0KjPRyBxrA0111TXIC1IbQOg9iSF+6QWNiMqaC5w+pyZqDxnDIYdZopxug=')
+'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
 DEBUG = True
 ALLOWED_HOSTS = []
 DATABASES = {
