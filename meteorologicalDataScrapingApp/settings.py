@@ -13,39 +13,47 @@ import os
 from pathlib import Path
 import pymysql
 import datetime
-import environ
+from commonUtils.cryptUtils.decrypt import Decrypt
+
+decryptInstance = Decrypt.get_instance()
+
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ##上記のBASE_DIRでデプロイできなかったら、下記のBASEを参照する
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 ##Linux環境用
-env = environ.Env()
-env.read_env(os.path.join(BASE_DIR, '.env'))
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+SECRET_KEY = decryptInstance.decryptMethod('0Pdsa6oikmhhJzR5WcPQCtPtw/EqQRazeDZ1sESUITs83Stwn0KjPRyBxrA0111TXIC1IbQOg9iSF+6QWNiMqaC5w+pyZqDxnDIYdZopxug=')
+DEBUG = False
 DATABASES = {
-    'default': env.db(),
+    'default': {
+        'ENGINE': decryptInstance.decryptMethod('uJ4XUDE2+IZoIDzgQfgAer6QWbNSUdAFiRpE+V7HkO8='),
+        'PASSWORD': decryptInstance.decryptMethod('Y8PzaXzIQ0JQ8nnrk1RrCQ=='),
+        'NAME': decryptInstance.decryptMethod('VOhRpoC6ceWlWpXMHb5Rdg=='),
+        'USER': decryptInstance.decryptMethod('UDjr0GudoYMQ+h1gm5QsfQ=='),
+        'HOST': decryptInstance.decryptMethod('fRAQORH+jxycZpvuPRgouQ=='),
+        'PORT': int(decryptInstance.decryptMethod('0CTDx9fP37x8RH8nVFPyNQ==')),
+    }
 }
 ALLOWED_HOSTS = ['*']
 
 ##ローカル環境用
-'''SECRET_KEY = 'django-insecure-_9&i359!+(8#a-gf&5*s4=5$zk^s43-ytrw@*%slvp-z&^57!q'
+'''SECRET_KEY = decryptInstance.decryptMethod('0Pdsa6oikmhhJzR5WcPQCtPtw/EqQRazeDZ1sESUITs83Stwn0KjPRyBxrA0111TXIC1IbQOg9iSF+6QWNiMqaC5w+pyZqDxnDIYdZopxug=')
 DEBUG = True
-ALLOWED_HOSTS = []'''
-
-##ローカル開発用DB
-'''DATABASES = {
+ALLOWED_HOSTS = []
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'PASSWORD': 'gyudon176',
-        'NAME': 'mdsystemdb',
-        'USER': 'root',
+        'ENGINE': decryptInstance.decryptMethod('uJ4XUDE2+IZoIDzgQfgAer6QWbNSUdAFiRpE+V7HkO8='),
+        'PASSWORD': decryptInstance.decryptMethod('Y8PzaXzIQ0JQ8nnrk1RrCQ=='),
+        'NAME': decryptInstance.decryptMethod('VOhRpoC6ceWlWpXMHb5Rdg=='),
+        'USER': decryptInstance.decryptMethod('kuY/GS/nKi760mPD0BcjVA=='),
         'HOST': '',
         'PORT': '',
     }
 }'''
+
 
 INSTALLED_APPS = [
     'scrapingSystem.apps.ScrapingsystemConfig',
