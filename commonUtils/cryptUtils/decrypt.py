@@ -26,6 +26,9 @@ class Decrypt(CipClassSingleton):
 
     def decryptMethod(self, targetCode):
         ct = b64decode(targetCode)
+        print(targetCode)
+        print(self.key.encode(self.decodeCharset))
+        print(self.iv.encode(self.decodeCharset))
         cipher = AES.new(key=self.key.encode(self.decodeCharset),
                          mode=AES.MODE_CBC,
                          iv=self.iv.encode(self.decodeCharset))
