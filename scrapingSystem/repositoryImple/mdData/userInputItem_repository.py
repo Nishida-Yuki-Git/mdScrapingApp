@@ -3,7 +3,16 @@ from scrapingSystem.models import *
 
 class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
     """ 画面表示ユーザーデータ取得レポジトリインターフェース
+    Attribute
+    ----------
+    target_file_status_const : str
+        ファイル作成済みステータス文字列コンスト
+    kiro_byte_str : str
+        キロバイトコンスト
     """
+    def __init__(self):
+        self.target_file_status_const = '済'
+        self.kiro_byte_str = 'KB'
 
     def getYearManageMTModel(self):
         """
@@ -114,7 +123,25 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         return ProcessResultData
 
     def getProcessResultDataObj(self, user_id):
-        return ProcessResultData.objects.filter(user_id=user_id)
+        """
+        ユーザー処理結果情報管理データ全レコードセット取得
+
+        Returns
+        ----------
+        dict
+            ユーザー処理結果情報管理データ全レコード
+        """
+        process_result_list = ProcessResultData.objects.filter(user_id=user_id)
+        for process_result in process_result_list:
+            if process_result.file_create_status == self.target_file_status_const:
+                user_file_obj = FileManageData.objects.get(
+                    result_file_num = process_result.result_file_num)
+                user_file = user_file_obj.create_file.name
+                with open(user_file, "rb") as f:
+                    xl_byte_data = f.read()
+                kiro_byte_num = '{:.1f}'.format(len(xl_byte_data)/1024)
+                process_result.file_create_status = self.target_file_status_const+'('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
+        return process_result_list
 
 
 

@@ -83,7 +83,7 @@ class Command(BaseCommand):
                             '04']
         general_code_list = ['ファイル作成処理開始前',
                              'ファイル作成処理中',
-                             'ファイル作成済み',
+                             '済',
                              'エラー']
         for (group_key, general_key, general_code) in zip(group_key_list, general_key_list, general_code_list):
             general_code_obj = GeneralCodeMT(
