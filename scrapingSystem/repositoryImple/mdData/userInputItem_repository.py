@@ -139,8 +139,8 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 user_file = user_file_obj.create_file.name
                 with open(user_file, "rb") as f:
                     xl_byte_data = f.read()
-                kiro_byte_num = '{:.1f}'.format(len(xl_byte_data)/1024)
-                process_result.file_create_status = self.target_file_status_const+'('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
+                kiro_byte_num = '{:.1f}'.format(len(xl_byte_data)/1000)
+                process_result.file_create_status = self.target_file_status_const+' ('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
         return process_result_list
 
 
