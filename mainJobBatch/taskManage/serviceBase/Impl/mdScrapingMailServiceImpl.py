@@ -83,14 +83,12 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         msg['Date'] = formatdate()
         msg.attach(MIMEText(self.mail_body_text, 'plain', 'utf-8'))
 
-        # 添付ファイルの設定
         filename = '作成気象データファイル.xlsx'
         with open(tmp_file_path, 'rb') as f:
             mb = MIMEApplication(f.read())
         mb.add_header("Content-Disposition", "attachment", filename=filename)
         msg.attach(mb)
 
-        # 作成したメールを送信
         smtpobj.send_message(msg)
         smtpobj.close()
 
