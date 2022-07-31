@@ -36,7 +36,7 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
             気象データ収集対象年管理マスタ全レコード
         """
 
-        return YearManageMT.objects.all()
+        return YearManageMT.objects.order_by('year_param').reverse().all()
 
     def getMonthManageMTModel(self):
         """
