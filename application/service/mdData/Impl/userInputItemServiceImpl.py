@@ -51,7 +51,9 @@ class UserInputItemGetServiceImpl(UserInputItemGetService):
         """
 
         try:
-            return self.user_input_item_get_repo.getYearManageMTObj()
+            year_list = self.user_input_item_get_repo.getYearManageMTObj()
+            year_list = sorted(year_list, reverse=True)
+            return year_list
         except:
             raise
 
