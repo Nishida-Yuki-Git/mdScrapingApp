@@ -17,9 +17,9 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
     batch_setting : OnlineBatchSetting
         バッチ設定ファイル
     smtp_user : str
-        メールサーバーログインユーザー
+        SMTPサーバーログインユーザー
     smtp_password : str
-        メールサーバーパスワード
+        SMTPサーバーパスワード
     mail_subject : str
         メール件名
     mail_body_text : str
@@ -27,7 +27,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
     mail_from_address : str
         メール送信元アドレス
     smtp_host : str
-        SMTPサーバーホストアドレス「
+        SMTPサーバーホストアドレス
     smtp_port : str
         SMTPサーバーポート番号
     mail_keisiki : str
@@ -81,12 +81,12 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         msg['From'] = self.mail_from_address
         msg['To'] = mail_to_address
         msg['Date'] = formatdate()
-        msg.attach(MIMEText(self.mail_body_text, 'plain', 'utf-8'))
+        msg.attach(MIMEText(self.mail_body_text, self.mail_keisiki, self.mail_charset))
 
         filename = '作成気象データファイル.xlsx'
         with open(tmp_file_path, 'rb') as f:
             mb = MIMEApplication(f.read())
-        mb.add_header("Content-Disposition", "attachment", filename=filename)
+        mb.add_header(self.content_disc, self.attachment, filename=filename)
         msg.attach(mb)
 
         smtpobj.send_message(msg)

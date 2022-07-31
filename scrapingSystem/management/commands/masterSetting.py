@@ -14,8 +14,9 @@ class Command(BaseCommand):
         start_year = 1945
         today = datetime.date.today()
         year_list = []
-        for i in range(start_year, today.year):
+        for i in range(start_year, today.year+1):
             year_list.append(i)
+        year_list = sorted(year_list, reverse=True)
         for year in year_list:
             year_obj = YearManageMT(
                 year_param=year)
