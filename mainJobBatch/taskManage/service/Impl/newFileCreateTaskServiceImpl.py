@@ -24,7 +24,7 @@ class NewFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
         """
 
         super().__init__(user_id)
-        self.batch_break_count = 50
+        self.batch_break_count = 20
         self.new_file_create_dao: NewFileCreateDao = NewFileCreateDaoImple()
 
     def getResultFileNumAndJobNum(self, cur):

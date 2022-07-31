@@ -34,10 +34,18 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         メール形式
     mail_charset : str
         メール送信時文字コード
+    file_dl_url : str
+        ファイルダウンロード用システムURL
+    sys_url : str
+        システムURL
     content_disc : str
         content_discコンスト文字列
     attachment : str
         attachmentコンスト文字列
+    xl_extention_const : str
+        エクセルファイル拡張子コンスト
+    kb_const : str
+        キロバイトコンスト
     """
 
     def __init__(self):
@@ -51,8 +59,12 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         self.smtp_port = self.batch_setting.getSmtpPort()
         self.mail_keisiki = self.batch_setting.getMailKeisiki()
         self.mail_charset = self.batch_setting.getMailCharset()
+        self.file_dl_url = self.batch_setting.getFileDlUrl()
+        self.sys_url = self.batch_setting.getSysUrl()
         self.content_disc = 'Content-Disposition'
         self.attachment = 'attachment'
+        self.xl_extention_const = '.xlsx'
+        self.kb_const = 'KB'
 
     def mailSender(self, cur, user_id, result_file_num):
         """
@@ -71,10 +83,35 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         mail_dao: MailSendDao = MailSendDaoImple()
         mail_to_address = mail_dao.getMailAddress(cur, user_id)
         tmp_file_path = mail_dao.getFilePath(cur, result_file_num)
+        file_gyomu_list = mail_dao.getFileGyomuData(cur, result_file_num)
 
         smtpobj = smtplib.SMTP(self.smtp_host, self.smtp_port)
         smtpobj.starttls()
         smtpobj.login(self.smtp_user, self.smtp_password)
+
+        with open(tmp_file_path, 'rb') as f:
+            tmp_file_byte = f.read()
+        mb = MIMEApplication(tmp_file_byte)
+        filename = result_file_num+self.xl_extention_const
+        mb.add_header(self.content_disc, self.attachment, filename=filename)
+        tmp_file_kb = str('{:.1f}'.format(len(tmp_file_byte)/1000))+self.kb_const
+
+        self.mail_subject = self.mail_subject.format(result_file_num)
+        self.file_dl_url = self.file_dl_url.format(result_file_num)
+        self.mail_body_text = self.mail_body_text.format(
+            user_id,
+            result_file_num,
+            self.file_dl_url,
+            filename,
+            tmp_file_kb,
+            file_gyomu_list["target_start_year"],
+            file_gyomu_list["target_end_year"],
+            file_gyomu_list["target_start_month"],
+            file_gyomu_list["target_end_month"],
+            file_gyomu_list["target_ken"],
+            file_gyomu_list["target_md_item"].replace(',,', ''),
+            self.smtp_user,
+            self.sys_url)
 
         msg = MIMEMultipart()
         msg['Subject'] = self.mail_subject
@@ -82,11 +119,6 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         msg['To'] = mail_to_address
         msg['Date'] = formatdate()
         msg.attach(MIMEText(self.mail_body_text, self.mail_keisiki, self.mail_charset))
-
-        filename = '作成気象データファイル.xlsx'
-        with open(tmp_file_path, 'rb') as f:
-            mb = MIMEApplication(f.read())
-        mb.add_header(self.content_disc, self.attachment, filename=filename)
         msg.attach(mb)
 
         smtpobj.send_message(msg)

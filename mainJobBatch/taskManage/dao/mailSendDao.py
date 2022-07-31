@@ -44,6 +44,26 @@ class MailSendDao(metaclass=ABCMeta):
 
         pass
 
+    @abstractmethod
+    def getFileGyomuData(self, cur, result_file_num):
+        """
+        ファイル業務データを取得
+
+        Parameters
+        ----------
+        cur : MySQLdb.connections.Connection
+            DBカーソル
+        result_file_num : str
+            ファイル番号
+
+        Returns
+        ----------
+        dict
+            ファイル関連業務データ
+        """
+
+        pass
+
 
 
 
