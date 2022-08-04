@@ -131,7 +131,7 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         dict
             ユーザー処理結果情報管理データ全レコード
         """
-        process_result_list = ProcessResultData.objects.filter(user_id=user_id)
+        process_result_list = ProcessResultData.objects.order_by('result_file_num').reverse().filter(user_id=user_id)
         for process_result in process_result_list:
             if process_result.file_create_status == self.target_file_status_const:
                 user_file_obj = FileManageData.objects.get(
