@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from email.header import Header
 
 class MdScrapingMailServiceImpl(MdScrapingMailService):
     """
@@ -46,6 +47,8 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         エクセルファイル拡張子コンスト
     kb_const : str
         キロバイトコンスト
+    mail_sender_name : str
+        メール差出人
     """
 
     def __init__(self):
@@ -65,6 +68,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
         self.attachment = 'attachment'
         self.xl_extention_const = '.xlsx'
         self.kb_const = 'KB'
+        self.mail_sender_name = self.batch_setting.getMailSenderName()
 
     def mailSender(self, cur, user_id, result_file_num):
         """
@@ -115,7 +119,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
 
         msg = MIMEMultipart()
         msg['Subject'] = self.mail_subject
-        msg['From'] = self.mail_from_address
+        msg['From'] = '%s <%s>'%(Header(self.mail_sender_name.encode('iso-2022-jp'),'iso-2022-jp').encode(), self.mail_from_address)
         msg['To'] = mail_to_address
         msg['Date'] = formatdate()
         msg.attach(MIMEText(self.mail_body_text, self.mail_keisiki, self.mail_charset))

@@ -39,6 +39,7 @@ class OnlineBatchSetting():
         self.mail_charset = 'utf-8'
         self.file_dl_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyCHJe/fmyFNGp0W5vuB0MZ')
         self.sys_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyoSlWj/0o5L7w+mVJAFFVO')
+        self.mail_sender_name = '[MD-SYS]気象データ収集システム'
 
     def getHostId(self):
         return self.host_id
@@ -80,3 +81,5 @@ class OnlineBatchSetting():
         return self.file_dl_url
     def getSysUrl(self):
         return self.sys_url
+    def getMailSenderName(self):
+        return self.mail_sender_name
