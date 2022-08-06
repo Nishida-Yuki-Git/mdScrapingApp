@@ -10,6 +10,7 @@ from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingMailServiceImpl import M
 import os
 import stat
 import time
+import datetime
 
 
 class MdScrapingTaskServiceImpl(MdScrapingTaskService):
@@ -267,7 +268,11 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
                 #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
                 with open(self.error_log_path, 'a') as file:
+                    file.write('\n')
+                    file.write('-----------------------------------------------------\n')
+                    file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl')
                     traceback.print_exc(file=file)
+                    file.write('-----------------------------------------------------\n')
                 #os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
 
                 self.conn.rollback()

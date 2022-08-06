@@ -3,6 +3,7 @@ from logging import getLogger
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 import os
 import stat
+import datetime
 
 
 class MdScrapingTaskExecute():
@@ -66,7 +67,11 @@ class MdScrapingTaskExecute():
             os.chdir(os.path.dirname(os.path.abspath(__file__)))
             #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
             with open(self.error_log_path, 'a') as file:
+                file.write('\n')
+                file.write('-----------------------------------------------------\n')
+                file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskExecute')
                 traceback.print_exc(file=file)
+                file.write('-----------------------------------------------------\n')
             #os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
 
             md_scraping_service.updateFileCreateStatus(self.general_group_key, self.error_general_key)
