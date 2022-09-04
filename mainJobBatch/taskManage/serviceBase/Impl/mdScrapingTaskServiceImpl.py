@@ -196,7 +196,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             try:
                 if self.countJob(cur):
                     job_non_count += 1
-                    self.logger.debug("==キュー残数0カウント + " + str(job_non_count) + "==")
+                    self.logger.debug("==キュー残0カウント + " + str(job_non_count) + "==")
 
                     cur.close()
                     self.disConnect()
