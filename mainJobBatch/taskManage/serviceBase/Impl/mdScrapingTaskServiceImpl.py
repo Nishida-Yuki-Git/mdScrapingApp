@@ -311,7 +311,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         pass
 
     def disConnect(self):
-        """ DBコネクションの終了
+        """ DBコネクション終了
         """
 
         self.logger.debug("==SQL_CONN_END==")
