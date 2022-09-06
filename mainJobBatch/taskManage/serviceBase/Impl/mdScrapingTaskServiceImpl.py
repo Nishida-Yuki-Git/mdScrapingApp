@@ -222,7 +222,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 job_param_select_result = self.md_scraping_dao.getJobParamData(cur, job_num)
                 job_start_year = job_param_select_result['job_start_year']
                 job_end_year = job_param_select_result['job_end_year']
-                job_start_month = job_param_select_result['job_start_month']
+                job_start_month = job_param_select_result['job_start_monthデータ']
                 job_end_month = job_param_select_result['job_end_month']
                 job_ken_list = job_param_select_result['job_ken_list']
                 job_md_item_list = job_param_select_result['job_md_item_list']
@@ -266,14 +266,14 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 traceback.print_exc()
 
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-                #os.chmod(path=self.error_log_path, mode=stat.S_IWRITE)
+                ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
                 with open(self.error_log_path, 'a') as file:
                     file.write('\n')
                     file.write('-----------------------------------------------------\n')
                     file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl')
                     traceback.print_exc(file=file)
                     file.write('-----------------------------------------------------\n')
-                #os.chmod(path=self.error_log_path, mode=stat.S_IREAD)
+                ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
 
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)
