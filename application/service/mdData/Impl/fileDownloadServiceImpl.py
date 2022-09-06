@@ -76,10 +76,11 @@ class FileDownloadServiceImpl(FileDownloadService):
 
             self.__twoDevideByteData(0, (self.moto_byte_size-1))
 
-            pool = Pool(processes=self.byte_divide_process_num)
+            partedXlByteListLenCnt = len(self.start_index_list)
+            pool = Pool(processes=partedXlByteListLenCnt)
             pool_result_list = []
             args_list = []
-            for i in range(len(self.start_index_list)):
+            for i in range(partedXlByteListLenCnt):
                 args = (self.xl_byte_data, i, self.start_index_list[i], self.last_index_list[i],)
                 args_list.append(args)
             pool_result_list = pool.map(multiByteParseStringWrapper, args_list)
