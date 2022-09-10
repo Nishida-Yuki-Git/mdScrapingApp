@@ -60,7 +60,7 @@ class ErrorFileCreateDaoImple(ErrorFileCreateDao):
         FROM
           scrapingSystem_jobquedata AS JOB_QUE_DATA
         WHERE
-          JOB_QUE_DATA.user_id = '""" + result_file_num + """'
+          JOB_QUE_DATA.result_file_num = '""" + result_file_num + """'
         ORDER BY JOB_QUE_DATA.job_num ASC""")
 
         try:

@@ -13,6 +13,8 @@ class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
         ファイル番号
     batch_break_count : int
         バッチプロセス終了カウント値
+    batch_process_flag : boolean
+        バッチプロセスフラグ
     error_file_create_dao : ErrorFileCreateDao
         エラーファイル再作成バッチDaoインターフェース
     """
@@ -30,6 +32,7 @@ class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
         super().__init__(user_id)
         self.result_file_num = result_file_num
         self.batch_break_count = 1
+        self.batch_process_flag = False
         self.error_file_create_dao: ErrorFileCreateDao = ErrorFileCreateDaoImple()
 
     def getResultFileNumAndJobNum(self, cur):
@@ -89,7 +92,11 @@ class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
 
         super().countJob(cur)
         try:
-            return self.error_file_create_dao.jadgeQueStock(cur, self.user_id)
+            if self.batch_process_flag:
+                return True
+            else:
+                self.batch_process_flag = True
+                return self.error_file_create_dao.jadgeQueStock(cur, self.result_file_num)
         except:
             raise
 
