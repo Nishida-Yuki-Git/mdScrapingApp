@@ -9,8 +9,6 @@ class FileDownloadServiceImpl(FileDownloadService):
     ----------
     byte_shift_num : int
         バイト配列分割lengthを決定するbitシフト数
-    byte_divide_process_num ; int
-        バイト配列分割プロセス並列処理数
     result_file_num : str
         ファイル番号
     xl_byte_data : list
@@ -40,7 +38,6 @@ class FileDownloadServiceImpl(FileDownloadService):
         """
 
         self.byte_shift_num = 3
-        self.byte_divide_process_num = 8
         self.result_file_num = result_file_num
         self.xl_byte_data = []
         self.moto_byte_size = 0
