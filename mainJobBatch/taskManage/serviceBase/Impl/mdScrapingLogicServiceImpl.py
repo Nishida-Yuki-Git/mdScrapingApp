@@ -360,6 +360,13 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             wb.save(middle_save_path)
 
             self.md_scraping_dao.registFilePath(self.cur, self.file_num, middle_save_path)
+
+            self.temp_output_list.clear()
+            self.rh_output_list.clear()
+            self.ab_hu_output_list.clear()
+            self.temp_list.clear()
+            self.rh_list.clear()
+            self.ab_hu_list.clear()
         except:
             raise
 
