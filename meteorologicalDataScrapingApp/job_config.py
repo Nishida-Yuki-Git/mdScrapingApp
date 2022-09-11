@@ -2,8 +2,15 @@ import os
 from pathlib import Path
 from commonUtils.cryptUtils.decrypt import Decrypt
 
+class OnlineBatchSettingClassSingleton(object):
+    @classmethod
+    def get_instance(cls):
+        if not hasattr(cls, "_instance"):
+            cls._instance = cls()
+        return cls._instance
+
 ##バッチ基盤用設定クラス
-class OnlineBatchSetting():
+class OnlineBatchSetting(OnlineBatchSettingClassSingleton):
     def __init__(self):
         self.decryptInstance = Decrypt.get_instance()
 
