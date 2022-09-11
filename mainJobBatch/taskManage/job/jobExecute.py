@@ -35,7 +35,7 @@ class JobExecuter():
             バッチ区分列挙型
         """
 
-        self.batch_setting = OnlineBatchSetting()
+        self.batch_setting = OnlineBatchSetting.get_instance()
         self.batch_exe_param_json = batch_exe_param_json
         self.exe_batch_type = exe_batch_type
         self.logger = self.__setLogger()
