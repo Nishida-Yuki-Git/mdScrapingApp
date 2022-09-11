@@ -4,6 +4,8 @@ from logging import getLogger
 import traceback
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingLogicServiceImpl import MeteorologicaldataScrapingServiceImpl
+from mainJobBatch.taskManage.serviceBase.mdScrapingXlWriteService import MdScrapingXlWriteService
+from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingXlWriteServiceImpl import MdScrapingXlWriteServiceImpl
 from mainJobBatch.taskManage.serviceBase.mdScrapingTaskService import MdScrapingTaskService
 from mainJobBatch.taskManage.serviceBase.mdScrapingMailService import MdScrapingMailService
 from mainJobBatch.taskManage.serviceBase.Impl.mdScrapingMailServiceImpl import MdScrapingMailServiceImpl
@@ -235,24 +237,35 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
                 md_url_list = self.md_scraping_dao.getJMAgencyURL(cur)
 
-                md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
+                md_scrap_xl_write_service: MdScrapingXlWriteService = MdScrapingXlWriteServiceImpl(
                     cur,
                     result_file_num,
                     self.md_scraping_dao,
-                    int(job_start_year),
-                    int(job_end_year),
-                    int(job_start_month),
-                    int(job_end_month),
+                    job_start_year,
+                    job_start_month,
+                    job_md_item_list,
                     job_ken_list,
-                    ken_no_list,
-                    ken_block_list,
-                    md_url_list,
-                    job_md_item_list)
-                while True:
-                    endSign = md_scraping_logic_service.mainSoup()
-                    if endSign == '終了':
-                        break
-                md_scraping_logic_service.MDOutput()
+                    job_end_month,
+                    job_end_year)
+                for target_year in range(int(job_start_year), int(job_end_year)+1):
+                    md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
+                        int(target_year),
+                        int(target_year),
+                        int(job_start_month),
+                        int(job_end_month),
+                        job_ken_list,
+                        ken_no_list,
+                        ken_block_list,
+                        md_url_list,
+                        job_md_item_list)
+                    while True:
+                        endSign = md_scraping_logic_service.mainSoup()
+                        if endSign == '終了':
+                            break
+                    md_scrap_xl_write_service.xlMiddleCommit(
+                        md_scraping_logic_service.MDOutput())
+                    del md_scraping_logic_service
+                del md_scrap_xl_write_service
 
                 mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
                 mail_send_service.mailSender(cur, self.user_id, result_file_num)
@@ -266,14 +279,14 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 traceback.print_exc()
 
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
+                os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
                 with open(self.error_log_path, 'a') as file:
                     file.write('\n')
                     file.write('-----------------------------------------------------\n')
                     file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl')
                     traceback.print_exc(file=file)
                     file.write('-----------------------------------------------------\n')
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
+                os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
 
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)

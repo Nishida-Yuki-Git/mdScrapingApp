@@ -1,26 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-import openpyxl
 import calendar
-from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
-import os
 from logging import getLogger
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 
 
 class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
     """
-    気象データ収集&ファイル作成ビジネスサービスクラス
+    気象データ収集ビジネスサービス基底クラス
 
     Attributes
     ----------
-    cur : MySQLdb.connections.Connection
-        DBカーソル
-    file_num : str
-        ファイル番号
-    md_scraping_dao : MdScrapingDao
-        気象データ収集バッチDaoインターフェース
     start_year_init : str
         気象データ収集開始年(初期値)
     start_year : str
@@ -33,8 +24,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         気象データ収集開始月
     end_month : str
         気象データ収集終了月
-    day_num_list : list
-        月ごとの日数リスト
     Ken_count : int
         県名リストインデックス
     ken_name_list : list
@@ -73,16 +62,10 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         ログ出力オブジェクト
     """
 
-    def __init__(self, cur, file_num, md_scraping_dao, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list):
+    def __init__(self, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list):
         """
         Parameters
         ----------
-        cur : MySQLdb.connections.Connection
-            DBカーソル
-        file_num : list
-            ファイル番号
-        md_scraping_dao : MdScrapingDao
-            気象データ収集バッチDaoインターフェース
         start_year : str
             気象データ収集開始年
         end_year : str
@@ -103,17 +86,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             画面上で選択された抽出対象気象データ項目リスト
         """
 
-        self.cur = cur
-        self.file_num = file_num
-        self.md_scraping_dao = md_scraping_dao
-
         self.start_year_init = start_year
         self.start_year = start_year
         self.end_year = end_year
         self.start_month_init = start_month
         self.start_month = start_month
         self.end_month = end_month
-        self.day_num_list = []
         self.Ken_count = 0
 
         self.ken_name_list = ken_name_list
@@ -137,7 +115,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.user_select_md_item_list = md_item_list
 
         self.end = None
-        self.batch_setting = OnlineBatchSetting()
         self.logger = getLogger("OnlineBatchLog").getChild("logicService")
 
     def mainSoup(self):
@@ -158,7 +135,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
 
         try:
             self.__logBackPrint()
-            self.__DateNumCount()
             self.__MdUrlCreate()
             self.__HtmlParser()
             self.__TempDataScraping()
@@ -177,14 +153,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
 
         self.logger.debug('県：'+self.ken_name_list[self.Ken_count]+' 年：'+str(self.start_year)+' 月：'+str(self.start_month))
 
-    def __DateNumCount(self):
-        """ 対象の年・月の1ヶ月の日数を解析してフィールドに退避
-        """
-
-        self.day_num_list.append(calendar.monthrange(self.start_year, self.start_month)[1])
-
     def MDOutput(self):
-        """ 気象データ収集後のファイル作成処理
+        """ ファイル作成用データの返却
         """
 
         try:
@@ -198,7 +168,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     output.append(self.ab_hu_output_list)
                 else:
                     pass
-            self.__createXl(output)
+            return output
         except:
             raise
 
@@ -334,104 +304,3 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.start_month = self.start_month_init
         else:
             pass
-
-    def __createXl(self, output):
-        """
-        エクセルファイル作成及びプロジェクトフォルダへのファイルオブジェクトの格納
-
-        Parameters
-        ----------
-        output : list
-            書き込みデータリスト
-        """
-
-        try:
-            wb = openpyxl.Workbook()
-            sheet = wb.active
-            sheet.title = 'sheet1'
-
-            self.__xlWriting(output, sheet)
-
-            change_cr_dir = self.batch_setting.getMediaRoot()
-            os.chdir(change_cr_dir)
-            file_path = self.batch_setting.getFileSaveDir()
-            file_name = self.file_num + '.xlsx'
-            middle_save_path = change_cr_dir + file_path + file_name
-            wb.save(middle_save_path)
-
-            self.md_scraping_dao.registFilePath(self.cur, self.file_num, middle_save_path)
-
-            self.temp_output_list.clear()
-            self.rh_output_list.clear()
-            self.ab_hu_output_list.clear()
-            self.temp_list.clear()
-            self.rh_list.clear()
-            self.ab_hu_list.clear()
-        except:
-            raise
-
-    def __xlWriting(self, output, sheet):
-        """
-        気象データ書き込み処理
-
-        Parameters
-        ----------
-        output : list
-            書き込みデータリスト
-        sheet : list
-            アクティブシート
-        """
-
-        output_data_list = [list(x) for x in zip(*output)]
-
-        xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
-        data_write_column_list = []
-        for i in range(len(self.user_select_md_item_list)):
-            data_write_column_list.append(xl_column_alphabet_list[i])
-
-        init_count = 0
-        xl_count = 1
-        ken_init_count = 0
-        ken_list_index = 0
-        year_init_count = 0
-        write_year = int(self.start_year_init)
-        write_month = int(self.start_month_init)
-        write_day = 1
-        for output_data in output_data_list:
-            init_count += 1
-            ken_init_count += 1
-            xl_count += 1
-            year_init_count += 1
-
-            if init_count == 1:
-                for (data_write_column, md_item_name) in zip(data_write_column_list, self.user_select_md_item_list):
-                    sheet[data_write_column + "1"] = md_item_name
-
-            if ken_init_count == 1:
-                sheet['A' + str(xl_count)] = self.ken_name_list[ken_list_index]
-
-            if year_init_count == 1:
-                sheet['B' + str(xl_count)] = str(write_year)+'年'
-
-            sheet['C' + str(xl_count)] = str(write_month)+'月'+str(write_day)+'日'
-            write_day += 1
-            if write_day == (int(calendar.monthrange(write_year, write_month)[1]) + 1):
-                write_day = 1
-                write_month += 1
-                if write_month == (int(self.end_month) + 1):
-                    write_month = int(self.start_month_init)
-                    year_init_count = 0
-                    write_year += 1
-                    if write_year == (int(self.end_year) + 1):
-                        write_year = int(self.start_year_init)
-                        ken_init_count = 0
-                        ken_list_index += 1
-
-            for i in range(len(data_write_column_list)):
-                sheet[data_write_column_list[i] + str(xl_count)] = output_data[i]
-
-
-
-
-
-
