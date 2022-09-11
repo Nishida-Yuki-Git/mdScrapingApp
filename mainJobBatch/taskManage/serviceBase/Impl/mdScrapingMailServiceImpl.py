@@ -54,7 +54,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
     """
 
     def __init__(self):
-        self.batch_setting = OnlineBatchSetting()
+        self.batch_setting = OnlineBatchSetting.get_instance()
         self.smtp_user = self.batch_setting.getSmtpUser()
         self.smtp_password = self.batch_setting.getSmtpPassword()
         self.mail_subject = self.batch_setting.getMailSubject()
