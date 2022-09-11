@@ -1,5 +1,4 @@
 from application.service.mdData.fileDownloadService import FileDownloadService
-from application.service.mdData.fileDownloadService import FileDownloadService
 from application.service.mdData.Impl.fileDownloadServiceImpl import FileDownloadServiceImpl
 
 class FileDownloadCommunicater():
@@ -33,7 +32,13 @@ class FileDownloadCommunicater():
 
         try:
             file_download_service : FileDownloadService = FileDownloadServiceImpl(self.result_file_num)
-            return file_download_service.mainLogic()
+            ret_byte_data = file_download_service.mainLogic()
+            file_download_service.xl_byte_data = None
+            file_download_service.tree_list = None
+            file_download_service.process_index_que = None
+            file_download_service.start_index_list = None
+            file_download_service.last_index_list = None
+            return ret_byte_data
         except:
             raise
 
