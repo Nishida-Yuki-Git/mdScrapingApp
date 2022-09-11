@@ -1,6 +1,5 @@
 import traceback
 from logging import getLogger
-from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 import os
 import stat
 import datetime
