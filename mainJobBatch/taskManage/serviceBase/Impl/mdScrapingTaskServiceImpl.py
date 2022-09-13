@@ -39,6 +39,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         ログ出力オブジェクト
     error_log_path : str
         デバッグトレース内容出力用ファイルパス
+    logic_middle_commit_year_num : int
+        サービスロジック中間コミット年数
     """
 
     def __init__(self, user_id):
@@ -58,6 +60,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.error_general_key = '04'
         self.logger = getLogger("OnlineBatchLog").getChild("taskService")
         self.error_log_path = '../../../../error_log.txt'
+        self.logic_middle_commit_year_num = 5
 
     def taskManageRegister(self, task_id):
         """
@@ -247,25 +250,48 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                     job_ken_list,
                     job_end_month,
                     job_end_year)
-                for target_year in range(int(job_start_year), int(job_end_year)+1):
-                    md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
-                        int(target_year),
-                        int(target_year),
-                        int(job_start_month),
-                        int(job_end_month),
-                        job_ken_list,
-                        ken_no_list,
-                        ken_block_list,
-                        md_url_list,
-                        job_md_item_list)
-                    while True:
-                        endSign = md_scraping_logic_service.mainSoup()
-                        if endSign == '終了':
-                            break
-                    md_scrap_xl_write_service.xlMiddleCommit(
-                        md_scraping_logic_service.MDOutput())
-                    del md_scraping_logic_service
-                del md_scrap_xl_write_service
+                now_year_num = 0
+                now_year_num += int(job_start_year)
+                while now_year_num<int(job_end_year):
+                    if (now_year_num+self.logic_middle_commit_year_num)>=int(job_end_year):
+                        break
+                    else:
+                        now_year_end_num = now_year_num+self.logic_middle_commit_year_num
+                        md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
+                            now_year_num,
+                            now_year_end_num,
+                            int(job_start_month),
+                            int(job_end_month),
+                            job_ken_list,
+                            ken_no_list,
+                            ken_block_list,
+                            md_url_list,
+                            job_md_item_list)
+                        while True:
+                            endSign = md_scraping_logic_service.mainSoup()
+                            if endSign == '終了':
+                                break
+                        md_scrap_xl_write_service.xlMiddleCommit(
+                            md_scraping_logic_service.MDOutput())
+                        del md_scraping_logic_service
+                        now_year_num+=(self.logic_middle_commit_year_num+1)
+                md_scraping_logic_service: MeteorologicaldataScrapingService = MeteorologicaldataScrapingServiceImpl(
+                    now_year_num,
+                    int(job_end_year),
+                    int(job_start_month),
+                    int(job_end_month),
+                    job_ken_list,
+                    ken_no_list,
+                    ken_block_list,
+                    md_url_list,
+                    job_md_item_list)
+                while True:
+                    endSign = md_scraping_logic_service.mainSoup()
+                    if endSign == '終了':
+                        break
+                md_scrap_xl_write_service.xlMiddleCommit(
+                    md_scraping_logic_service.MDOutput())
+                del md_scraping_logic_service,md_scrap_xl_write_service
 
                 mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
                 mail_send_service.mailSender(cur, self.user_id, result_file_num)
@@ -279,14 +305,14 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 traceback.print_exc()
 
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-                os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
+                ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
                 with open(self.error_log_path, 'a') as file:
                     file.write('\n')
                     file.write('-----------------------------------------------------\n')
                     file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl')
                     traceback.print_exc(file=file)
                     file.write('-----------------------------------------------------\n')
-                os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
+                ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
 
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)
