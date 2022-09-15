@@ -305,14 +305,14 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 traceback.print_exc()
 
                 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
+                os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
                 with open(self.error_log_path, 'a') as file:
                     file.write('\n')
                     file.write('-----------------------------------------------------\n')
                     file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl')
                     traceback.print_exc(file=file)
                     file.write('-----------------------------------------------------\n')
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
+                os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
 
                 self.conn.rollback()
                 self.updateFileCreateStatus(self.general_group_key, self.error_general_key)
