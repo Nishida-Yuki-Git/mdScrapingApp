@@ -227,7 +227,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 job_param_select_result = self.md_scraping_dao.getJobParamData(cur, job_num)
                 job_start_year = job_param_select_result['job_start_year']
                 job_end_year = job_param_select_result['job_end_year']
-                job_start_month = job_param_select_result['job_start_monthこんにちは']
+                job_start_month = job_param_select_result['job_start_month']
                 job_end_month = job_param_select_result['job_end_month']
                 job_ken_list = job_param_select_result['job_ken_list']
                 job_md_item_list = job_param_select_result['job_md_item_list']
