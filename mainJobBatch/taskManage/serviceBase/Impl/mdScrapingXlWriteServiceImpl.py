@@ -3,6 +3,8 @@ import os
 import calendar
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
 from mainJobBatch.taskManage.serviceBase.mdScrapingXlWriteService import MdScrapingXlWriteService
+from mainJobBatch.taskManage.exception.mdException import MdQueBizException
+from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 
 class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
     """
@@ -98,7 +100,17 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
 
         self.sheet.title = 'sheet1'
         self.wb.save(self.middle_save_path)
-        md_scraping_dao.registFilePath(cur, result_file_num, self.middle_save_path)
+
+        try:
+            md_scraping_dao.registFilePath(cur, result_file_num, self.middle_save_path)
+        except MdQueBizException as ex:
+            os.remove(self.middle_save_path)
+            raise
+        except Exception as ex:
+            os.remove(self.middle_save_path)
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
 
     def xlMiddleCommit(self, output_data):
@@ -111,50 +123,63 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
             書き込み気象データ
         """
 
-        self.wb = openpyxl.load_workbook(self.middle_save_path)
-        self.sheet = self.wb['sheet1']
+        try:
+
+            self.wb = openpyxl.load_workbook(self.middle_save_path)
+            self.sheet = self.wb['sheet1']
 
 
-        output_data_list = [list(x) for x in zip(*output_data)]
+            output_data_list = [list(x) for x in zip(*output_data)]
 
-        xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
-        data_write_column_list = []
-        for i in range(len(output_data_list[0])):
-            data_write_column_list.append(xl_column_alphabet_list[i])
+            xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
+            data_write_column_list = []
+            for i in range(len(output_data_list[0])):
+                data_write_column_list.append(xl_column_alphabet_list[i])
 
-        for output_data in output_data_list:
-            self.init_count += 1
-            self.ken_init_count += 1
-            self.xl_count += 1
-            self.year_init_count += 1
+            for output_data in output_data_list:
+                self.init_count += 1
+                self.ken_init_count += 1
+                self.xl_count += 1
+                self.year_init_count += 1
 
-            if self.init_count == 1:
-                for (data_write_column, md_item_name) in zip(data_write_column_list, self.user_select_md_item_list):
-                    self.sheet[data_write_column + "1"] = md_item_name
+                if self.init_count == 1:
+                    for (data_write_column, md_item_name) in zip(data_write_column_list, self.user_select_md_item_list):
+                        self.sheet[data_write_column + "1"] = md_item_name
 
-            if self.ken_init_count == 1:
-                self.sheet['A' + str(self.xl_count)] = self.ken_name_list[self.ken_list_index]
+                if self.ken_init_count == 1:
+                    self.sheet['A' + str(self.xl_count)] = self.ken_name_list[self.ken_list_index]
 
-            if self.year_init_count == 1:
-                self.sheet['B' + str(self.xl_count)] = str(self.write_year)+'年'
+                if self.year_init_count == 1:
+                    self.sheet['B' + str(self.xl_count)] = str(self.write_year)+'年'
 
-            self.sheet['C' + str(self.xl_count)] = str(self.write_month)+'月'+str(self.write_day)+'日'
-            self.write_day += 1
-            if self.write_day == (int(calendar.monthrange(self.write_year, self.write_month)[1]) + 1):
-                self.write_day = 1
-                self.write_month += 1
-                if self.write_month == (int(self.end_month) + 1):
-                    self.write_month = int(self.start_month_init)
-                    self.year_init_count = 0
-                    self.write_year += 1
-                    if self.write_year == (int(self.end_year) + 1):
-                        self.write_year = int(self.start_year_init)
-                        self.ken_init_count = 0
-                        self.ken_list_index += 1
+                self.sheet['C' + str(self.xl_count)] = str(self.write_month)+'月'+str(self.write_day)+'日'
+                self.write_day += 1
+                if self.write_day == (int(calendar.monthrange(self.write_year, self.write_month)[1]) + 1):
+                    self.write_day = 1
+                    self.write_month += 1
+                    if self.write_month == (int(self.end_month) + 1):
+                        self.write_month = int(self.start_month_init)
+                        self.year_init_count = 0
+                        self.write_year += 1
+                        if self.write_year == (int(self.end_year) + 1):
+                            self.write_year = int(self.start_year_init)
+                            self.ken_init_count = 0
+                            self.ken_list_index += 1
 
-            for i in range(len(data_write_column_list)):
-                self.sheet[data_write_column_list[i] + str(self.xl_count)] = output_data[i]
+                for i in range(len(data_write_column_list)):
+                    self.sheet[data_write_column_list[i] + str(self.xl_count)] = output_data[i]
 
 
-        self.wb.save(self.middle_save_path)
-        output_data.clear()
+            self.wb.save(self.middle_save_path)
+            output_data.clear()
+
+        except MdQueBizException as ex:
+            os.chdir(self.batch_setting.getMediaRoot())
+            os.remove(self.middle_save_path)
+            raise
+        except Exception as ex:
+            os.chdir(self.batch_setting.getMediaRoot())
+            os.remove(self.middle_save_path)
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex

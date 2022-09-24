@@ -3,7 +3,7 @@ from logging import getLogger
 import os
 import stat
 import datetime
-
+from mainJobBatch.taskManage.exception.mdException import MdBatchSystemException
 
 class MdScrapingTaskExecute():
     """
@@ -59,23 +59,26 @@ class MdScrapingTaskExecute():
                 self.logger.debug("==USER_IS_ACTIVE_NO==")
                 pass
             md_scraping_service.disConnect()
-        except:
+        except Exception as ex:
+            md_scraping_service.updateFileCreateStatus(self.general_group_key, self.error_general_key)
+            self.userStatusUpdateRest(md_scraping_service)
+
             self.logger.debug("==GET_EXCEPTION==")
-            traceback.print_exc()
+            self.logger.debug(ex.getMessage())
+            self.logger.debug(ex.getTrace())
+
+            md_scraping_service.disConnect()
 
             os.chdir(os.path.dirname(os.path.abspath(__file__)))
             ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
             with open(self.error_log_path, 'a') as file:
                 file.write('\n')
                 file.write('-----------------------------------------------------\n')
-                file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskExecute')
-                traceback.print_exc(file=file)
+                file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskExecute'+'\n')
+                file.write(ex.getMessage()+'\n')
+                file.write(ex.getTrace()+'\n')
                 file.write('-----------------------------------------------------\n')
             ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
-
-            md_scraping_service.updateFileCreateStatus(self.general_group_key, self.error_general_key)
-            self.userStatusUpdateRest(md_scraping_service)
-            md_scraping_service.disConnect()
 
     def setNewService(self):
         """

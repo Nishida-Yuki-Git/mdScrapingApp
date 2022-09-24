@@ -1,6 +1,9 @@
 from mainJobBatch.taskManage.dao.mdScrapingDao import MdScrapingDao
 import mysql.connector as mydb
 from meteorologicalDataScrapingApp.job_config import OnlineBatchSetting
+from mainJobBatch.taskManage.exception.mdException import MdBatchSystemException
+from mainJobBatch.taskManage.exception.mdException import MdQueBizException
+from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 
 class MdScrapingDaoImple(MdScrapingDao):
     """
@@ -16,11 +19,17 @@ class MdScrapingDaoImple(MdScrapingDao):
 
     def __init__(self):
         self.batch_setting = OnlineBatchSetting()
-        self.conn = mydb.connect(host=self.batch_setting.getHostId(),
-                    port=self.batch_setting.getPortNum(),
-                    user=self.batch_setting.getDbUser(),
-                    password=self.batch_setting.getDbPassWord(),
-                    database=self.batch_setting.getDatabaseName())
+        self.conn = None
+        try:
+            self.conn = mydb.connect(host=self.batch_setting.getHostId(),
+                        port=self.batch_setting.getPortNum(),
+                        user=self.batch_setting.getDbUser(),
+                        password=self.batch_setting.getDbPassWord(),
+                        database=self.batch_setting.getDatabaseName())
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def getConnection(self):
         """
@@ -63,8 +72,10 @@ class MdScrapingDaoImple(MdScrapingDao):
                 cur.execute(insert_sql_id, (task_id, user_id, '0'))
             else:
                 pass
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def getUserProcessFlag(self, cur, task_id, user_id):
         """
@@ -96,8 +107,10 @@ class MdScrapingDaoImple(MdScrapingDao):
             result_str = result[0]
 
             return result_str
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def updateUserProcessFlag(self, cur, task_id, user_id, user_process_status):
         """
@@ -127,8 +140,10 @@ class MdScrapingDaoImple(MdScrapingDao):
         try:
             cur.execute(delete_task_manage_record)
             cur.execute(insert_task_manage_record, (task_id, user_id, user_process_status))
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def getJobParamData(self, cur, job_num):
         """
@@ -198,8 +213,10 @@ class MdScrapingDaoImple(MdScrapingDao):
                 "job_md_item_list": job_md_item_list,
             }
             return job_param_result
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def getKenUrlParam(self, cur, ken_list):
         """
@@ -242,8 +259,10 @@ class MdScrapingDaoImple(MdScrapingDao):
                 "ken_block_list": ken_block_list,
             }
             return result_ken_param_list
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def getJMAgencyURL(self, cur):
         """
@@ -278,8 +297,10 @@ class MdScrapingDaoImple(MdScrapingDao):
                 md_url_list.append(row[0])
 
             return md_url_list
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def updateFileCreateStatus(self, cur, result_file_num, general_group_key, general_key):
         """
@@ -321,8 +342,10 @@ class MdScrapingDaoImple(MdScrapingDao):
             """)
             cur.execute(update_file_create_status_sql)
 
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def deleteUserJobData(self, cur, job_num):
         """
@@ -350,8 +373,10 @@ class MdScrapingDaoImple(MdScrapingDao):
             cur.execute(delete_job_que_data)
             cur.execute(delete_job_param_data)
             cur.execute(delete_job_param_detail_data)
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def registFilePath(self, cur, result_file_num, save_path):
         """
@@ -378,8 +403,10 @@ class MdScrapingDaoImple(MdScrapingDao):
 
         try:
             cur.execute(regist_create_file)
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
 
 

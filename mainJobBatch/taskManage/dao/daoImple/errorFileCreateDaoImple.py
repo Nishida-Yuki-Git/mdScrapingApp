@@ -1,4 +1,7 @@
 from mainJobBatch.taskManage.dao.errorFileCreateDao import ErrorFileCreateDao
+from mainJobBatch.taskManage.exception.mdException import MdException
+from mainJobBatch.taskManage.exception.mdException import MdBatchSystemException
+from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 
 class ErrorFileCreateDaoImple(ErrorFileCreateDao):
     """ エラーファイル再作成バッチ個別Daoインターフェース
@@ -34,8 +37,10 @@ class ErrorFileCreateDaoImple(ErrorFileCreateDao):
             cur.execute(select_user_job_num)
             rows = cur.fetchall()
             return rows[0][0]
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '0')
+            raise ex
 
     def jadgeQueStock(self, cur, result_file_num):
         """
@@ -70,5 +75,7 @@ class ErrorFileCreateDaoImple(ErrorFileCreateDao):
                 return True
             else:
                 return False
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex

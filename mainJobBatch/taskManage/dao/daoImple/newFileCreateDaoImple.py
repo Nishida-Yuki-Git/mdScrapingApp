@@ -1,4 +1,7 @@
 from mainJobBatch.taskManage.dao.newFileCreateDao import NewFileCreateDao
+from mainJobBatch.taskManage.exception.mdException import MdBatchSystemException
+from mainJobBatch.taskManage.exception.mdException import MdException
+from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 
 class NewFileCreateDaoImple(NewFileCreateDao):
     """ 新規ファイル作成バッチDaoインターフェース
@@ -40,8 +43,10 @@ class NewFileCreateDaoImple(NewFileCreateDao):
                 return True
             else:
                 return False
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '1')
+            raise ex
 
     def getJobQueData(self, cur, user_id):
         """
@@ -88,5 +93,7 @@ class NewFileCreateDaoImple(NewFileCreateDao):
                 "result_file_num_list": result_file_num_list,
             }
             return result_list
-        except:
-            raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '0')
+            raise ex

@@ -1,4 +1,5 @@
 from mainJobBatch.taskManage.dao.mailSendDao import MailSendDao
+from mainJobBatch.taskManage.exception.mdException import MdException
 
 class MailSendDaoImple(MailSendDao):
     """ メール送信個別Dao実装

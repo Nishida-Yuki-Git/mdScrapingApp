@@ -4,6 +4,8 @@ import re
 import calendar
 from logging import getLogger
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
+from mainJobBatch.taskManage.exception.mdException import MdQueBizException
+from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 
 
 class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
@@ -144,8 +146,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__YearMonthMethod()
 
             return self.end
-        except:
+        except MdQueBizException as ex:
             raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def __logBackPrint(self):
         """ スクレイピング中の県、年、月、のログを出力
@@ -169,8 +175,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 else:
                     pass
             return output
-        except:
+        except MdQueBizException as ex:
             raise
+        except Exception as ex:
+            ex_util = ExceptionUtils.get_instance()
+            ex = ex_util.commonHandling(ex, '2')
+            raise ex
 
     def __MdUrlCreate(self):
         """ 気象庁URLの組み立て処理
