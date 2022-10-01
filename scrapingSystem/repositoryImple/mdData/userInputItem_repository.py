@@ -1,6 +1,7 @@
 from application.repository.mdData.userInputItem_repository import UserInputItemGetRepository
 from scrapingSystem.models import *
 import os
+from pathlib import Path
 
 class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
     """ 画面表示ユーザーデータ取得レポジトリインターフェース
@@ -155,20 +156,27 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         """
         process_result_list = ProcessResultData.objects.order_by('result_file_num').reverse().filter(user_id=user_id)
 
+        change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent, 'media')
+        os.chdir(change_cr_dir)
+
         for process_result in process_result_list:
             file_status = process_result.file_create_status
             result_file_num = process_result.result_file_num
-            user_file_obj = FileManageData.objects.get(
-                result_file_num = result_file_num)
-            user_file = user_file_obj.create_file.name
+
+            middle_save_path = change_cr_dir + '/file/' + result_file_num + '.xlsx'
 
             if file_status == self.target_file_status_const_end:
-                kiro_byte_num = '{:.1f}'.format(os.path.getsize(user_file)/1000)
+                kiro_byte_num = '{:.1f}'.format(os.path.getsize(middle_save_path)/1000)
                 process_result.file_create_status = self.target_file_status_const_end+' ('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
             elif file_status == self.target_file_status_const_process:
                 now_file_size = 0
+                change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent, 'media')
+                os.chdir(change_cr_dir)
+                file_path = '/file/'
+                file_name = result_file_num + '.xlsx'
+                middle_save_path = change_cr_dir + file_path + file_name
                 try:
-                    now_file_size = os.path.getsize(user_file)
+                    now_file_size = os.path.getsize(middle_save_path)
                 except FileNotFoundError:
                     continue
 
