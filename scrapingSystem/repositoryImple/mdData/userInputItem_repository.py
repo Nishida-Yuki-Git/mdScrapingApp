@@ -17,14 +17,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         パーセントコンスト
     sintyokuritsu_str : str
         「進捗率」コンスト
-    init_file_size : int
-        初期エクセルファイルサイズ(中身なしの状態)
-    md_one_item_byte : int
-        気象データ１項目時の1回のデータ取得バイト数
-    md_two_item_byte : int
-        気象データ2項目時の1回のデータ取得バイト数
-    md_three_item_byte : int
-        気象データ3項目時の1回のデータ取得バイト数
     """
     def __init__(self):
         self.target_file_status_const_process = '作成中'
@@ -32,10 +24,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         self.kiro_byte_str = 'KB'
         self.rate_str = '%'
         self.sintyokuritsu_str = '進捗率'
-        self.init_file_size = 8058
-        self.md_one_item_byte = 2463
-        self.md_two_item_byte = 3160
-        self.md_three_item_byte = 5152
 
     def getYearManageMTModel(self):
         """
