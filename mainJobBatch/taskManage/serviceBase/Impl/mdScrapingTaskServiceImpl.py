@@ -419,7 +419,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.conn.close()
 
     def __deleteProgress(self, field_file_num):
-        """ 進捗ファイル削除
+        """
+        進捗ファイル削除
 
         Parameters
         ----------
