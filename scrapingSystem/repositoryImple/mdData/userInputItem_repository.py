@@ -200,5 +200,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                     continue
                 process_result.file_create_status = self.target_file_status_const_process+' ('+self.sintyokuritsu_str+str(
                     '{:.0f}'.format((now_byte/about_last_size)*100))+self.rate_str+')'
+                print('{:.0f}'.format((now_byte/about_last_size)*100))
 
         return process_result_list
