@@ -156,7 +156,7 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         """
         process_result_list = ProcessResultData.objects.order_by('result_file_num').reverse().filter(user_id=user_id)
 
-        change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent, 'media')
+        change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')
         os.chdir(change_cr_dir)
 
         for process_result in process_result_list:
