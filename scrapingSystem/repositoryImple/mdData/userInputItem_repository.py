@@ -170,11 +170,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 process_result.file_create_status = self.target_file_status_const_end+' ('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
             elif file_status == self.target_file_status_const_process:
                 now_file_size = 0
-                change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent, 'media')
-                os.chdir(change_cr_dir)
-                file_path = '/file/'
-                file_name = result_file_num + '.xlsx'
-                middle_save_path = change_cr_dir + file_path + file_name
                 try:
                     now_file_size = os.path.getsize(middle_save_path)
                 except FileNotFoundError:
@@ -184,7 +179,7 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 ken_item_count = len(process_result_detail_list)
                 md_item_count = 0
                 for process_result_detail in process_result_detail_list:
-                    if process_result_detail.target_md_item != ('' or None):
+                    if (process_result_detail.target_md_item != '') or (process_result_detail.target_md_item != None):
                         md_item_count += 1
                     if md_item_count==3:
                         break
@@ -205,6 +200,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 else:
                     continue
                 process_result.file_create_status = self.target_file_status_const_process+' ('+self.sintyokuritsu_str+str(
-                    (now_byte/about_last_size)*100)+self.rate_str+')'
+                    '{:.0f}'.format((now_byte/about_last_size)*100))+self.rate_str+')'
 
         return process_result_list
