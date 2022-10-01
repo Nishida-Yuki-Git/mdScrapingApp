@@ -17,6 +17,7 @@ import os
 import stat
 import time
 import datetime
+from pathlib import Path
 
 
 class MdScrapingTaskServiceImpl(MdScrapingTaskService):
@@ -49,6 +50,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         呼び刺しもと例外区分：バッチシステム基盤例外
     call_ex_kbn_que_biz : str
         呼び刺しもと例外区分：キュービジネス例外
+    field_file_num : str
+        ファイル番号フィールド保存
     """
 
     def __init__(self, user_id):
@@ -71,6 +74,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.logic_middle_commit_year_num = 5
         self.call_ex_kbn_batch_sys = '0'
         self.call_ex_kbn_que_biz = '1'
+        self.field_file_num = None
 
     def taskManageRegister(self, task_id):
         """
@@ -261,6 +265,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_que_biz)
                 job_num = process_param['job_num']
                 result_file_num = process_param['result_file_num']
+                self.field_file_num = result_file_num
 
                 job_param_select_result = self.md_scraping_dao.getJobParamData(cur, job_num)
                 job_start_year = job_param_select_result['job_start_year']
@@ -304,7 +309,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                             ken_no_list,
                             ken_block_list,
                             md_url_list,
-                            job_md_item_list)
+                            job_md_item_list,
+                            result_file_num)
                         while True:
                             endSign = md_scraping_logic_service.mainSoup()
                             if endSign == '終了':
@@ -322,7 +328,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                     ken_no_list,
                     ken_block_list,
                     md_url_list,
-                    job_md_item_list)
+                    job_md_item_list,
+                    result_file_num)
                 while True:
                     endSign = md_scraping_logic_service.mainSoup()
                     if endSign == '終了':
@@ -338,8 +345,10 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
 
                 self.conn.commit()
+                self.__deleteProgress(self.field_file_num)
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
+                self.__deleteProgress(self.field_file_num)
 
                 if isinstance(ex, MdBatchSystemException):
                     raise
@@ -408,6 +417,18 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
         self.logger.debug("==SQL_CONN_END==")
         self.conn.close()
+
+    def __deleteProgress(self, field_file_num):
+        """ 進捗ファイル削除
+
+        Parameters
+        ----------
+        field_file_num : フィールドに一時保存したファイル番号
+        """
+        try:
+            os.remove(os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')+'/file/'+field_file_num+'_tmp.txt')
+        except:
+            pass
 
 
 

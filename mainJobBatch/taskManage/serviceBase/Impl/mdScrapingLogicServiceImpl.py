@@ -6,6 +6,8 @@ from logging import getLogger
 from mainJobBatch.taskManage.serviceBase.mdScrapingLogicService import MeteorologicaldataScrapingService
 from mainJobBatch.taskManage.exception.mdException import MdQueBizException
 from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
+import os
+from pathlib import Path
 
 
 class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
@@ -62,9 +64,11 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         オンライン随時バッチ設定クラスオブジェクト
     logger : logging
         ログ出力オブジェクト
+    result_file_num : str
+        ファイル番号
     """
 
-    def __init__(self, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list):
+    def __init__(self, start_year, end_year, start_month, end_month, ken_name_list, ken_no_list, ken_block_list, md_url_list, md_item_list, result_file_num):
         """
         Parameters
         ----------
@@ -86,6 +90,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             気象庁URLパーツリスト
         md_item_list : list
             画面上で選択された抽出対象気象データ項目リスト
+        result_file_num : str
+            ファイル番号
         """
 
         self.start_year_init = start_year
@@ -118,6 +124,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
 
         self.end = None
         self.logger = getLogger("OnlineBatchLog").getChild("logicService")
+
+        self.result_file_num = result_file_num
 
     def mainSoup(self):
         """
@@ -314,3 +322,22 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.start_month = self.start_month_init
         else:
             pass
+
+    def __scrapingProgressCommit(self):
+        """ スクレイピング進捗率書き込み
+        """
+
+        progress_file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')+'/file/'+self.result_file_num+'_tmp.txt'
+        try:
+            progress_file_read = open(progress_file_path, 'r')
+            last_progress = 0
+            for num in progress_file_read.readlines():
+                last_progress = int(num)
+            progress_file_read.close()
+            progress_file_write = open(progress_file_path, 'w')
+            progress_file_write.write(str(last_progress+1))
+            progress_file_write.close()
+        except FileNotFoundError:
+            progress_file_write = open(progress_file_path, 'W')
+            progress_file_write.write('1')
+            progress_file_write.close()

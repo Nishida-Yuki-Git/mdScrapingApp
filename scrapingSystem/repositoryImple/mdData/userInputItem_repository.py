@@ -156,49 +156,36 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         """
         process_result_list = ProcessResultData.objects.order_by('result_file_num').reverse().filter(user_id=user_id)
 
-        change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')
+        media_cr_dir = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')
 
         for process_result in process_result_list:
             file_status = process_result.file_create_status
             result_file_num = process_result.result_file_num
 
-            middle_save_path = change_cr_dir + '/file/' + result_file_num + '.xlsx'
-
             if file_status == self.target_file_status_const_end:
-                kiro_byte_num = '{:.1f}'.format(os.path.getsize(middle_save_path)/1000)
+                kiro_byte_num = '{:.1f}'.format(os.path.getsize(media_cr_dir+'/file/'+result_file_num+'.xlsx')/1000)
                 process_result.file_create_status = self.target_file_status_const_end+' ('+str(kiro_byte_num)+' '+self.kiro_byte_str+')'
             elif file_status == self.target_file_status_const_process:
-                now_file_size = 0
+                progress_file = None
                 try:
-                    now_file_size = os.path.getsize(middle_save_path)
+                    progress_file = open(media_cr_dir+'/file/'+self.result_file_num+'_tmp.txt', 'r')
                 except FileNotFoundError:
                     continue
+                last_progress = 0
+                for num in progress_file.readlines():
+                    last_progress = int(num)
+                progress_file.close()
 
                 process_result_detail_list = ProcessResultDetailData.objects.filter(result_file_num=result_file_num)
                 ken_item_count = len(process_result_detail_list)
-                md_item_count = 0
-                for process_result_detail in process_result_detail_list:
-                    if (process_result_detail.target_md_item != '') or (process_result_detail.target_md_item != None):
-                        md_item_count += 1
-                    if md_item_count==3:
-                        break
 
                 target_start_year = int(process_result.target_start_year)
                 target_end_year = int(process_result.target_end_year)
                 target_start_month = int(process_result.target_start_month)
                 target_end_month = int(process_result.target_end_month)
-                year_month_ken_calc = (target_end_year-target_start_year)*(target_end_month-target_start_month)*ken_item_count
-                now_byte = now_file_size-self.init_file_size
-                about_last_size = 0
-                if md_item_count==1:
-                    about_last_size = (year_month_ken_calc*self.md_one_item_byte)-self.init_file_size
-                elif md_item_count==2:
-                    about_last_size = (year_month_ken_calc*self.md_two_item_byte)-self.init_file_size
-                elif md_item_count==3:
-                    about_last_size = (year_month_ken_calc*self.md_three_item_byte)-self.init_file_size
-                else:
-                    continue
+                year_month_ken_calc = (target_end_year-target_start_year+1)*(target_end_month-target_start_month+1)*ken_item_count
+
                 process_result.file_create_status = self.target_file_status_const_process+' ('+self.sintyokuritsu_str+str(
-                    '{:.0f}'.format((now_byte/about_last_size)*100))+self.rate_str+')'
+                    '{:.1f}'.format((last_progress/year_month_ken_calc)*100))+self.rate_str+')'
 
         return process_result_list
