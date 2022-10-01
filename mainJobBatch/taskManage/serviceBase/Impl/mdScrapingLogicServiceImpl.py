@@ -327,7 +327,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ スクレイピング進捗率書き込み
         """
 
-        progress_file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')+'/file/'+self.result_file_num+'_tmp.txt'
+        progress_file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+self.result_file_num+'_tmp.txt'
         try:
             progress_file_read = open(progress_file_path, 'r')
             last_progress = 0

@@ -426,7 +426,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         field_file_num : フィールドに一時保存したファイル番号
         """
         try:
-            os.remove(os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')+'/file/'+field_file_num+'_tmp.txt')
+            os.remove(os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+field_file_num+'_tmp.txt')
         except:
             pass
 
