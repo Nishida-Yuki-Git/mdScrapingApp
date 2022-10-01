@@ -152,7 +152,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__AbHumidCalc()
             self.__OutputData()
             self.__YearMonthMethod()
-
+            self.__scrapingProgressCommit()
             return self.end
         except MdQueBizException as ex:
             raise
