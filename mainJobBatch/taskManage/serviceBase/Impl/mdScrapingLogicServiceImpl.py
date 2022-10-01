@@ -338,6 +338,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             progress_file_write.write(str(last_progress+1))
             progress_file_write.close()
         except FileNotFoundError:
-            progress_file_write = open(progress_file_path, 'W')
+            progress_file_write = open(progress_file_path, 'w')
             progress_file_write.write('1')
             progress_file_write.close()
