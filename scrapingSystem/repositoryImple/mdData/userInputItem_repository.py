@@ -157,8 +157,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
         process_result_list = ProcessResultData.objects.order_by('result_file_num').reverse().filter(user_id=user_id)
 
         change_cr_dir = os.path.join(Path(__file__).resolve().parent.parent.parent.parent, 'media')
-        print(change_cr_dir)
-        ##os.chdir(change_cr_dir)
 
         for process_result in process_result_list:
             file_status = process_result.file_create_status
@@ -185,10 +183,10 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                     if md_item_count==3:
                         break
 
-                target_start_year = process_result.target_start_year
-                target_end_year = process_result.target_end_year
-                target_start_month = process_result.target_start_month
-                target_end_month = process_result.target_end_month
+                target_start_year = int(process_result.target_start_year)
+                target_end_year = int(process_result.target_end_year)
+                target_start_month = int(process_result.target_start_month)
+                target_end_month = int(process_result.target_end_month)
                 year_month_ken_calc = (target_end_year-target_start_year)*(target_end_month-target_start_month)*ken_item_count
                 now_byte = now_file_size-self.init_file_size
                 about_last_size = 0
