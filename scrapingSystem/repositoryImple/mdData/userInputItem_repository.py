@@ -168,7 +168,7 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
             elif file_status == self.target_file_status_const_process:
                 progress_file = None
                 try:
-                    progress_file = open(media_cr_dir+'/file/'+self.result_file_num+'_tmp.txt', 'r')
+                    progress_file = open(media_cr_dir+'/file/'+result_file_num+'_tmp.txt', 'r')
                 except FileNotFoundError:
                     continue
                 last_progress = 0
