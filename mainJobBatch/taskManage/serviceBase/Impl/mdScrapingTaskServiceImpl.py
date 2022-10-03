@@ -52,6 +52,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         呼び刺しもと例外区分：キュービジネス例外
     field_file_num : str
         ファイル番号フィールド保存
+    begin_transaction_query : str
+        トランザクション開始クエリー
     """
 
     def __init__(self, user_id):
@@ -75,6 +77,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_batch_sys = '0'
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
+        self.begin_transaction_query = 'START TRANSACTION'
 
     def taskManageRegister(self, task_id):
         """
@@ -89,6 +92,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
+            self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
             self.md_scraping_dao.taskManageRegist(cur, task_id, self.user_id)
@@ -123,6 +127,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
         try:
             self.conn.ping(reconnect=True)
+            self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
             user_status = self.md_scraping_dao.getUserProcessFlag(cur, task_id, self.user_id)
@@ -153,6 +158,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
+            self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
             self.md_scraping_dao.updateUserProcessFlag(cur, task_id, self.user_id, user_process_status)
@@ -185,6 +191,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.conn.autocommit = False
         try:
             self.conn.ping(reconnect=True)
+            self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
             process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_batch_sys)
@@ -259,6 +266,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 raise ex
 
             try:
+                self.conn.cmd_query(self.begin_transaction_query)
+
                 job_non_count = 0
                 self.updateFileCreateStatus(self.general_group_key, self.processing_general_key)
 
