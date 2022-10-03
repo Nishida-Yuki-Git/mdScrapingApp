@@ -11,10 +11,12 @@ class MdScrapingTaskExecute():
 
     Attributes
     ----------
-    process_active_id : str
-        バッチプロセス処理中フラグ
-    process_rest_id : str
-        バッチプロセス待機中フラグ
+    max_thread : int
+        最大多重Thread数(各ユーザー,各バッチ)
+    thread_add_flag : str
+        thread追加フラグ
+    thread_remove_flag : str
+        thread削除フラグ
     general_group_key : str
         汎用グループキー
     error_general_key : str
@@ -35,8 +37,9 @@ class MdScrapingTaskExecute():
             ユーザーID
         """
 
-        self.process_active_id = '1'
-        self.process_rest_id = '0'
+        self.max_thread = 5
+        self.thread_add_flag = '1'
+        self.thread_remove_flag = '0'
         self.general_group_key = 'GR000001'
         self.error_general_key = '04'
         self.user_id = user_id
@@ -49,19 +52,19 @@ class MdScrapingTaskExecute():
 
         try:
             md_scraping_service = self.setNewService()
-            task_manage_data_flag = self.getTaskManageDataFlag(md_scraping_service)
-            if task_manage_data_flag == self.process_rest_id:
+            task_manage_thread = self.getTaskManageDataFlag(md_scraping_service)
+            if int(task_manage_thread) < self.max_thread:
                 self.logger.debug("==USER_IS_PASSIVE_OK==")
-                self.userStatusUpdateActive(md_scraping_service)
+                self.addThread(md_scraping_service, self.max_thread)
                 md_scraping_service.scrapingTask()
-                self.userStatusUpdateRest(md_scraping_service)
+                self.removeThread(md_scraping_service)
             else:
                 self.logger.debug("==USER_IS_ACTIVE_NO==")
                 pass
             md_scraping_service.disConnect()
         except Exception as ex:
             md_scraping_service.updateFileCreateStatus(self.general_group_key, self.error_general_key)
-            self.userStatusUpdateRest(md_scraping_service)
+            self.removeThread(md_scraping_service)
 
             self.logger.debug("==GET_EXCEPTION==")
             self.logger.debug(ex.getMessage())
@@ -109,21 +112,23 @@ class MdScrapingTaskExecute():
 
         pass
 
-    def userStatusUpdateActive(self, md_scraping_service):
+    def addThread(self, md_scraping_service, max_thread):
         """
-        ユーザーバッチ処理ステータスをActiveに設定
+        ユーザーバッチ処理のActiveThread数を追加
 
         Parameters
         ----------
         md_scraping_service : ?
             個別バッチサービス
+        max_thread : int
+            maxTread数
         """
 
         pass
 
-    def userStatusUpdateRest(self, md_scraping_service):
+    def removeThread(self, md_scraping_service):
         """
-        ユーザーバッチ処理ステータスをRest状態に設定
+        ユーザーバッチ処理のActiveThread数を1つ削除
 
         Parameters
         ----------

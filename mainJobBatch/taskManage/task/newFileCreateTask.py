@@ -53,7 +53,7 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
         Returns
         ----------
         task_manage_data_flag : str
-            個別バッチタスクプロセスフラグ
+            個別バッチタスクプロセスThread数
         """
 
         super().getTaskManageDataFlag(md_scraping_service)
@@ -68,19 +68,21 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def userStatusUpdateActive(self, md_scraping_service):
+    def addThread(self, md_scraping_service, max_thread):
         """
-        ユーザーバッチ処理ステータスをActiveに設定
+        ユーザーバッチ処理のActiveThread数を追加
 
         Parameters
         ----------
         md_scraping_service : NewFileCreateTaskServiceImpl
             新規ファイル作成バッチサービス
+        max_thread : int
+            maxThread数
         """
 
-        super().userStatusUpdateActive(md_scraping_service)
+        super().userStatusUpdateActive(md_scraping_service, max_thread)
         try:
-            md_scraping_service.updateUserTaskStatus(self.new_create_task_id, self.process_active_id)
+            md_scraping_service.updateUserTaskThread(self.new_create_task_id, self.thread_add_flag, max_thread)
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:
@@ -88,9 +90,9 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def userStatusUpdateRest(self, md_scraping_service):
+    def removeThread(self, md_scraping_service):
         """
-        ユーザーバッチ処理ステータスをRest状態に設定
+        ユーザーバッチ処理のActiveThread数を1つ削除
 
         Parameters
         ----------
@@ -100,7 +102,7 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
 
         super().userStatusUpdateRest(md_scraping_service)
         try:
-            md_scraping_service.updateUserTaskStatus(self.new_create_task_id, self.process_rest_id)
+            md_scraping_service.updateUserTaskThread(self.new_create_task_id, self.thread_remove_flag)
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:

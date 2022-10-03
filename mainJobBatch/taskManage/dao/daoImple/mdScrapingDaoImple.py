@@ -112,9 +112,9 @@ class MdScrapingDaoImple(MdScrapingDao):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def updateUserProcessFlag(self, cur, task_id, user_id, user_process_status):
+    def updateUserProcessThread(self, cur, task_id, user_id, thread_controll_flag, max_thread):
         """
-        ユーザーバッチプロセス更新
+        ユーザーバッチThread更新
 
         Parameters
         ----------
@@ -124,9 +124,13 @@ class MdScrapingDaoImple(MdScrapingDao):
             バッチプロセスタスクID
         user_id : str
             ユーザーID
-        user_process_status : str
-            ユーザーバッチプロセスステータス
+        thread_controll_flag : str
+            thread増減フラグ
+        max_thread : int
+            macThread数
         """
+
+        select_sql_str = "SELECT TMDATA.task_process_flag FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
 
         delete_task_manage_record = ("""
         DELETE FROM scrapingSystem_taskmanagedata
@@ -138,8 +142,21 @@ class MdScrapingDaoImple(MdScrapingDao):
         """)
 
         try:
-            cur.execute(delete_task_manage_record)
-            cur.execute(insert_task_manage_record, (task_id, user_id, user_process_status))
+            cur.execute(select_sql_str)
+            rows = cur.fetchall()
+            result = ''
+            for row in rows:
+                result = row
+            result_num = int(result[0])
+
+            if thread_controll_flag == '1':
+                if result_num < max_thread:
+                    cur.execute(delete_task_manage_record)
+                    cur.execute(insert_task_manage_record, (task_id, user_id, result_num+1))
+            else:
+                if result_num > 0:
+                    cur.execute(delete_task_manage_record)
+                    cur.execute(insert_task_manage_record, (task_id, user_id, result_num-1))
         except Exception as ex:
             ex_util = ExceptionUtils.get_instance()
             ex = ex_util.commonHandling(ex, '1')

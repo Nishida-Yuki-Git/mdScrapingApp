@@ -57,9 +57,9 @@ class MdScrapingDao(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def updateUserProcessFlag(self, cur, task_id, user_id, user_process_status):
+    def updateUserProcessThread(self, cur, task_id, user_id, thread_controll_flag, max_thread):
         """
-        ユーザーバッチプロセス更新
+        ユーザーバッチThread更新
 
         Parameters
         ----------
@@ -69,8 +69,10 @@ class MdScrapingDao(metaclass=ABCMeta):
             バッチプロセスタスクID
         user_id : str
             ユーザーID
-        user_process_status : str
-            ユーザーバッチプロセスステータス
+        thread_controll_flag : str
+            thread増減フラグ
+        max_thread : int
+            macThread数
         """
 
         pass

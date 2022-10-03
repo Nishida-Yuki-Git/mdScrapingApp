@@ -143,16 +143,18 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def updateUserTaskStatus(self, task_id, user_process_status):
+    def updateUserTaskThread(self, task_id, thread_controll_flag, max_thread=None):
         """
-        個別バッチのプロセスステータスを更新する
+        個別バッチの稼働Thread数を更新する
 
         Parameters
         ----------
         task_id : str
             バッチタスクID
-        user_process_status : str
-            バッチプロセスステータス
+        thread_controll_flag : str
+            thread増減フラグ
+        max_thread : int
+            maxThread数
         """
 
         self.conn.autocommit = False
@@ -161,7 +163,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
-            self.md_scraping_dao.updateUserProcessFlag(cur, task_id, self.user_id, user_process_status)
+            self.md_scraping_dao.updateUserProcessThread(cur, task_id, self.user_id, thread_controll_flag, max_thread)
 
             self.conn.commit()
             cur.close()

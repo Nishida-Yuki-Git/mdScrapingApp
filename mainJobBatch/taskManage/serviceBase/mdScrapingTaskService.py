@@ -37,16 +37,18 @@ class MdScrapingTaskService(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def updateUserTaskStatus(self, task_id, user_process_status):
+    def updateUserTaskThread(self, task_id, thread_controll_flag, max_thread=None):
         """
-        個別バッチのプロセスステータスを更新する
+        個別バッチの稼働Thread数を更新する
 
         Parameters
         ----------
         task_id : str
             バッチタスクID
-        user_process_status : str
-            バッチプロセスステータス
+        thread_controll_flag : str
+            thread増減フラグ
+        max_thread : int
+            maxThread数
         """
 
         pass
