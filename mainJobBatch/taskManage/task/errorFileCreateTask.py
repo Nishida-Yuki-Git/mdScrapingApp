@@ -83,7 +83,7 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
             maxThread数
         """
 
-        super().userStatusUpdateActive(md_scraping_service, max_thread)
+        super().addThread(md_scraping_service, max_thread)
         try:
             md_scraping_service.updateUserTaskStatus(self.error_create_task_id, self.thread_add_flag, max_thread)
         except MdBatchSystemException as ex:
@@ -103,7 +103,7 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
             エラーファイル再作成バッチサービス
         """
 
-        super().userStatusUpdateRest(md_scraping_service)
+        super().removeThread(md_scraping_service)
         try:
             md_scraping_service.updateUserTaskStatus(self.error_create_task_id, self.thread_remove_flag)
         except MdBatchSystemException as ex:
