@@ -78,6 +78,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
         self.begin_transaction_query = 'START TRANSACTION'
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=5')
 
     def taskManageRegister(self, task_id):
         """
@@ -127,7 +128,6 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
         try:
             self.conn.ping(reconnect=True)
-            self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
             user_status = self.md_scraping_dao.getUserProcessFlag(cur, task_id, self.user_id)
@@ -178,7 +178,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def updateFileCreateStatus(self, general_group_key, general_key):
+    def updateFileCreateStatus(self, general_group_key, general_key, call_ex_kbn):
         """
         ファイル作成ステータスを更新する
 
@@ -188,6 +188,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             汎用グループキー
         general_key : str
             汎用キー
+        call_ex_kbn : str
+            呼び出し区分
         """
 
         self.conn.autocommit = False
@@ -196,7 +198,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
-            process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_batch_sys)
+            process_param = self.getResultFileNumAndJobNum(cur, call_ex_kbn)
             result_file_num = process_param['result_file_num']
             self.md_scraping_dao.updateFileCreateStatus(cur, result_file_num, general_group_key, general_key)
 
@@ -271,7 +273,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 self.conn.cmd_query(self.begin_transaction_query)
 
                 job_non_count = 0
-                self.updateFileCreateStatus(self.general_group_key, self.processing_general_key)
+                self.updateFileCreateStatus(self.general_group_key, self.processing_general_key, self.call_ex_kbn_que_biz)
 
                 process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_que_biz)
                 job_num = process_param['job_num']
@@ -352,7 +354,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
                 mail_send_service.mailSender(cur, self.user_id, result_file_num)
 
-                self.updateFileCreateStatus(self.general_group_key, self.end_general_key)
+                self.updateFileCreateStatus(self.general_group_key, self.end_general_key, self.call_ex_kbn_que_biz)
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
 
                 self.conn.commit()
@@ -368,7 +370,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 elif isinstance(ex, MdException):
                     raise
 
-                self.updateFileCreateStatus(self.general_group_key, self.error_general_key)
+                self.updateFileCreateStatus(self.general_group_key, self.error_general_key,  self.call_ex_kbn_batch_sys)
 
                 self.logger.debug("==GET_EXCEPTION==")
                 self.logger.debug(ex.getMessage())

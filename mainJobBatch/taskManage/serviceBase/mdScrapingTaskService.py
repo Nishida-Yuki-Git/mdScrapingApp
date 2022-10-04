@@ -54,7 +54,7 @@ class MdScrapingTaskService(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def updateFileCreateStatus(self, general_group_key, general_key):
+    def updateFileCreateStatus(self, general_group_key, general_key, call_ex_kbn):
         """
         ファイル作成ステータスを更新する
 
@@ -64,6 +64,7 @@ class MdScrapingTaskService(metaclass=ABCMeta):
             汎用グループキー
         general_key : str
             汎用キー
+        call_ex_kbn : 呼び出し区分
         """
 
         pass
