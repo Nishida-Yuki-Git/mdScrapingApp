@@ -50,16 +50,12 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
         ファイル書き込み日
     """
 
-    def __init__(self, cur, result_file_num, md_scraping_dao, start_year_init, start_month_init, user_select_md_item_list, ken_name_list, end_month, end_year):
+    def __init__(self, result_file_num, start_year_init, start_month_init, user_select_md_item_list, ken_name_list, end_month, end_year):
         """
         Parameters
         ----------
-        cur : MySQLdb.connections.Connection
-            DBカーソル
         result_file_num : str
             ファイル番号
-        md_scraping_dao : MdScrapingDao
-            気象データ収集バッチDaoインターフェース
         start_year_init : str
             収集開始初期年
         start_month_init : str
@@ -100,18 +96,6 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
 
         self.sheet.title = 'sheet1'
         self.wb.save(self.middle_save_path)
-
-        try:
-            md_scraping_dao.registFilePath(cur, result_file_num, self.middle_save_path)
-        except MdQueBizException as ex:
-            os.remove(self.middle_save_path)
-            raise
-        except Exception as ex:
-            os.remove(self.middle_save_path)
-            ex_util = ExceptionUtils.get_instance()
-            ex = ex_util.commonHandling(ex, '2')
-            raise ex
-
 
     def xlMiddleCommit(self, output_data):
         """

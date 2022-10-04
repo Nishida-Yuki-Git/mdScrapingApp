@@ -78,7 +78,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
         self.begin_transaction_query = 'START TRANSACTION'
-        self.conn.cmd_query('SET innodb_lock_wait_timeout=1073741824')
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=30')##最大値=1073741824
 
     def taskManageRegister(self, task_id):
         """
@@ -269,12 +269,24 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 ex = ex_util.commonHandling(ex, '1')
                 raise ex
 
+            job_non_count = 0
             try:
                 self.conn.cmd_query(self.begin_transaction_query)
-
-                job_non_count = 0
                 self.updateFileCreateStatus(self.general_group_key, self.processing_general_key, self.call_ex_kbn_que_biz)
+                self.conn.commit()
+            except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
+                self.conn.rollback()
+                if self._taskServiceMainExceptionLogic(ex):
+                    continue
+                else:
+                    raise
+            except Exception as ex:
+                self.conn.rollback()
+                ex_util = ExceptionUtils.get_instance()
+                ex = ex_util.commonHandling(ex, '1')
+                raise ex
 
+            try:
                 process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_que_biz)
                 job_num = process_param['job_num']
                 result_file_num = process_param['result_file_num']
@@ -297,9 +309,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 md_url_list = self.md_scraping_dao.getJMAgencyURL(cur)
 
                 md_scrap_xl_write_service: MdScrapingXlWriteService = MdScrapingXlWriteServiceImpl(
-                    cur,
                     result_file_num,
-                    self.md_scraping_dao,
                     job_start_year,
                     job_start_month,
                     job_md_item_list,
@@ -353,47 +363,80 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
                 mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
                 mail_send_service.mailSender(cur, self.user_id, result_file_num)
+                self.__deleteProgress(self.field_file_num)
+            except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
+                self.__deleteProgress(self.field_file_num)
+                if self._taskServiceMainExceptionLogic(ex):
+                    continue
+                else:
+                    raise
+            except Exception as ex:
+                ex_util = ExceptionUtils.get_instance()
+                ex = ex_util.commonHandling(ex, '1')
+                raise ex
+
+            try:
+                self.conn.cmd_query(self.begin_transaction_query)
+
+                middle_save_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+result_file_num+'.xlsx'
+                self.md_scraping_dao.registFilePath(cur, result_file_num, middle_save_path)
 
                 self.updateFileCreateStatus(self.general_group_key, self.end_general_key, self.call_ex_kbn_que_biz)
+
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
 
                 self.conn.commit()
-                self.__deleteProgress(self.field_file_num)
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
                 self.__deleteProgress(self.field_file_num)
-
-                if isinstance(ex, MdBatchSystemException):
+                if self._taskServiceMainExceptionLogic(ex):
+                    continue
+                else:
                     raise
-                elif isinstance(ex, MdQueBizException):
-                    pass
-                elif isinstance(ex, MdException):
-                    raise
-
-                self.updateFileCreateStatus(self.general_group_key, self.error_general_key,  self.call_ex_kbn_batch_sys)
-
-                self.logger.debug("==GET_EXCEPTION==")
-                self.logger.debug(ex.getMessage())
-                self.logger.debug(ex.getTrace())
-
-                os.chdir(os.path.dirname(os.path.abspath(__file__)))
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
-                with open(self.error_log_path, 'a') as file:
-                    file.write('\n')
-                    file.write('-----------------------------------------------------\n')
-                    file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl'+'\n')
-                    file.write(ex.getMessage()+'\n')
-                    file.write(ex.getTrace()+'\n')
-                    file.write('-----------------------------------------------------\n')
-                ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
-                continue
             except Exception as ex:
                 self.conn.rollback()
                 ex_util = ExceptionUtils.get_instance()
                 ex = ex_util.commonHandling(ex, '1')
                 raise ex
-
         cur.close()
+
+    def _taskServiceMainExceptionLogic(self, ex):
+        """
+        scrapingTaskメソッド共通例外ロジック
+
+        Parameters
+        ----------
+        ex : ?
+            例外インスタンス(システム独自例外いずれかのインスタンス)
+
+        Returns
+        ----------
+        boolean
+            True:continue, False:raise
+        """
+
+        if isinstance(ex, MdQueBizException):
+            self.updateFileCreateStatus(self.general_group_key, self.error_general_key,  self.call_ex_kbn_batch_sys)
+
+            self.logger.debug("==GET_EXCEPTION==")
+            self.logger.debug(ex.getMessage())
+            self.logger.debug(ex.getTrace())
+
+            os.chdir(os.path.dirname(os.path.abspath(__file__)))
+            ##os.chmod(path=self.error_log_path, mode=stat.S_IWRITE) ##本番環境ではコメントアウト
+            with open(self.error_log_path, 'a') as file:
+                file.write('\n')
+                file.write('-----------------------------------------------------\n')
+                file.write(str(datetime.datetime.now())+'：'+self.user_id+'：'+'MdScrapingTaskServiceImpl'+'\n')
+                file.write(ex.getMessage()+'\n')
+                file.write(ex.getTrace()+'\n')
+                file.write('-----------------------------------------------------\n')
+            ##os.chmod(path=self.error_log_path, mode=stat.S_IREAD) ##本番環境ではコメントアウト
+            return True
+        elif isinstance(ex, MdBatchSystemException):
+            return False
+        elif isinstance(ex, MdException):
+            return False
 
     def getBatchBreakCount(self):
         """
