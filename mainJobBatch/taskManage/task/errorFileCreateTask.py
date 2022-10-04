@@ -85,7 +85,7 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
 
         super().addThread(md_scraping_service, max_thread)
         try:
-            md_scraping_service.updateUserTaskStatus(self.error_create_task_id, self.thread_add_flag, max_thread)
+            md_scraping_service.updateUserTaskThread(self.error_create_task_id, self.thread_add_flag, max_thread)
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:
@@ -105,7 +105,7 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
 
         super().removeThread(md_scraping_service)
         try:
-            md_scraping_service.updateUserTaskStatus(self.error_create_task_id, self.thread_remove_flag)
+            md_scraping_service.updateUserTaskThread(self.error_create_task_id, self.thread_remove_flag)
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:
