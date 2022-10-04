@@ -78,7 +78,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
         self.begin_transaction_query = 'START TRANSACTION'
-        self.conn.cmd_query('SET innodb_lock_wait_timeout=30')##最大値=1073741824
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=60')##最大値=1073741824
 
     def taskManageRegister(self, task_id):
         """
@@ -272,7 +272,9 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             job_non_count = 0
             try:
                 self.conn.cmd_query(self.begin_transaction_query)
+
                 self.updateFileCreateStatus(self.general_group_key, self.processing_general_key, self.call_ex_kbn_que_biz)
+
                 self.conn.commit()
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
@@ -360,10 +362,6 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 md_scrap_xl_write_service.xlMiddleCommit(
                     md_scraping_logic_service.MDOutput())
                 del md_scraping_logic_service,md_scrap_xl_write_service
-
-                mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
-                mail_send_service.mailSender(cur, self.user_id, result_file_num)
-                self.__deleteProgress(self.field_file_num)
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.__deleteProgress(self.field_file_num)
                 if self._taskServiceMainExceptionLogic(ex):
@@ -382,10 +380,14 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 self.md_scraping_dao.registFilePath(cur, result_file_num, middle_save_path)
 
                 self.updateFileCreateStatus(self.general_group_key, self.end_general_key, self.call_ex_kbn_que_biz)
-
                 self.md_scraping_dao.deleteUserJobData(cur, job_num)
 
+                mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
+                mail_send_service.mailSender(cur, self.user_id, result_file_num)
+
                 self.conn.commit()
+
+                self.__deleteProgress(self.field_file_num)
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
                 self.__deleteProgress(self.field_file_num)
