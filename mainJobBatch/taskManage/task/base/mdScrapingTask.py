@@ -54,12 +54,12 @@ class MdScrapingTaskExecute():
             md_scraping_service = self.setNewService()
             task_manage_thread = self.getTaskManageDataFlag(md_scraping_service)
             if int(task_manage_thread) < self.max_thread:
-                self.logger.debug("==USER_IS_PASSIVE_OK==")
+                self.logger.debug("==Thread_No_MAX_OK==")
                 self.addThread(md_scraping_service, self.max_thread)
                 md_scraping_service.scrapingTask()
                 self.removeThread(md_scraping_service)
             else:
-                self.logger.debug("==USER_IS_ACTIVE_NO==")
+                self.logger.debug("==Thread_Max_NO==")
                 pass
             md_scraping_service.disConnect()
         except Exception as ex:
