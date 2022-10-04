@@ -78,7 +78,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
         self.begin_transaction_query = 'START TRANSACTION'
-        self.conn.cmd_query('SET innodb_lock_wait_timeout=5')
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=20')
 
     def taskManageRegister(self, task_id):
         """
