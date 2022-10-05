@@ -55,6 +55,9 @@ class MdScrapingTaskExecute():
             task_manage_thread = self.getTaskThreadNum(md_scraping_service)
             if int(task_manage_thread) < self.max_thread:
                 self.logger.debug("==Thread_No_MAX_OK==")
+                if int(task_manage_thread) > 0:
+                    self.logger.debug("==Non_Firsrt_Thread==")
+                    md_scraping_service.batch_break_count = 2
                 self.addThread(md_scraping_service, self.max_thread)
                 md_scraping_service.scrapingTask()
                 self.removeThread(md_scraping_service)

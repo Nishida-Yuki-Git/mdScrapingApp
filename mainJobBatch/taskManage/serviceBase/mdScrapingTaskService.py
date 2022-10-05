@@ -56,7 +56,7 @@ class MdScrapingTaskService(metaclass=ABCMeta):
     @abstractmethod
     def updateFileCreateStatus(self, general_group_key, general_key, call_ex_kbn):
         """
-        ファイル作成ステータスを更新する
+        ファイル作成ステータスを更新する(この時ファイル番号とジョブ番号をフィールドに一時保存する)
 
         Parameters
         ----------

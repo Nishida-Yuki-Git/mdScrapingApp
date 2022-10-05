@@ -52,6 +52,8 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         呼び刺しもと例外区分：キュービジネス例外
     field_file_num : str
         ファイル番号フィールド保存
+    field_job_num : str
+        ジョブ番号フィールド保存
     begin_transaction_query : str
         トランザクション開始クエリー
     """
@@ -77,8 +79,9 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.call_ex_kbn_batch_sys = '0'
         self.call_ex_kbn_que_biz = '1'
         self.field_file_num = None
+        self.field_job_num = None
         self.begin_transaction_query = 'START TRANSACTION'
-        self.conn.cmd_query('SET innodb_lock_wait_timeout=60')##最大値=1073741824
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=10')##最大値=1073741824
 
     def taskManageRegister(self, task_id):
         """
@@ -180,7 +183,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
     def updateFileCreateStatus(self, general_group_key, general_key, call_ex_kbn):
         """
-        ファイル作成ステータスを更新する
+        ファイル作成ステータスを更新する(この時ファイル番号とジョブ番号をフィールドに一時保存する)
 
         Parameters
         ----------
@@ -198,9 +201,12 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             self.conn.cmd_query(self.begin_transaction_query)
             cur = self.conn.cursor()
 
-            process_param = self.getResultFileNumAndJobNum(cur, call_ex_kbn)
-            result_file_num = process_param['result_file_num']
-            self.md_scraping_dao.updateFileCreateStatus(cur, result_file_num, general_group_key, general_key)
+            if (self.field_file_num==None) and (self.field_job_num==None):
+                process_param = self.getResultFileNumAndJobNum(cur, call_ex_kbn)
+                self.field_file_num = process_param['result_file_num']
+                self.field_job_num = process_param['job_num']
+
+            self.md_scraping_dao.updateFileCreateStatus(cur, self.field_file_num, general_group_key, general_key)
 
             self.conn.commit()
             cur.close()
@@ -269,32 +275,12 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 ex = ex_util.commonHandling(ex, '1')
                 raise ex
 
-            job_non_count = 0
             try:
-                self.conn.cmd_query(self.begin_transaction_query)
+                job_non_count = 0
 
                 self.updateFileCreateStatus(self.general_group_key, self.processing_general_key, self.call_ex_kbn_que_biz)
 
-                self.conn.commit()
-            except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
-                self.conn.rollback()
-                if self._taskServiceMainExceptionLogic(ex):
-                    continue
-                else:
-                    raise
-            except Exception as ex:
-                self.conn.rollback()
-                ex_util = ExceptionUtils.get_instance()
-                ex = ex_util.commonHandling(ex, '1')
-                raise ex
-
-            try:
-                process_param = self.getResultFileNumAndJobNum(cur, self.call_ex_kbn_que_biz)
-                job_num = process_param['job_num']
-                result_file_num = process_param['result_file_num']
-                self.field_file_num = result_file_num
-
-                job_param_select_result = self.md_scraping_dao.getJobParamData(cur, job_num)
+                job_param_select_result = self.md_scraping_dao.getJobParamData(cur, self.field_job_num)
                 job_start_year = job_param_select_result['job_start_year']
                 job_end_year = job_param_select_result['job_end_year']
                 job_start_month = job_param_select_result['job_start_month']
@@ -311,7 +297,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 md_url_list = self.md_scraping_dao.getJMAgencyURL(cur)
 
                 md_scrap_xl_write_service: MdScrapingXlWriteService = MdScrapingXlWriteServiceImpl(
-                    result_file_num,
+                    self.field_file_num,
                     job_start_year,
                     job_start_month,
                     job_md_item_list,
@@ -335,7 +321,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                             ken_block_list,
                             md_url_list,
                             job_md_item_list,
-                            result_file_num)
+                            self.field_file_num)
                         while True:
                             endSign = md_scraping_logic_service.mainSoup()
                             if endSign == '終了':
@@ -354,7 +340,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                     ken_block_list,
                     md_url_list,
                     job_md_item_list,
-                    result_file_num)
+                    self.field_file_num)
                 while True:
                     endSign = md_scraping_logic_service.mainSoup()
                     if endSign == '終了':
@@ -376,22 +362,26 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             try:
                 self.conn.cmd_query(self.begin_transaction_query)
 
-                middle_save_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+result_file_num+'.xlsx'
-                self.md_scraping_dao.registFilePath(cur, result_file_num, middle_save_path)
+                middle_save_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+self.field_file_num+'.xlsx'
+                self.md_scraping_dao.registFilePath(cur, self.field_file_num, middle_save_path)
 
                 self.updateFileCreateStatus(self.general_group_key, self.end_general_key, self.call_ex_kbn_que_biz)
-                self.md_scraping_dao.deleteUserJobData(cur, job_num)
+                self.md_scraping_dao.deleteUserJobData(cur, self.field_job_num)
 
                 mail_send_service: MdScrapingMailService = MdScrapingMailServiceImpl()
-                mail_send_service.mailSender(cur, self.user_id, result_file_num)
+                mail_send_service.mailSender(cur, self.user_id, self.field_file_num)
 
                 self.conn.commit()
 
                 self.__deleteProgress(self.field_file_num)
+                self.field_file_num = None
+                self.field_job_num = None
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
                 self.__deleteProgress(self.field_file_num)
                 if self._taskServiceMainExceptionLogic(ex):
+                    self.field_file_num = None
+                    self.field_job_num = None
                     continue
                 else:
                     raise

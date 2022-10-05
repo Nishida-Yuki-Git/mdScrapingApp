@@ -33,7 +33,7 @@ class NewFileCreateDaoImple(NewFileCreateDao):
           ON PROCESS_RESULT.result_file_num = JOB_QUE_DATA.result_file_num
         WHERE
           JOB_QUE_DATA.user_id = '""" + user_id + """'
-          AND PROCESS_RESULT.file_create_status <> 'エラー'
+          AND PROCESS_RESULT.file_create_status = 'ファイル作成処理開始前'
         ORDER BY JOB_QUE_DATA.job_num ASC""")
 
         try:
@@ -75,7 +75,7 @@ class NewFileCreateDaoImple(NewFileCreateDao):
           ON PROCESS_RESULT.result_file_num = JOB_QUE_DATA.result_file_num
         WHERE
           JOB_QUE_DATA.user_id = '""" + user_id + """'
-          AND PROCESS_RESULT.file_create_status <> 'エラー'
+          AND PROCESS_RESULT.file_create_status = 'ファイル作成処理開始前'
         ORDER BY JOB_QUE_DATA.job_num ASC""")
 
         try:
