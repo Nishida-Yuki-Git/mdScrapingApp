@@ -65,6 +65,7 @@ class MdScrapingTaskExecute():
                 self.logger.debug("==Thread_Max_NO==")
                 pass
             md_scraping_service.disConnect()
+            self.logger.debug("==End_Thread_Job==")
         except Exception as ex:
             md_scraping_service.updateFileCreateStatus(self.general_group_key, self.error_general_key, '0')
             self.removeThread(md_scraping_service)
