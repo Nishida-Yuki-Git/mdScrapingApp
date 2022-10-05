@@ -77,9 +77,9 @@ class MdScrapingDaoImple(MdScrapingDao):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def getUserProcessFlag(self, cur, task_id, user_id):
+    def getUserTaskThreadNum(self, cur, task_id, user_id):
         """
-        ユーザーバッチプロセス取得
+        ユーザーバッチThread数取得
 
         Parameters
         ----------
@@ -93,10 +93,10 @@ class MdScrapingDaoImple(MdScrapingDao):
         Returns
         ----------
         resulr_str : list
-            ユーザーバッチプロセス
+            ユーザーバッチThread数
         """
 
-        select_sql_str = "SELECT TMDATA.task_process_flag FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
+        select_sql_str = "SELECT TMDATA.task_thread_num FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
 
         try:
             cur.execute(select_sql_str)
@@ -130,7 +130,7 @@ class MdScrapingDaoImple(MdScrapingDao):
             macThread数
         """
 
-        select_sql_str = "SELECT TMDATA.task_process_flag FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
+        select_sql_str = "SELECT TMDATA.task_thread_num FROM scrapingSystem_taskmanagedata AS TMDATA WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
 
         delete_task_manage_record = ("""
         DELETE FROM scrapingSystem_taskmanagedata

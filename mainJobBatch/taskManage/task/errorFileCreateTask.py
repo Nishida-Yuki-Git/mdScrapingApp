@@ -44,9 +44,9 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
         service: MdScrapingTaskService = ErrorFileCreateTaskServiceImpl(self.user_id, self.result_file_num)
         return service
 
-    def getTaskManageDataFlag(self, md_scraping_service):
+    def getTaskThreadNum(self, md_scraping_service):
         """
-        エラーファイル再作成バッチのプロセスステータスを取得する
+        エラーファイル再作成バッチのThread数を取得する
 
         Parameters
         ----------
@@ -55,15 +55,15 @@ class ErrorFileCreateTaskExecute(MdScrapingTaskExecute):
 
         Returns
         ----------
-        task_manage_data_flag : str
-            個別バッチタスクプロセスThread数
+        task_manage_data_thread_num : str
+            個別バッチタスクThread数
         """
 
-        super().getTaskManageDataFlag(md_scraping_service)
+        super().getTaskThreadNum(md_scraping_service)
         try:
             md_scraping_service.taskManageRegister(self.error_create_task_id)
-            task_manage_data_flag = md_scraping_service.getUserTaskStatus(self.error_create_task_id)
-            return task_manage_data_flag
+            task_manage_data_thread_num = md_scraping_service.getUserTaskThreadNum(self.error_create_task_id)
+            return task_manage_data_thread_num
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:

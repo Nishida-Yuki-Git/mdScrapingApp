@@ -19,9 +19,9 @@ class MdScrapingTaskService(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def getUserTaskStatus(self, task_id):
+    def getUserTaskThreadNum(self, task_id):
         """
-        個別バッチのプロセスステータスを取得する
+        個別バッチのThread数を取得する
 
         Parameters
         ----------
@@ -30,8 +30,8 @@ class MdScrapingTaskService(metaclass=ABCMeta):
 
         Returns
         ----------
-        user_status : str
-            ユーザーバッチプロセスステータス
+        user_thread_num : str
+            ユーザーバッチThread数
         """
 
         pass

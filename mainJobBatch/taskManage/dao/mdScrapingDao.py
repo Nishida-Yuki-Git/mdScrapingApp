@@ -35,9 +35,9 @@ class MdScrapingDao(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def getUserProcessFlag(self, cur, task_id, user_id):
+    def getUserTaskThreadNum(self, cur, task_id, user_id):
         """
-        ユーザーバッチプロセス取得
+        ユーザーバッチThread数取得
 
         Parameters
         ----------
@@ -51,7 +51,7 @@ class MdScrapingDao(metaclass=ABCMeta):
         Returns
         ----------
         resulr_str : list
-            ユーザーバッチプロセス
+            ユーザーバッチThread数
         """
 
         pass

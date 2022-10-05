@@ -41,9 +41,9 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
         service: MdScrapingTaskService = NewFileCreateTaskServiceImpl(self.user_id)
         return service
 
-    def getTaskManageDataFlag(self, md_scraping_service):
+    def getTaskThreadNum(self, md_scraping_service):
         """
-        新規ファイル作成バッチのプロセスステータスを取得する
+        新規ファイル作成バッチのThread数を取得する
 
         Parameters
         ----------
@@ -52,15 +52,15 @@ class NewFileCreateTaskExecute(MdScrapingTaskExecute):
 
         Returns
         ----------
-        task_manage_data_flag : str
+        task_manage_data_thread_num : str
             個別バッチタスクプロセスThread数
         """
 
-        super().getTaskManageDataFlag(md_scraping_service)
+        super().getTaskThreadNum(md_scraping_service)
         try:
             md_scraping_service.taskManageRegister(self.new_create_task_id)
-            task_manage_data_flag = md_scraping_service.getUserTaskStatus(self.new_create_task_id)
-            return task_manage_data_flag
+            task_manage_data_thread_num = md_scraping_service.getUserTaskThreadNum(self.new_create_task_id)
+            return task_manage_data_thread_num
         except MdBatchSystemException as ex:
             raise
         except Exception as ex:

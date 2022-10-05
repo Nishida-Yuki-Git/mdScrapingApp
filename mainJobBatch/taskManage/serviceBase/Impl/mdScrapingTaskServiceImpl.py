@@ -111,9 +111,9 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             ex = ex_util.commonHandling(ex, '1')
             raise ex
 
-    def getUserTaskStatus(self, task_id):
+    def getUserTaskThreadNum(self, task_id):
         """
-        個別バッチのプロセスステータスを取得する
+        個別バッチのThread数を取得する
 
         Parameters
         ----------
@@ -122,18 +122,18 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
 
         Returns
         ----------
-        user_status : str
-            ユーザーバッチプロセスステータス
+        user_thread_num : str
+            ユーザーバッチThread数
         """
 
         try:
             self.conn.ping(reconnect=True)
             cur = self.conn.cursor()
 
-            user_status = self.md_scraping_dao.getUserProcessFlag(cur, task_id, self.user_id)
+            user_thread_num = self.md_scraping_dao.getUserTaskThreadNum(cur, task_id, self.user_id)
 
             cur.close()
-            return user_status
+            return user_thread_num
         except MdBatchSystemException as ex:
             cur.close()
             raise

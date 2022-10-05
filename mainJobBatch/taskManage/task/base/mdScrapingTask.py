@@ -52,7 +52,7 @@ class MdScrapingTaskExecute():
 
         try:
             md_scraping_service = self.setNewService()
-            task_manage_thread = self.getTaskManageDataFlag(md_scraping_service)
+            task_manage_thread = self.getTaskThreadNum(md_scraping_service)
             if int(task_manage_thread) < self.max_thread:
                 self.logger.debug("==Thread_No_MAX_OK==")
                 self.addThread(md_scraping_service, self.max_thread)
@@ -95,9 +95,9 @@ class MdScrapingTaskExecute():
 
         pass
 
-    def getTaskManageDataFlag(self, md_scraping_service):
+    def getTaskThreadNum(self, md_scraping_service):
         """
-        個別バッチのプロセスステータスを取得する
+        個別バッチのThread数を取得
 
         Parameters
         ----------
@@ -106,8 +106,8 @@ class MdScrapingTaskExecute():
 
         Returns
         ----------
-        task_manage_data_flag : str
-            個別バッチタスクプロセスフラグ
+        task_manage_data_thread_num : str
+            個別バッチタスクThread数
         """
 
         pass
