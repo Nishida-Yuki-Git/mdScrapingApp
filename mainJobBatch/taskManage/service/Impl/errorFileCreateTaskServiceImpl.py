@@ -35,7 +35,7 @@ class ErrorFileCreateTaskServiceImpl(MdScrapingTaskServiceImpl):
 
         super().__init__(user_id)
         self.result_file_num = result_file_num
-        self.batch_break_count = 1
+        self.batch_break_count = 2
         self.batch_process_flag = False
         self.error_file_create_dao: ErrorFileCreateDao = ErrorFileCreateDaoImple()
 
