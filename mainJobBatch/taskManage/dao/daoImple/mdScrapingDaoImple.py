@@ -60,7 +60,7 @@ class MdScrapingDaoImple(MdScrapingDao):
         select_sql_str = "SELECT * FROM scrapingSystem_taskmanagedata WHERE task_id = '" + task_id + "' AND user_id = '" + user_id + "'"
         insert_sql_id = ("""
         INSERT INTO scrapingSystem_taskmanagedata
-         (task_id, user_id, task_process_flag)
+         (task_id, user_id, task_thread_num)
         VALUES (%s, %s, %s)
         """)
 
@@ -137,7 +137,7 @@ class MdScrapingDaoImple(MdScrapingDao):
         WHERE task_id = '""" + task_id + """' AND user_id = '""" + user_id + """'""")
         insert_task_manage_record = ("""
         INSERT INTO scrapingSystem_taskmanagedata
-         (task_id, user_id, task_process_flag)
+         (task_id, user_id, task_thread_num)
         VALUES (%s, %s, %s)
         """)
 

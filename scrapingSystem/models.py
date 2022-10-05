@@ -202,14 +202,13 @@ class GeneralCodeMT(models.Model):
 ##タスク管理データ
 '''
 task_id -> 0001：新規ファイル作成, 0002：エラーファイル作成
-task_process_flag -> 0：待機中, 1：実行中
 '''
 class TaskManageData(models.Model):
     task_id = models.CharField(max_length=4)
     user_id = models.CharField(max_length=10)
-    task_process_flag = models.CharField(max_length=1)
+    task_thread_num = models.CharField(max_length=1)
     def __str__(self):
-        return self.task_id+'/'+self.user_id+'/'+self.task_process_flag
+        return self.task_id+'/'+self.user_id+'/'+self.task_thread_num
     class Meta:
         constraints = [
            models.UniqueConstraint(fields=['task_id', 'user_id'], name='unique_task_manage')
