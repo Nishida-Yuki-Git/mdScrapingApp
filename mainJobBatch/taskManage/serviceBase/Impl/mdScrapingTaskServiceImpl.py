@@ -81,7 +81,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
         self.field_file_num = None
         self.field_job_num = None
         self.begin_transaction_query = 'START TRANSACTION'
-        self.conn.cmd_query('SET innodb_lock_wait_timeout=10')##最大値=1073741824
+        self.conn.cmd_query('SET innodb_lock_wait_timeout=1')##最大値=1073741824
 
     def taskManageRegister(self, task_id):
         """
