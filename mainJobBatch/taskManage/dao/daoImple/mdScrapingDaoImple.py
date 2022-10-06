@@ -229,7 +229,6 @@ class MdScrapingDaoImple(MdScrapingDao):
                 "job_ken_list": job_ken_list,
                 "job_md_item_list": job_md_item_list,
             }
-            2/0
             return job_param_result
         except Exception as ex:
             ex_util = ExceptionUtils.get_instance()
