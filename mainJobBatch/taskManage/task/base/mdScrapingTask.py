@@ -37,7 +37,7 @@ class MdScrapingTaskExecute():
             ユーザーID
         """
 
-        self.max_thread = 5
+        self.max_thread = 3
         self.thread_add_flag = '1'
         self.thread_remove_flag = '0'
         self.general_group_key = 'GR000001'
