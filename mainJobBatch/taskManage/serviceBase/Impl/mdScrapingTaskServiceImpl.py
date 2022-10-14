@@ -350,7 +350,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 del md_scraping_logic_service,md_scrap_xl_write_service
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.__deleteProgress(self.field_file_num)
-                if self._taskServiceMainExceptionLogic(ex):
+                if self.__taskServiceMainExceptionLogic(ex):
                     continue
                 else:
                     raise
@@ -379,7 +379,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
             except (MdException,MdBatchSystemException,MdQueBizException,) as ex:
                 self.conn.rollback()
                 self.__deleteProgress(self.field_file_num)
-                if self._taskServiceMainExceptionLogic(ex):
+                if self.__taskServiceMainExceptionLogic(ex):
                     self.field_file_num = None
                     self.field_job_num = None
                     continue
@@ -392,7 +392,7 @@ class MdScrapingTaskServiceImpl(MdScrapingTaskService):
                 raise ex
         cur.close()
 
-    def _taskServiceMainExceptionLogic(self, ex):
+    def __taskServiceMainExceptionLogic(self, ex):
         """
         scrapingTaskメソッド共通例外ロジック
 
