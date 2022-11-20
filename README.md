@@ -33,9 +33,9 @@ http://www.md-data.net/sendPost
 ![気象データ明細出力_処理3](./readme_src/process_3.png)
 ↓
 ![気象データ明細出力_処理4](./readme_src/process_4.png)
-↓
+↓(出力されるエクセルファイルのイメージ)
 ![気象データ明細出力_処理5](./readme_src/process_5.png)
-↓
+↓(ファイル作成完了時にユーザーに自動送信されるメールイメージ)
 ![気象データ明細出力_処理6](./readme_src/process_6.png)
 
 ## パッケージ構成(自動生成ファイルは省略)
