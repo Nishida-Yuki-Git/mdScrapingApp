@@ -3,6 +3,7 @@
 ## システム概要
 http://www.md-data.net/sendPost  
 ![気象データ明細出力_メイン画面](./readme_src/sys_main_image.png)
+<img src="./readme_src/sys_main_image.png" width="320">
 <br>
 本システムは、画面で指定した年・月・地域の気象データを収集し、  
 エクセルファイルとしてダウンロードできるシステムです。  
@@ -37,6 +38,11 @@ http://www.md-data.net/sendPost
 ![気象データ明細出力_処理5](./readme_src/process_5.png)
 ↓(ファイル作成完了時にユーザーに自動送信されるメールイメージ)
 ![気象データ明細出力_処理6](./readme_src/process_6.png)
+
+## 使用技術
+#### フロントエンド
+なし(本本レポジトリのシステムは画面を持たないため)  
+#### バックエンド
 
 ## パッケージ構成(自動生成ファイルは省略)
 
