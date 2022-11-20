@@ -2,8 +2,7 @@
 
 ## システム概要
 http://www.md-data.net/sendPost  
-![気象データ明細出力_メイン画面](./readme_src/sys_main_image.png)
-<img src="./readme_src/sys_main_image.png" width="640">
+<img src="./readme_src/sys_main_image.png" width="700">
 <br>
 本システムは、画面で指定した年・月・地域の気象データを収集し、  
 エクセルファイルとしてダウンロードできるシステムです。  
@@ -27,17 +26,17 @@ http://www.md-data.net/sendPost
 
 ## 機能概要
 気象データファイルの作成指示から、ファイルダウンロードまでの機能の一連の流れを紹介します。  
-![気象データ明細出力_処理1](./readme_src/process_1.png)
+<img src="./readme_src/process_1.png" width="700">
 ↓
-![気象データ明細出力_処理2](./readme_src/process_2.png)
+<img src="./readme_src/process_2.png" width="700">
 ↓
-![気象データ明細出力_処理3](./readme_src/process_3.png)
+<img src="./readme_src/process_3.png" width="700">
 ↓
-![気象データ明細出力_処理4](./readme_src/process_4.png)
+<img src="./readme_src/process_4.png" width="700">
 ↓(出力されるエクセルファイルのイメージ)
-![気象データ明細出力_処理5](./readme_src/process_5.png)
+<img src="./readme_src/process_5.png" width="700">
 ↓(ファイル作成完了時にユーザーに自動送信されるメールイメージ)
-![気象データ明細出力_処理6](./readme_src/process_6.png)
+<img src="./readme_src/process_6.png" width="700">
 
 ## 使用技術
 #### フロントエンド
