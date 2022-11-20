@@ -42,11 +42,11 @@ http://www.md-data.net/sendPost
 <br>
 ↓(出力されるエクセルファイルのイメージ)
 <br>
-<img src="./readme_src/process_5.png" width="700">
+<img src="./readme_src/process_5.png" width="500">
 <br>
 ↓(ファイル作成完了時にユーザーに自動送信されるメールイメージ)
 <br>
-<img src="./readme_src/process_6.png" width="700">
+<img src="./readme_src/process_6.png" width="500">
 
 ## 使用技術
 #### フロントエンド
