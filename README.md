@@ -27,14 +27,19 @@ http://www.md-data.net/sendPost
 ## 機能概要
 気象データファイルの作成指示から、ファイルダウンロードまでの機能の一連の流れを紹介します。  
 <img src="./readme_src/process_1.png" width="700">
+<br>
 ↓
 <img src="./readme_src/process_2.png" width="700">
+<br>
 ↓
 <img src="./readme_src/process_3.png" width="700">
+<br>
 ↓
 <img src="./readme_src/process_4.png" width="700">
+<br>
 ↓(出力されるエクセルファイルのイメージ)
 <img src="./readme_src/process_5.png" width="700">
+<br>
 ↓(ファイル作成完了時にユーザーに自動送信されるメールイメージ)
 <img src="./readme_src/process_6.png" width="700">
 
