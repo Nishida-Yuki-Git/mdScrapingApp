@@ -44,12 +44,16 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         ファイル出力用絶対湿度リスト
     atmospheric_pressure_local_ave_output_list : list
         ファイル出力用気圧.現地.平均リスト
+    pressure_sea_level_ave_output_list : list
+        ファイル出力用気圧海面平均リスト
     temp_datasets : list
         気象庁の1画面から抽出する全データ(気温解析用)
     rh_datasets : list
         気象庁の1画面から抽出する全データ(相対湿度解析用)
     atmospheric_pressure_local_ave_output_datasets : list
         気象庁の1画面から抽出する全データ(気圧.現地.平均解析用)
+    pressure_sea_level_ave_datasets : list
+        気象庁の1画面から抽出する全データ(気圧海面平均解析用)
     main_clowling_url_list : list
         気象庁URLパーツリスト
     main_clowling_url : list
@@ -62,6 +66,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         抽出した絶対湿度データの退避リスト
     atmospheric_pressure_local_ave_list : list
         抽出した気圧.現地.平均データの退避リスト
+    pressure_sea_level_ave_list : list
+        抽出した気圧海面平均データの退避リスト
     user_select_md_item_list : list
         画面上で選択された抽出対象気象データ項目リスト
     end : str
@@ -116,10 +122,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.rh_output_list = []
         self.ab_hu_output_list = []
         self.atmospheric_pressure_local_ave_output_list = []
+        self.pressure_sea_level_ave_output_list = []
 
         self.temp_datasets = None
         self.rh_datasets = None
         self.atmospheric_pressure_local_ave_datasets = None
+        self.pressure_sea_level_ave_datasets = None
 
         self.main_clowling_url_list = md_url_list
         self.main_clowling_url = ''
@@ -128,6 +136,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.rh_list = []
         self.ab_hu_list = []
         self.atmospheric_pressure_local_ave_list = []
+        self.pressure_sea_level_ave_list = []
 
         self.user_select_md_item_list = md_item_list
 
@@ -149,10 +158,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.temp_datasets = None
         self.rh_datasets = None
         self.atmospheric_pressure_local_ave_datasets = None
+        self.pressure_sea_level_ave_datasets = None
         self.temp_list = []
         self.rh_list = []
         self.ab_hu_list = []
         self.atmospheric_pressure_local_ave_list = []
+        self.pressure_sea_level_ave_list = []
 
         try:
             self.__logBackPrint()
@@ -161,6 +172,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__TempDataScraping()
             self.__RhDataScraping()
             self.__AtmosphericPressureLocalAveScraping()
+            self.__PressureSeaLevelAveScraping()
             self.__AbHumidCalc()
             self.__OutputData()
             self.__YearMonthMethod()
@@ -194,6 +206,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     output.append(self.ab_hu_output_list)
                 elif md_item == '気圧現地平均(hPa)':
                     output.append(self.atmospheric_pressure_local_ave_output_list)
+                elif md_item == '気圧海面平均(hPa)':
+                    output.append(self.pressure_sea_level_ave_output_list)
                 else:
                     pass
             return output
@@ -251,9 +265,10 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.temp_datasets = bs.select('td.data_0_0')
         self.rh_datasets = bs.select('td.data_0_0')
         self.atmospheric_pressure_local_ave_datasets = bs.select('td.data_0_0')
+        self.pressure_sea_level_ave_datasets = bs.select('td.data_0_0')
 
     def __TempDataScraping(self):
-        """ 気象データスクレイピング
+        """ 気温データスクレイピング
         """
 
         first_data = 0
@@ -311,7 +326,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for atmospheric_pressure_local_ave_data in self.atmospheric_pressure_local_ave_datasets:
             count += 1
-            count -= 5
+            count -= 19
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', atmospheric_pressure_local_ave_data.text)
                 if data is not None:
@@ -321,7 +336,26 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.atmospheric_pressure_local_ave_list.append(data)
             else:
                 pass
-            count += 5
+            count += 19
+
+    def __PressureSeaLevelAveScraping(self):
+        """ 気圧海面平均データスクレイピング
+        """
+
+        count = 0
+        for pressure_sea_level_ave_data in self.pressure_sea_level_ave_datasets:
+            count += 1
+            count -= 4
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', pressure_sea_level_ave_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.atmospheric_pressure_local_ave_list.append(data)
+            else:
+                pass
+            count += 4
 
     def __AbHumidCalc(self):
         """ 絶対湿度の計算処理
@@ -335,11 +369,12 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ ファイル出力用データリストへの解析データの追加
         """
 
-        for (temp, rh, ab_hu, atmospheric_pressure_local_ave) in zip(self.temp_list, self.rh_list, self.ab_hu_list, self.atmospheric_pressure_local_ave_list):
+        for (temp, rh, ab_hu, atmospheric_pressure_local_ave, pressure_sea_level_ave) in zip(self.temp_list, self.rh_list, self.ab_hu_list, self.atmospheric_pressure_local_ave_list, self.pressure_sea_level_ave_list):
             self.temp_output_list.append(temp)
             self.rh_output_list.append(rh)
             self.ab_hu_output_list.append(ab_hu)
             self.atmospheric_pressure_local_ave_output_list.append(atmospheric_pressure_local_ave)
+            self.pressure_sea_level_ave_output_list.append(pressure_sea_level_ave)
 
     def __YearMonthMethod(self):
         """ 年・月の制御メソッド
