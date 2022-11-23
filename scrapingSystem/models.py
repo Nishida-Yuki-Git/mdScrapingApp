@@ -33,7 +33,7 @@ class MdUrlMT(models.Model):
 
 ##気象データ項目マスタ
 class MDItemMT(models.Model):
-    md_item = models.CharField(max_length=10)
+    md_item = models.CharField(max_length=100)
     def __str__(self):
         return self.md_item
 
@@ -137,7 +137,7 @@ class JobParamDetailData(models.Model):
     job_num = models.CharField(max_length=13)
     job_item_id = models.IntegerField()
     job_ken = models.CharField(max_length=5, blank=True)
-    job_md_item = models.CharField(max_length=5, blank=True)
+    job_md_item = models.CharField(max_length=100, blank=True)
     def __str__(self):
         return self.job_num+'/'+self.job_item_id
     class Meta:
@@ -171,7 +171,7 @@ class ProcessResultDetailData(models.Model):
     result_file_num = models.CharField(max_length=20)
     result_item_id = models.IntegerField()
     target_ken = models.CharField(max_length=5, blank=True)
-    target_md_item = models.CharField(max_length=5, blank=True)
+    target_md_item = models.CharField(max_length=100, blank=True)
     def __str__(self):
         return self.result_file_num+'/'+str(self.result_item_id)
     class Meta:
@@ -213,18 +213,3 @@ class TaskManageData(models.Model):
         constraints = [
            models.UniqueConstraint(fields=['task_id', 'user_id'], name='unique_task_manage')
         ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

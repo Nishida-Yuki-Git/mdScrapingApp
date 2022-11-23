@@ -57,7 +57,7 @@ class Command(BaseCommand):
         md_item_list = ['気温(C)',
                         '相対湿度(％)',
                         '絶対湿度(g)',
-                        '気圧(hPa)現地']
+                        '気圧現地平均(hPa)']
         for md_item in md_item_list:
             md_item_obj = MDItemMT(
                 md_item=md_item)
