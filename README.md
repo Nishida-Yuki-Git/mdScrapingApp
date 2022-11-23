@@ -54,11 +54,19 @@ http://www.md-data.net/sendPost
 #### バックエンド
 ・Python3：個人開発のため気軽さ重視でインタプリタ言語を選定し、  
 その中で開発PCに既存の環境が整っていることからPython3を選定  
-・Django：FlaskとDjangoで迷い、スキーマにコマンドでテーブル定義を展開できる便利さからDjangoを選定  
+・Django：FlaskとDjangoを検討し、スキーマにコマンドでテーブル定義を展開できる便利さからDjangoを選定  
 #### DB
-・MySQL：OracleとMySQLで迷い、導入のしやすさでMeSQLを選定  
+・MySQL：OracleとMySQLを検討し、導入の簡単さでMeSQLを選定  
 #### インフラ
-・Ubuntu20.04.3LTS：個人利用向けであること、自宅にUbuntu関連の書籍があったことから選定  
+・Ubuntu20.04.3LTS：個人利用向けであること、自宅にUbuntu関連の書籍が存在したことから選定  
+
+## オンラインアーキテクチャ
+<img src="./readme_src/online_archi.png" width="700">
+<br>
+
+## バッチアーキテクチャ
+<img src="./readme_src/batch_archi.png" width="700">
+<br>
 
 ## パッケージ構成(自動生成ファイルは省略)
 
