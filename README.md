@@ -68,6 +68,20 @@ http://www.md-data.net/sendPost
 ![バッチアーキ](./readme_src/batch_archi.png)
 <br>
 
+## ER図
+![ER図](./readme_src/ER.png)
+<br>
+
+## トランザクション管理構成図
+<img src="./readme_src/roop_out_tran.png" width="700">
+<br>
+<img src="./readme_src/roop_in_tran.png" width="700">
+<br>
+
+## インフラ構成図	
+<img src="./readme_src/server.png" width="700">
+<br>
+
 ## パッケージ構成(自動生成ファイルは省略)
 
 ```bash
