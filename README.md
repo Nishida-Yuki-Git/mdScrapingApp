@@ -49,9 +49,7 @@ http://www.md-data.net/sendPost
 <img src="./readme_src/process_6.png" width="500">
 
 ## 使用技術
-#### フロントエンド
-・なし(本レポジトリのシステムは画面を持たないため)  
-#### バックエンド
+#### サーバーサイドAPI
 ・Python3：個人開発のため気軽さ重視でインタプリタ言語を選定し、  
 その中で開発PCに既存の環境が整っていたことからPython3を選定  
 ・Django：FlaskとDjangoを検討し、スキーマにコマンドでテーブル定義を展開できる便利さからDjangoを選定  
