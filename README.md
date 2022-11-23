@@ -61,11 +61,11 @@ http://www.md-data.net/sendPost
 ・Ubuntu20.04.3LTS：個人利用向けであること、自宅にUbuntu関連の書籍が存在したことから選定  
 
 ## オンラインアーキテクチャ
-<img src="./readme_src/online_archi.png" width="700">
+![オンラインアーキ](./readme_src/online_archi.png)
 <br>
 
 ## バッチアーキテクチャ
-<img src="./readme_src/batch_archi.png" width="700">
+![バッチアーキ](./readme_src/batch_archi.png)
 <br>
 
 ## パッケージ構成(自動生成ファイルは省略)
