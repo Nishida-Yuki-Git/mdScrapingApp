@@ -267,15 +267,15 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for temp_data in self.temp_datasets:
             count += 1
-            count -= 19
+            count -= 16
             if count == 0 or count % 18 == 0 and temp_data is not None:
-                temp = re.search('.*\d+.\d', temp_data.text)
+                temp = re.search('\d+', temp_data.text)
                 if temp is not None:
                     temp = temp.group()
                 self.temp_list.append(temp)
             else:
                 pass
-            count += 19
+            count += 16
 
     def __RhDataScraping(self):
         """ 相対湿度データスクレイピング
