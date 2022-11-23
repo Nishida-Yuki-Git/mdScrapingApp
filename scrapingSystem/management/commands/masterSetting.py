@@ -57,7 +57,8 @@ class Command(BaseCommand):
                         '相対湿度(％)',
                         '絶対湿度(g)',
                         '気圧現地平均(hPa)',
-                        '気圧海面平均(hPa)']
+                        '気圧海面平均(hPa)',
+                        '降水量合計(mm)']
         for md_item in md_item_list:
             md_item_obj = MDItemMT(
                 md_item=md_item)
