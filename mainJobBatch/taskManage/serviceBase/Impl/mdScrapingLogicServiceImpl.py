@@ -352,7 +352,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     data = data.group()
                 elif data is None:
                     data = '-'
-                self.atmospheric_pressure_local_ave_list.append(data)
+                self.pressure_sea_level_ave_list.append(data)
             else:
                 pass
             count += 4
