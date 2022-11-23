@@ -192,7 +192,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     output.append(self.rh_output_list)
                 elif md_item == '絶対湿度(g)':
                     output.append(self.ab_hu_output_list)
-                elif md_item == '気圧(hPa).現地.平均':
+                elif md_item == '気圧(hPa)現地':
                     output.append(self.atmospheric_pressure_local_ave_output_list)
                 else:
                     pass
