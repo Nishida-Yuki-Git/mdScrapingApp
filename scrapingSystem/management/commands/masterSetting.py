@@ -53,9 +53,10 @@ class Command(BaseCommand):
             md_url_obj.save()
 
         MDItemMT.objects.all().delete()
-        md_item_list = ['気温',
-                        '相対湿度',
-                        '絶対湿度']
+        md_item_list = ['気温(C)',
+                        '相対湿度(％)',
+                        '絶対湿度(g)',
+                        '気圧(hPa).現地.平均']
         for md_item in md_item_list:
             md_item_obj = MDItemMT(
                 md_item=md_item)
