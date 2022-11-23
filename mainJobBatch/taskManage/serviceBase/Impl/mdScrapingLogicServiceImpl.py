@@ -241,7 +241,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ 気象データスクレイピング
         """
 
-        """
         first_data = 0
         first_count = 0
         count = 0
@@ -263,17 +262,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             else:
                 pass
             count += 10
-        """
-        count = 0
-        for temp_data in self.temp_datasets:
-            count += 1
-            count -= 19
-            if count == 0 or count % 18 == 0 and temp_data is not None:
-                temp = temp_data.text
-                self.temp_list.append(temp)
-            else:
-                pass
-            count += 19
 
     def __RhDataScraping(self):
         """ 相対湿度データスクレイピング
