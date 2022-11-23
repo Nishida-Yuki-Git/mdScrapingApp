@@ -311,7 +311,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for atmospheric_pressure_local_ave_data in self.atmospheric_pressure_local_ave_datasets:
             count += 1
-            count -= 19
+            count -= 5
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', atmospheric_pressure_local_ave_data.text)
                 if data is not None:
@@ -321,7 +321,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.atmospheric_pressure_local_ave_list.append(data)
             else:
                 pass
-            count += 19
+            count += 5
 
     def __AbHumidCalc(self):
         """ 絶対湿度の計算処理

@@ -53,7 +53,6 @@ class Command(BaseCommand):
             md_url_obj.save()
 
         MDItemMT.objects.all().delete()
-        ##10文字まで
         md_item_list = ['気温(C)',
                         '相対湿度(％)',
                         '絶対湿度(g)',
