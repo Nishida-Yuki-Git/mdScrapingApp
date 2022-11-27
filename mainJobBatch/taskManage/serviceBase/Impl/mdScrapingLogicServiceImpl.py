@@ -48,6 +48,36 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         ファイル出力用気圧海面平均リスト
     total_precipitation_output_list : list
         ファイル出力用降水量合計リスト
+    precipitation_up_to_one_hour_output_list : list
+        ファイル出力用降水量最大1時間リスト
+    precipitation_up_to_ten_min_output_list : list
+        ファイル出力用降水量最大10分間リスト
+    highest_temperature_output_list : list
+        ファイル出力用最高気温リスト
+    lowest_temperature_output_list : list
+        ファイル出力用最低気温リスト
+    min_relative_humidity_output_list : list
+        ファイル出力用最小相対湿度リスト
+    average_wind_speed_output_list : list
+        ファイル出力用平均風速リスト
+    maximum_wind_speed_output_list : list
+        ファイル出力用最大風速リスト
+    maximum_wind_direction_output_list : list
+        ファイル出力用最大風向リスト
+    maximum_instantaneous_wind_speed_output_list : list
+        ファイル出力用最大瞬間風速リスト
+    maximum_instantaneous_wind_direction_output_list : list
+        ファイル出力用最大瞬間風向リスト
+    sunshine_hours_output_list : list
+        ファイル出力用日照時間リスト
+    total_snowfall_output_list : list
+        ファイル出力用合計降雪リスト
+    deepest_snow_output_list : list
+        ファイル出力用最深積雪リスト
+    weather_forecast_noon_output_list : list
+        ファイル出力用天気概況昼リスト
+    weather_forecast_night_output_list : list
+        ファイル出力用天気概況夜リスト
     temp_datasets : list
         気象庁の1画面から抽出する全データ(気温解析用)
     rh_datasets : list
@@ -58,6 +88,36 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         気象庁の1画面から抽出する全データ(気圧海面平均解析用)
     total_precipitation_datasets : list
         気象庁の1画面から出力する全データ(降水量合計解析用)
+    precipitation_up_to_one_hour_datasets : list
+        気象庁の1画面から出力する全データ(降水量最大1時間解析用)
+    precipitation_up_to_ten_min_datasets : list
+        気象庁の1画面から出力する全データ(降水量最大10分間解析用)
+    highest_temperature_datasets : list
+        気象庁の1画面から出力する全データ(最高気温解析用)
+    lowest_temperature_datasets : list
+        気象庁の1画面から出力する全データ(最低気温解析用)
+    min_relative_humidity_datasets : list
+        気象庁の1画面から出力する全データ(最小相対湿度解析用)
+    average_wind_speed_datasets : list
+        気象庁の1画面から出力する全データ(平均風速解析用)
+    maximum_wind_speed_datasets : list
+        気象庁の1画面から出力する全データ(最大風速解析用)
+    maximum_wind_direction_datasets : list
+        気象庁の1画面から出力する全データ(最大風向解析用)
+    maximum_instantaneous_wind_speed_datasets : list
+        気象庁の1画面から出力する全データ(最大瞬間風速解析用)
+    maximum_instantaneous_wind_direction_datasets : list
+        気象庁の1画面から出力する全データ(最大瞬間風向解析用)
+    sunshine_hours_datasets : list
+        気象庁の1画面から出力する全データ(日照時間解析用)
+    total_snowfall_datasets : list
+        気象庁の1画面から出力する全データ(合計降雪解析用)
+    deepest_snow_datasets : list
+        気象庁の1画面から出力する全データ(最深積雪解析用)
+    weather_forecast_noon_datasets : list
+        気象庁の1画面から出力する全データ(天気概況昼解析用)
+    weather_forecast_night_datasets : list
+        気象庁の1画面から出力する全データ(天気概況夜解析用)
     main_clowling_url_list : list
         気象庁URLパーツリスト
     main_clowling_url : list
@@ -74,6 +134,36 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         抽出した気圧海面平均データの退避リスト
     total_precipitation_list : list
         抽出した降水量合計データの退避リスト
+    precipitation_up_to_one_hour_list : list
+        抽出した降水量最大1時間データの退避リスト
+    precipitation_up_to_ten_min_list : list
+        抽出した降水量最大10分間データの退避リスト
+    highest_temperature_list : list
+        抽出した最高気温データの退避リスト
+    lowest_temperature_list : list
+        抽出した最低気温データの退避リスト
+    min_relative_humidity_list : list
+        抽出した最小相対湿度データの退避リスト
+    average_wind_speed_list : list
+        抽出した平均風速データの退避リスト
+    maximum_wind_speed_list : list
+        抽出した最大風速データの退避リスト
+    maximum_wind_direction_list : list
+        抽出した最大風向データの退避リスト
+    maximum_instantaneous_wind_speed_list : list
+        抽出した最大瞬間風速データの退避リスト
+    maximum_instantaneous_wind_direction_list : list
+        抽出した最大瞬間風向データの退避リスト
+    sunshine_hours_list : list
+        抽出した日照時間データの退避リスト
+    total_snowfall_list : list
+        抽出した合計降雪データの退避リスト
+    deepest_snow_list : list
+        抽出した最深積雪データの退避リスト
+    weather_forecast_noon_list : list
+        抽出した天気概況昼データの退避リスト
+    weather_forecast_night_list : list
+        抽出した天気概況夜データの退避リスト
     user_select_md_item_list : list
         画面上で選択された抽出対象気象データ項目リスト
     end : str
@@ -130,12 +220,42 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.atmospheric_pressure_local_ave_output_list = []
         self.pressure_sea_level_ave_output_list = []
         self.total_precipitation_output_list = []
+        self.precipitation_up_to_one_hour_output_list = []
+        self.precipitation_up_to_ten_min_output_list = []
+        self.highest_temperature_output_list = []
+        self.lowest_temperature_output_list = []
+        self.min_relative_humidity_output_list = []
+        self.average_wind_speed_output_list = []
+        self.maximum_wind_speed_output_list = []
+        self.maximum_wind_direction_output_list = []
+        self.maximum_instantaneous_wind_speed_output_list = []
+        self.maximum_instantaneous_wind_direction_output_list = []
+        self.sunshine_hours_output_list = []
+        self.total_snowfall_output_list = []
+        self.deepest_snow_output_list = []
+        self.weather_forecast_noon_output_list = []
+        self.weather_forecast_night_output_list = []
 
         self.temp_datasets = None
         self.rh_datasets = None
         self.atmospheric_pressure_local_ave_datasets = None
         self.pressure_sea_level_ave_datasets = None
         self.total_precipitation_datasets = None
+        self.precipitation_up_to_one_hour_datasets = None
+        self.precipitation_up_to_ten_min_datasets = None
+        self.highest_temperature_datasets = None
+        self.lowest_temperature_datasets = None
+        self.min_relative_humidity_datasets = None
+        self.average_wind_speed_datasets = None
+        self.maximum_wind_speed_datasets = None
+        self.maximum_wind_direction_datasets = None
+        self.maximum_instantaneous_wind_speed_datasets = None
+        self.maximum_instantaneous_wind_direction_datasets = None
+        self.sunshine_hours_datasets = None
+        self.total_snowfall_datasets = None
+        self.deepest_snow_datasets = None
+        self.weather_forecast_noon_datasets = None
+        self.weather_forecast_night_datasets = None
 
         self.main_clowling_url_list = md_url_list
         self.main_clowling_url = ''
@@ -146,6 +266,21 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.atmospheric_pressure_local_ave_list = []
         self.pressure_sea_level_ave_list = []
         self.total_precipitation_list = []
+        self.precipitation_up_to_one_hour_list = []
+        self.precipitation_up_to_ten_min_list = []
+        self.highest_temperature_list = []
+        self.lowest_temperature_list = []
+        self.min_relative_humidity_list = []
+        self.average_wind_speed_list = []
+        self.maximum_wind_speed_list = []
+        self.maximum_wind_direction_list = []
+        self.maximum_instantaneous_wind_speed_list = []
+        self.maximum_instantaneous_wind_direction_list = []
+        self.sunshine_hours_list = []
+        self.total_snowfall_list = []
+        self.deepest_snow_list = []
+        self.weather_forecast_noon_list = []
+        self.weather_forecast_night_list = []
 
         self.user_select_md_item_list = md_item_list
 
@@ -169,12 +304,42 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.atmospheric_pressure_local_ave_datasets = None
         self.pressure_sea_level_ave_datasets = None
         self.total_precipitation_datasets = None
+        self.precipitation_up_to_one_hour_datasets = None
+        self.precipitation_up_to_ten_min_datasets = None
+        self.highest_temperature_datasets = None
+        self.lowest_temperature_datasets = None
+        self.min_relative_humidity_datasets = None
+        self.average_wind_speed_datasets = None
+        self.maximum_wind_speed_datasets = None
+        self.maximum_wind_direction_datasets = None
+        self.maximum_instantaneous_wind_speed_datasets = None
+        self.maximum_instantaneous_wind_direction_datasets = None
+        self.sunshine_hours_datasets = None
+        self.total_snowfall_datasets = None
+        self.deepest_snow_datasets = None
+        self.weather_forecast_noon_datasets = None
+        self.weather_forecast_night_datasets = None
         self.temp_list = []
         self.rh_list = []
         self.ab_hu_list = []
         self.atmospheric_pressure_local_ave_list = []
         self.pressure_sea_level_ave_list = []
         self.total_precipitation_list = []
+        self.precipitation_up_to_one_hour_list = []
+        self.precipitation_up_to_ten_min_list = []
+        self.highest_temperature_list = []
+        self.lowest_temperature_list = []
+        self.min_relative_humidity_list = []
+        self.average_wind_speed_list = []
+        self.maximum_wind_speed_list = []
+        self.maximum_wind_direction_list = []
+        self.maximum_instantaneous_wind_speed_list = []
+        self.maximum_instantaneous_wind_direction_list = []
+        self.sunshine_hours_list = []
+        self.total_snowfall_list = []
+        self.deepest_snow_list = []
+        self.weather_forecast_noon_list = []
+        self.weather_forecast_night_list = []
 
         try:
             self.__logBackPrint()
@@ -185,6 +350,21 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__AtmosphericPressureLocalAveScraping()
             self.__PressureSeaLevelAveScraping()
             self.__TotalPrecipitationScraping()
+            self.__PrecipitationUpToOneHourScraping()
+            self.__PrecipitationUpToTenMinScraping()
+            self.__HighestTemperatureScraping()
+            self.__LowestTemperatureScraping()
+            self.__MinRelativeHumidityScraping()
+            self.__AverageWindSpeedScraping()
+            self.__MaximumWindSpeedScraping()
+            self.__MaximumWindDirectionScraping()
+            self.__MaximumInstantaneousWindSpeedScraping()
+            self.__MaximumInstantaneousWindDirectionScraping()
+            self.__SunshineHoursScraping()
+            self.__TotalSnowfallScraping()
+            self.__DeepestSnowScraping()
+            self.__WeatherForecastNoonScraping()
+            self.__WeatherForecastNightScraping()
             self.__AbHumidCalc()
             self.__OutputData()
             self.__YearMonthMethod()
@@ -222,6 +402,36 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     output.append(self.pressure_sea_level_ave_output_list)
                 elif md_item == '降水量合計(mm)':
                     output.append(self.total_precipitation_output_list)
+                elif md_item == '降水量最大1時間(mm)':
+                    output.append(self.precipitation_up_to_one_hour_output_list)
+                elif md_item == '降水量最大10分間(mm)':
+                    output.append(self.precipitation_up_to_ten_min_output_list)
+                elif md_item == '最高気温(C)':
+                    output.append(self.highest_temperature_output_list)
+                elif md_item == '最低気温(C)':
+                    output.append(self.lowest_temperature_output_list)
+                elif md_item == '最小相対湿度(%)':
+                    output.append(self.min_relative_humidity_output_list)
+                elif md_item == '平均風速(m/s)':
+                    output.append(self.average_wind_speed_output_list)
+                elif md_item == '最大風速(m/s)':
+                    output.append(self.maximum_wind_speed_output_list)
+                elif md_item == '最大風向':
+                    output.append(self.maximum_wind_direction_output_list)
+                elif md_item == '最大瞬間風速(m/s)':
+                    output.append(self.maximum_instantaneous_wind_speed_output_list)
+                elif md_item == '最大瞬間風向':
+                    output.append(self.maximum_instantaneous_wind_direction_output_list)
+                elif md_item == '日照時間(h)':
+                    output.append(self.sunshine_hours_output_list)
+                elif md_item == '合計降雪(cm)':
+                    output.append(self.total_snowfall_output_list)
+                elif md_item == '最深積雪(cm)':
+                    output.append(self.deepest_snow_output_list)
+                elif md_item == '天気概況昼(06:00-18:00)':
+                    output.append(self.weather_forecast_noon_output_list)
+                elif md_item == '天気概況夜(18:00-翌日06:00)':
+                    output.append(self.weather_forecast_night_output_list)
                 else:
                     pass
             return output
@@ -281,6 +491,21 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         self.atmospheric_pressure_local_ave_datasets = bs.select('td.data_0_0')
         self.pressure_sea_level_ave_datasets = bs.select('td.data_0_0')
         self.total_precipitation_datasets = bs.select('td.data_0_0')
+        self.precipitation_up_to_one_hour_datasets = bs.select('td.data_0_0')
+        self.precipitation_up_to_ten_min_datasets = bs.select('td.data_0_0')
+        self.highest_temperature_datasets = bs.select('td.data_0_0')
+        self.lowest_temperature_datasets = bs.select('td.data_0_0')
+        self.min_relative_humidity_datasets = bs.select('td.data_0_0')
+        self.average_wind_speed_datasets = bs.select('td.data_0_0')
+        self.maximum_wind_speed_datasets = bs.select('td.data_0_0')
+        self.maximum_wind_direction_datasets = bs.select('td.data_0_0')
+        self.maximum_instantaneous_wind_speed_datasets = bs.select('td.data_0_0')
+        self.maximum_instantaneous_wind_direction_datasets = bs.select('td.data_0_0')
+        self.sunshine_hours_datasets = bs.select('td.data_0_0')
+        self.total_snowfall_datasets = bs.select('td.data_0_0')
+        self.deepest_snow_datasets = bs.select('td.data_0_0')
+        self.weather_forecast_noon_datasets = bs.select('td.data_0_0')
+        self.weather_forecast_night_datasets = bs.select('td.data_0_0')
 
     def __TempDataScraping(self):
         """ 気温データスクレイピング
@@ -391,6 +616,291 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 pass
             count += 20
 
+    def __PrecipitationUpToOneHourScraping(self):
+        """ 降水量最大1時間データスクレイピング
+        """
+
+        count = 0
+        for precipitation_up_to_one_hour_data in self.precipitation_up_to_one_hour_datasets:
+            count += 1
+            count -= 12
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', precipitation_up_to_one_hour_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.precipitation_up_to_one_hour_list.append(data)
+            else:
+                pass
+            count += 12
+
+    def __PrecipitationUpToTenMinScraping(self):
+        """ 降水量最大10分間データスクレイピング
+        """
+
+        count = 0
+        for precipitation_up_to_ten_min_data in self.precipitation_up_to_ten_min_datasets:
+            count += 1
+            count -= 7
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', precipitation_up_to_ten_min_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.precipitation_up_to_ten_min_list.append(data)
+            else:
+                pass
+            count += 7
+
+    def __HighestTemperatureScraping(self):
+        """ 最高気温データスクレイピング
+        """
+
+        count = 0
+        for highest_temperature_data in self.highest_temperature_datasets:
+            count += 1
+            count -= 1
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', highest_temperature_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.highest_temperature_list.append(data)
+            else:
+                pass
+            count += 1
+
+    def __LowestTemperatureScraping(self):
+        """ 最低気温データスクレイピング
+        """
+
+        count = 0
+        for lowest_temperature_data in self.lowest_temperature_datasets:
+            count += 1
+            count -= 8
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', lowest_temperature_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.lowest_temperature_list.append(data)
+            else:
+                pass
+            count += 8
+
+    def __MinRelativeHumidityScraping(self):
+        """ 最小相対湿度データスクレイピング
+        """
+
+        count = 0
+        for min_relative_humidity_data in self.min_relative_humidity_datasets:
+            count += 1
+            count -= 21
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', min_relative_humidity_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.min_relative_humidity_list.append(data)
+            else:
+                pass
+            count += 21
+
+    def __AverageWindSpeedScraping(self):
+        """ 平均風速データスクレイピング
+        """
+
+        count = 0
+        for average_wind_speed_data in self.average_wind_speed_datasets:
+            count += 1
+            count -= 6
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', average_wind_speed_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.average_wind_speed_list.append(data)
+            else:
+                pass
+            count += 6
+
+    def __MaximumWindSpeedScraping(self):
+        """ 最大風速データスクレイピング
+        """
+
+        count = 0
+        for maximum_wind_speed_data in self.maximum_wind_speed_datasets:
+            count += 1
+            count -= 14
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', maximum_wind_speed_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.maximum_wind_speed_list.append(data)
+            else:
+                pass
+            count += 14
+
+    def __MaximumWindDirectionScraping(self):
+        """ 最大風向データスクレイピング
+        """
+
+        count = 0
+        for maximum_wind_direction_data in self.maximum_wind_direction_datasets:
+            count += 1
+            count -= 17
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', maximum_wind_direction_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.maximum_wind_direction_list.append(data)
+            else:
+                pass
+            count += 17
+
+    def __MaximumInstantaneousWindSpeedScraping(self):
+        """ 最大瞬間風速データスクレイピング
+        """
+
+        count = 0
+        for maximum_instantaneous_wind_speed_data in self.maximum_instantaneous_wind_speed_datasets:
+            count += 1
+            count -= 18
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', maximum_instantaneous_wind_speed_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.maximum_instantaneous_wind_speed_list.append(data)
+            else:
+                pass
+            count += 18
+
+    def __MaximumInstantaneousWindDirectionScraping(self):
+        """ 最大瞬間風向データスクレイピング
+        """
+
+        count = 0
+        for maximum_instantaneous_wind_direction_data in self.maximum_instantaneous_wind_direction_datasets:
+            count += 1
+            count -= 2
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', maximum_instantaneous_wind_direction_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.maximum_instantaneous_wind_speed_list.append(data)
+            else:
+                pass
+            count += 2
+
+    def __SunshineHoursScraping(self):
+        """ 日照時間データスクレイピング
+        """
+
+        count = 0
+        for sunshine_hours_data in self.sunshine_hours_datasets:
+            count += 1
+            count -= 3
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', sunshine_hours_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.sunshine_hours_list.append(data)
+            else:
+                pass
+            count += 3
+
+    def __TotalSnowfallScraping(self):
+        """ 合計降雪データスクレイピング
+        """
+
+        count = 0
+        for total_snowfall_data in self.total_snowfall_datasets:
+            count += 1
+            count -= 9
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', total_snowfall_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.total_snowfall_list.append(data)
+            else:
+                pass
+            count += 9
+
+    def __DeepestSnowScraping(self):
+        """ 最深積雪データスクレイピング
+        """
+
+        count = 0
+        for deepest_snow_data in self.deepest_snow_datasets:
+            count += 1
+            count -= 11
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', deepest_snow_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.deepest_snow_list.append(data)
+            else:
+                pass
+            count += 11
+
+    def __WeatherForecastNoonScraping(self):
+        """ 天気概況昼データスクレイピング
+        """
+
+        count = 0
+        for weather_forecast_noon_data in self.weather_forecast_noon_datasets:
+            count += 1
+            count -= 13
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', weather_forecast_noon_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.weather_forecast_noon_list.append(data)
+            else:
+                pass
+            count += 13
+
+    def __WeatherForecastNightScraping(self):
+        """ 天気概況夜データスクレイピング
+        """
+
+        count = 0
+        for weather_forecast_night_data in self.weather_forecast_night_datasets:
+            count += 1
+            count -= 15
+            if count == 0 or count % 18 == 0:
+                data = re.search('.*', weather_forecast_night_data.text)
+                if data is not None:
+                    data = data.group()
+                elif data is None:
+                    data = '-'
+                self.weather_forecast_night_list.append(data)
+            else:
+                pass
+            count += 15
+
     def __AbHumidCalc(self):
         """ 絶対湿度の計算処理
         """
@@ -403,13 +913,28 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ ファイル出力用データリストへの解析データの追加
         """
 
-        for (temp, rh, ab_hu, atmospheric_pressure_local_ave, pressure_sea_level_ave, total_precipitation) in zip(self.temp_list, self.rh_list, self.ab_hu_list, self.atmospheric_pressure_local_ave_list, self.pressure_sea_level_ave_list, self.total_precipitation_list):
+        for (temp, rh, ab_hu, atmospheric_pressure_local_ave, pressure_sea_level_ave, total_precipitation, precipitation_up_to_one_hour, precipitation_up_to_ten_min, highest_temperature, lowest_temperature, min_relative_humidity, average_wind_speed, maximum_wind_speed, maximum_wind_direction, maximum_instantaneous_wind_speed, maximum_instantaneous_wind_direction, sunshine_hours, total_snowfall, deepest_snow, weather_forecast_noon, weather_forecast_night) in zip(self.temp_list, self.rh_list, self.ab_hu_list, self.atmospheric_pressure_local_ave_list, self.pressure_sea_level_ave_list, self.total_precipitation_list, self.precipitation_up_to_one_hour_list, self.precipitation_up_to_ten_min_list, self.highest_temperature_list, self.lowest_temperature_list, self.min_relative_humidity_list, self.average_wind_speed_list, self.maximum_wind_speed_list, self.maximum_wind_direction_list, self.maximum_instantaneous_wind_speed_list, self.maximum_instantaneous_wind_direction_list, self.sunshine_hours_list, self.total_snowfall_list, self.deepest_snow_list, self.weather_forecast_noon_list, self.weather_forecast_night_list):
             self.temp_output_list.append(temp)
             self.rh_output_list.append(rh)
             self.ab_hu_output_list.append(ab_hu)
             self.atmospheric_pressure_local_ave_output_list.append(atmospheric_pressure_local_ave)
             self.pressure_sea_level_ave_output_list.append(pressure_sea_level_ave)
             self.total_precipitation_output_list.append(total_precipitation)
+            self.precipitation_up_to_one_hour_output_list.append(precipitation_up_to_one_hour)
+            self.precipitation_up_to_ten_min_output_list.append(precipitation_up_to_ten_min)
+            self.highest_temperature_output_list.append(highest_temperature)
+            self.lowest_temperature_output_list.append(lowest_temperature)
+            self.min_relative_humidity_output_list.append(min_relative_humidity)
+            self.average_wind_speed_output_list.append(average_wind_speed)
+            self.maximum_wind_speed_output_list.append(maximum_wind_speed)
+            self.maximum_wind_direction_output_list.append(maximum_wind_direction)
+            self.maximum_instantaneous_wind_speed_output_list.append(maximum_instantaneous_wind_speed)
+            self.maximum_instantaneous_wind_direction_output_list.append(maximum_instantaneous_wind_direction)
+            self.sunshine_hours_output_list.append(sunshine_hours)
+            self.total_snowfall_output_list.append(total_snowfall)
+            self.deepest_snow_output_list.append(deepest_snow)
+            self.weather_forecast_noon_output_list.append(weather_forecast_noon)
+            self.weather_forecast_night_output_list.append(weather_forecast_night)
 
     def __YearMonthMethod(self):
         """ 年・月の制御メソッド
