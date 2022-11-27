@@ -40,7 +40,6 @@ class FileCreateCommunicater():
 
         self.ken_name_list = request.data['ken']
         self.md_item_list = request.data['md_item']
-        print(self.md_item_list)
 
     def checkMainBusinessParam(self):
         """
