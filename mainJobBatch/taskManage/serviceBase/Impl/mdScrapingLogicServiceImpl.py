@@ -947,7 +947,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.maximum_instantaneous_wind_direction_output_list.append(maximum_instantaneous_wind_direction)
         for sunshine_hours in self.sunshine_hours_list:
             self.sunshine_hours_output_list.append(sunshine_hours)
-        for total_snowfall in total_snowfall:
+        for total_snowfall in self.total_snowfall_list:
             self.total_snowfall_output_list.append(total_snowfall)
         for deepest_snow in self.deepest_snow_list:
             self.deepest_snow_output_list.append(deepest_snow)
