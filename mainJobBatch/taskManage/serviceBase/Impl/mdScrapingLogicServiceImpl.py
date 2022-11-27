@@ -935,6 +935,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.deepest_snow_output_list.append(deepest_snow)
             self.weather_forecast_noon_output_list.append(weather_forecast_noon)
             self.weather_forecast_night_output_list.append(weather_forecast_night)
+        print(self.weather_forecast_night_output_list)
 
     def __YearMonthMethod(self):
         """ 年・月の制御メソッド

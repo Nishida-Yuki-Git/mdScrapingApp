@@ -117,8 +117,6 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
 
             xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
             data_write_column_list = []
-            print('hello')
-            print(output_data_list)
             for i in range(len(output_data_list[0])):
                 data_write_column_list.append(xl_column_alphabet_list[i])
 
