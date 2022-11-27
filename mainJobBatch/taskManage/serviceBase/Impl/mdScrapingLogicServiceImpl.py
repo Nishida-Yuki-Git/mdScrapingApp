@@ -913,29 +913,48 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ ファイル出力用データリストへの解析データの追加
         """
 
-        for (temp, rh, ab_hu, atmospheric_pressure_local_ave, pressure_sea_level_ave, total_precipitation, precipitation_up_to_one_hour, precipitation_up_to_ten_min, highest_temperature, lowest_temperature, min_relative_humidity, average_wind_speed, maximum_wind_speed, maximum_wind_direction, maximum_instantaneous_wind_speed, maximum_instantaneous_wind_direction, sunshine_hours, total_snowfall, deepest_snow, weather_forecast_noon, weather_forecast_night) in zip(self.temp_list, self.rh_list, self.ab_hu_list, self.atmospheric_pressure_local_ave_list, self.pressure_sea_level_ave_list, self.total_precipitation_list, self.precipitation_up_to_one_hour_list, self.precipitation_up_to_ten_min_list, self.highest_temperature_list, self.lowest_temperature_list, self.min_relative_humidity_list, self.average_wind_speed_list, self.maximum_wind_speed_list, self.maximum_wind_direction_list, self.maximum_instantaneous_wind_speed_list, self.maximum_instantaneous_wind_direction_list, self.sunshine_hours_list, self.total_snowfall_list, self.deepest_snow_list, self.weather_forecast_noon_list, self.weather_forecast_night_list):
+        for temp in self.temp_list:
             self.temp_output_list.append(temp)
+        for rh in self.rh_list:
             self.rh_output_list.append(rh)
+        for ab_hu in self.ab_hu_list:
             self.ab_hu_output_list.append(ab_hu)
+        for atmospheric_pressure_local_ave in self.atmospheric_pressure_local_ave_list:
             self.atmospheric_pressure_local_ave_output_list.append(atmospheric_pressure_local_ave)
+        for pressure_sea_level_ave in self.pressure_sea_level_ave_list:
             self.pressure_sea_level_ave_output_list.append(pressure_sea_level_ave)
+        for total_precipitation in self.total_precipitation_list:
             self.total_precipitation_output_list.append(total_precipitation)
+        for precipitation_up_to_one_hour in self.precipitation_up_to_one_hour_list:
             self.precipitation_up_to_one_hour_output_list.append(precipitation_up_to_one_hour)
+        for precipitation_up_to_ten_min in self.precipitation_up_to_ten_min_list:
             self.precipitation_up_to_ten_min_output_list.append(precipitation_up_to_ten_min)
+        for highest_temperature in self.highest_temperature_list:
             self.highest_temperature_output_list.append(highest_temperature)
+        for lowest_temperature in self.lowest_temperature_list:
             self.lowest_temperature_output_list.append(lowest_temperature)
+        for min_relative_humidity in self.min_relative_humidity_list:
             self.min_relative_humidity_output_list.append(min_relative_humidity)
+        for average_wind_speed in self.average_wind_speed_list:
             self.average_wind_speed_output_list.append(average_wind_speed)
+        for maximum_wind_speed in self.maximum_wind_speed_list:
             self.maximum_wind_speed_output_list.append(maximum_wind_speed)
+        for maximum_wind_direction in self.maximum_wind_direction_list:
             self.maximum_wind_direction_output_list.append(maximum_wind_direction)
+        for maximum_instantaneous_wind_speed in self.maximum_instantaneous_wind_speed_list:
             self.maximum_instantaneous_wind_speed_output_list.append(maximum_instantaneous_wind_speed)
+        for maximum_instantaneous_wind_direction in self.maximum_instantaneous_wind_direction_list:
             self.maximum_instantaneous_wind_direction_output_list.append(maximum_instantaneous_wind_direction)
+        for sunshine_hours in self.sunshine_hours_list:
             self.sunshine_hours_output_list.append(sunshine_hours)
+        for total_snowfall in total_snowfall:
             self.total_snowfall_output_list.append(total_snowfall)
+        for deepest_snow in self.deepest_snow_list:
             self.deepest_snow_output_list.append(deepest_snow)
+        for weather_forecast_noon in self.weather_forecast_noon_list:
             self.weather_forecast_noon_output_list.append(weather_forecast_noon)
+        for weather_forecast_night in self.weather_forecast_night_list:
             self.weather_forecast_night_output_list.append(weather_forecast_night)
-        print(self.weather_forecast_night_output_list)
 
     def __YearMonthMethod(self):
         """ 年・月の制御メソッド
