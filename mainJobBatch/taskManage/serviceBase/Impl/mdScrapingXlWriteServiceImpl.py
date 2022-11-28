@@ -114,6 +114,7 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
 
 
             output_data_list = [list(x) for x in zip(*output_data)]
+            print(output_data_list)
 
             xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
             data_write_column_list = []
