@@ -801,7 +801,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                     data = data.group()
                 elif data is None:
                     data = '-'
-                self.maximum_instantaneous_wind_speed_list.append(data)
+                self.maximum_instantaneous_wind_direction_list.append(data)
             else:
                 pass
             count += 2
