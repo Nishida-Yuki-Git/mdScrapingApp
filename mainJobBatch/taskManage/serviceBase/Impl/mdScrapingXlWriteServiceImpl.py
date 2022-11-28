@@ -112,9 +112,8 @@ class MdScrapingXlWriteServiceImpl(MdScrapingXlWriteService):
             self.wb = openpyxl.load_workbook(self.middle_save_path)
             self.sheet = self.wb['sheet1']
 
-
+            print(output_data)
             output_data_list = [list(x) for x in zip(*output_data)]
-            print(output_data_list)
 
             xl_column_alphabet_list = [chr(ord("D")+i) for i in range(23)]
             data_write_column_list = []
