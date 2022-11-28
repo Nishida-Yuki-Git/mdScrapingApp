@@ -392,28 +392,20 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             for md_item in self.user_select_md_item_list:
                 if md_item == '気温(C)':
                     output.append(self.temp_output_list)
-                    print(self.temp_output_list)
                 elif md_item == '相対湿度(％)':
                     output.append(self.rh_output_list)
-                    print(self.rh_output_list)
                 elif md_item == '絶対湿度(g)':
                     output.append(self.ab_hu_output_list)
-                    print(self.ab_hu_output_list)
                 elif md_item == '気圧現地平均(hPa)':
                     output.append(self.atmospheric_pressure_local_ave_output_list)
-                    print(self.atmospheric_pressure_local_ave_output_list)
                 elif md_item == '気圧海面平均(hPa)':
                     output.append(self.pressure_sea_level_ave_output_list)
-                    print(self.pressure_sea_level_ave_output_list)
                 elif md_item == '降水量合計(mm)':
                     output.append(self.total_precipitation_output_list)
-                    print(self.total_precipitation_output_list)
                 elif md_item == '降水量最大1時間(mm)':
                     output.append(self.precipitation_up_to_one_hour_output_list)
-                    print(self.precipitation_up_to_one_hour_output_list)
                 elif md_item == '降水量最大10分間(mm)':
                     output.append(self.precipitation_up_to_ten_min_output_list)
-                    print(self.precipitation_up_to_ten_min_output_list)
                 elif md_item == '最高気温(C)':
                     output.append(self.highest_temperature_output_list)
                 elif md_item == '最低気温(C)':
