@@ -661,7 +661,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for highest_temperature_data in self.highest_temperature_datasets:
             count += 1
-            count -= 10
+            count -= 1
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', highest_temperature_data.text)
                 if data is not None:
@@ -671,7 +671,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.highest_temperature_list.append(data)
             else:
                 pass
-            count += 10
+            count += 1
 
     def __LowestTemperatureScraping(self):
         """ 最低気温データスクレイピング
@@ -699,7 +699,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for min_relative_humidity_data in self.min_relative_humidity_datasets:
             count += 1
-            count -= 19
+            count -= 21
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', min_relative_humidity_data.text)
                 if data is not None:
@@ -709,7 +709,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.min_relative_humidity_list.append(data)
             else:
                 pass
-            count += 19
+            count += 21
 
     def __AverageWindSpeedScraping(self):
         """ 平均風速データスクレイピング
