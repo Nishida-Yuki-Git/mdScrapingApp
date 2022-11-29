@@ -176,4 +176,10 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 process_result.file_create_status = self.target_file_status_const_process+' ('+self.sintyokuritsu_str+str(
                     '{:.1f}'.format((last_progress/year_month_ken_calc)*100))+self.rate_str+')'
 
+                print(last_progress)
+                print(target_end_year-target_start_year+1)
+                print(target_end_month-target_start_month+1)
+                print(ken_item_count)
+                print((last_progress/year_month_ken_calc)*100)
+
         return process_result_list
