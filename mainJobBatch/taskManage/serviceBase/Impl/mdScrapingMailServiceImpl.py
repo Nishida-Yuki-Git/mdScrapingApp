@@ -117,7 +117,7 @@ class MdScrapingMailServiceImpl(MdScrapingMailService):
                 file_gyomu_list["target_end_year"],
                 file_gyomu_list["target_start_month"],
                 file_gyomu_list["target_end_month"],
-                file_gyomu_list["target_ken"],
+                file_gyomu_list["target_ken"].replace(',,', ''),
                 file_gyomu_list["target_md_item"].replace(',,', ''),
                 self.smtp_user,
                 self.sys_url)
