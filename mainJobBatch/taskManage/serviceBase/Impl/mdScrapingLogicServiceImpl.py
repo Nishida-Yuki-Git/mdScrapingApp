@@ -585,7 +585,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for pressure_sea_level_ave_data in self.pressure_sea_level_ave_datasets:
             count += 1
-            count -= 4
+            count -= 20
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', pressure_sea_level_ave_data.text)
                 if data is not None:
@@ -595,7 +595,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.pressure_sea_level_ave_list.append(data)
             else:
                 pass
-            count += 4
+            count += 20
 
     def __TotalPrecipitationScraping(self):
         """ 降水量合計データスクレイピング
@@ -604,7 +604,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for total_precipitation_data in self.total_precipitation_datasets:
             count += 1
-            count -= 20
+            count -= 10
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', total_precipitation_data.text)
                 if data is not None:
@@ -614,7 +614,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.total_precipitation_list.append(data)
             else:
                 pass
-            count += 20
+            count += 10
 
     def __PrecipitationUpToOneHourScraping(self):
         """ 降水量最大1時間データスクレイピング
@@ -623,7 +623,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for precipitation_up_to_one_hour_data in self.precipitation_up_to_one_hour_datasets:
             count += 1
-            count -= 12
+            count -= 6
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', precipitation_up_to_one_hour_data.text)
                 if data is not None:
@@ -633,7 +633,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.precipitation_up_to_one_hour_list.append(data)
             else:
                 pass
-            count += 12
+            count += 6
 
     def __PrecipitationUpToTenMinScraping(self):
         """ 降水量最大10分間データスクレイピング
@@ -642,7 +642,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for precipitation_up_to_ten_min_data in self.precipitation_up_to_ten_min_datasets:
             count += 1
-            count -= 7
+            count -= 8
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', precipitation_up_to_ten_min_data.text)
                 if data is not None:
@@ -652,7 +652,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.precipitation_up_to_ten_min_list.append(data)
             else:
                 pass
-            count += 7
+            count += 8
 
     def __HighestTemperatureScraping(self):
         """ 最高気温データスクレイピング
@@ -661,7 +661,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for highest_temperature_data in self.highest_temperature_datasets:
             count += 1
-            count -= 1
+            count -= 11
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', highest_temperature_data.text)
                 if data is not None:
@@ -671,7 +671,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.highest_temperature_list.append(data)
             else:
                 pass
-            count += 1
+            count += 11
 
     def __LowestTemperatureScraping(self):
         """ 最低気温データスクレイピング
@@ -680,7 +680,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for lowest_temperature_data in self.lowest_temperature_datasets:
             count += 1
-            count -= 8
+            count -= 13
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', lowest_temperature_data.text)
                 if data is not None:
@@ -690,7 +690,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.lowest_temperature_list.append(data)
             else:
                 pass
-            count += 8
+            count += 13
 
     def __MinRelativeHumidityScraping(self):
         """ 最小相対湿度データスクレイピング
@@ -699,7 +699,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for min_relative_humidity_data in self.min_relative_humidity_datasets:
             count += 1
-            count -= 21
+            count -= 17
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', min_relative_humidity_data.text)
                 if data is not None:
@@ -709,7 +709,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.min_relative_humidity_list.append(data)
             else:
                 pass
-            count += 21
+            count += 17
 
     def __AverageWindSpeedScraping(self):
         """ 平均風速データスクレイピング
@@ -718,7 +718,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for average_wind_speed_data in self.average_wind_speed_datasets:
             count += 1
-            count -= 6
+            count -= 16
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', average_wind_speed_data.text)
                 if data is not None:
@@ -728,7 +728,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.average_wind_speed_list.append(data)
             else:
                 pass
-            count += 6
+            count += 16
 
     def __MaximumWindSpeedScraping(self):
         """ 最大風速データスクレイピング
@@ -737,7 +737,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for maximum_wind_speed_data in self.maximum_wind_speed_datasets:
             count += 1
-            count -= 14
+            count -= 22
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', maximum_wind_speed_data.text)
                 if data is not None:
@@ -747,7 +747,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.maximum_wind_speed_list.append(data)
             else:
                 pass
-            count += 14
+            count += 22
 
     def __MaximumWindDirectionScraping(self):
         """ 最大風向データスクレイピング
@@ -756,7 +756,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for maximum_wind_direction_data in self.maximum_wind_direction_datasets:
             count += 1
-            count -= 17
+            count -= 23
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', maximum_wind_direction_data.text)
                 if data is not None:
@@ -766,7 +766,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.maximum_wind_direction_list.append(data)
             else:
                 pass
-            count += 17
+            count += 23
 
     def __MaximumInstantaneousWindSpeedScraping(self):
         """ 最大瞬間風速データスクレイピング
@@ -775,7 +775,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for maximum_instantaneous_wind_speed_data in self.maximum_instantaneous_wind_speed_datasets:
             count += 1
-            count -= 18
+            count -= 24
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', maximum_instantaneous_wind_speed_data.text)
                 if data is not None:
@@ -785,7 +785,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.maximum_instantaneous_wind_speed_list.append(data)
             else:
                 pass
-            count += 18
+            count += 24
 
     def __MaximumInstantaneousWindDirectionScraping(self):
         """ 最大瞬間風向データスクレイピング
@@ -794,7 +794,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for maximum_instantaneous_wind_direction_data in self.maximum_instantaneous_wind_direction_datasets:
             count += 1
-            count -= 2
+            count -= 25
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', maximum_instantaneous_wind_direction_data.text)
                 if data is not None:
@@ -804,7 +804,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.maximum_instantaneous_wind_direction_list.append(data)
             else:
                 pass
-            count += 2
+            count += 25
 
     def __SunshineHoursScraping(self):
         """ 日照時間データスクレイピング
@@ -813,7 +813,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for sunshine_hours_data in self.sunshine_hours_datasets:
             count += 1
-            count -= 3
+            count -= 26
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', sunshine_hours_data.text)
                 if data is not None:
@@ -823,7 +823,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.sunshine_hours_list.append(data)
             else:
                 pass
-            count += 3
+            count += 26
 
     def __TotalSnowfallScraping(self):
         """ 合計降雪データスクレイピング
@@ -832,7 +832,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for total_snowfall_data in self.total_snowfall_datasets:
             count += 1
-            count -= 9
+            count -= 27
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', total_snowfall_data.text)
                 if data is not None:
@@ -842,7 +842,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.total_snowfall_list.append(data)
             else:
                 pass
-            count += 9
+            count += 27
 
     def __DeepestSnowScraping(self):
         """ 最深積雪データスクレイピング
@@ -851,7 +851,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for deepest_snow_data in self.deepest_snow_datasets:
             count += 1
-            count -= 11
+            count -= 28
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', deepest_snow_data.text)
                 if data is not None:
@@ -861,7 +861,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.deepest_snow_list.append(data)
             else:
                 pass
-            count += 11
+            count += 28
 
     def __WeatherForecastNoonScraping(self):
         """ 天気概況昼データスクレイピング
@@ -870,7 +870,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for weather_forecast_noon_data in self.weather_forecast_noon_datasets:
             count += 1
-            count -= 13
+            count -= 29
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', weather_forecast_noon_data.text)
                 if data is not None:
@@ -880,7 +880,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.weather_forecast_noon_list.append(data)
             else:
                 pass
-            count += 13
+            count += 29
 
     def __WeatherForecastNightScraping(self):
         """ 天気概況夜データスクレイピング
@@ -889,7 +889,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for weather_forecast_night_data in self.weather_forecast_night_datasets:
             count += 1
-            count -= 15
+            count -= 30
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', weather_forecast_night_data.text)
                 if data is not None:
@@ -899,7 +899,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.weather_forecast_night_list.append(data)
             else:
                 pass
-            count += 15
+            count += 30
 
     def __AbHumidCalc(self):
         """ 絶対湿度の計算処理
