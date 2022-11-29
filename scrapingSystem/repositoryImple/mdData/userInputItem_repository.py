@@ -169,7 +169,6 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 for process_result_detail in process_result_detail_list:
                     if process_result_detail.target_ken != '':
                         ken_item_count += 1
-                print(ken_item_count)
 
                 target_start_year = int(process_result.target_start_year)
                 target_end_year = int(process_result.target_end_year)
