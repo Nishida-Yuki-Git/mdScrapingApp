@@ -165,7 +165,11 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
                 progress_file.close()
 
                 process_result_detail_list = ProcessResultDetailData.objects.filter(result_file_num=result_file_num)
-                ken_item_count = len(process_result_detail_list)
+                ken_item_count = 0
+                for process_result_detail in process_result_detail_list:
+                    if process_result_detail.target_ken != '':
+                        ken_item_count += 1
+                print(ken_item_count)
 
                 target_start_year = int(process_result.target_start_year)
                 target_end_year = int(process_result.target_end_year)
@@ -175,11 +179,5 @@ class UserInputItemGetRepositoryImple(UserInputItemGetRepository):
 
                 process_result.file_create_status = self.target_file_status_const_process+' ('+self.sintyokuritsu_str+str(
                     '{:.1f}'.format((last_progress/year_month_ken_calc)*100))+self.rate_str+')'
-
-                print(last_progress)
-                print(target_end_year-target_start_year+1)
-                print(target_end_month-target_start_month+1)
-                print(ken_item_count)
-                print((last_progress/year_month_ken_calc)*100)
 
         return process_result_list
