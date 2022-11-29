@@ -390,9 +390,9 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         try:
             output = []
             for md_item in self.user_select_md_item_list:
-                if md_item == '気温(C)':
+                if md_item == '平均気温(C)':
                     output.append(self.temp_output_list)
-                elif md_item == '相対湿度(％)':
+                elif md_item == '平均相対湿度(％)':
                     output.append(self.rh_output_list)
                 elif md_item == '絶対湿度(g)':
                     output.append(self.ab_hu_output_list)

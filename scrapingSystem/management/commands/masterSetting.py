@@ -53,8 +53,8 @@ class Command(BaseCommand):
             md_url_obj.save()
 
         MDItemMT.objects.all().delete()
-        md_item_list = ['気温(C)',
-                        '相対湿度(％)',
+        md_item_list = ['平均気温(C)',
+                        '平均相対湿度(％)',
                         '絶対湿度(g)',
                         '気圧現地平均(hPa)',
                         '気圧海面平均(hPa)',
