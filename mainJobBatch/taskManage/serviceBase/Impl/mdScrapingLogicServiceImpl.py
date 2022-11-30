@@ -514,13 +514,18 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         first_data = 0
         first_count = 0
         count = 0
-        test_count = 0
         for temp_data in self.temp_datasets:
-            test = re.search('.*\d+.\d', temp_data.text)
-            if test is not None and test.group == '8.6':
-                print(temp_data)
-                print(test_count)
-            test_count += 1
+
+            file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+'scraping_test.txt'
+            try:
+                file_a = open(file_path, 'a')
+                file_a.write('\n'+temp_data)
+                file_a.close()
+            except FileNotFoundError:
+                file_write = open(file_path, 'w')
+                file_write.write(temp_data)
+                file_write.close()
+
             count += 1
             count -= 10
             if count == 0 or count % 18 == 0:
