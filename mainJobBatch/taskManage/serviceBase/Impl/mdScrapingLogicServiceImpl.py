@@ -519,7 +519,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+'scraping_test.txt'
             try:
                 file_a = open(file_path, 'a')
-                file_a.write('\n'+temp_data)
+                file_a.write('\n'+str(temp_data))
                 file_a.close()
             except FileNotFoundError:
                 file_write = open(file_path, 'w')
