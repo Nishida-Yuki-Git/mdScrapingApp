@@ -8,7 +8,6 @@ from mainJobBatch.taskManage.exception.mdException import MdQueBizException
 from mainJobBatch.taskManage.exception.exceptionUtils import ExceptionUtils
 import os
 from pathlib import Path
-import time
 
 
 class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
@@ -522,7 +521,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 print(temp_data)
                 print(test_count)
             test_count += 1
-            time.sleep(1)
             count += 1
             count -= 10
             if count == 0 or count % 18 == 0:
