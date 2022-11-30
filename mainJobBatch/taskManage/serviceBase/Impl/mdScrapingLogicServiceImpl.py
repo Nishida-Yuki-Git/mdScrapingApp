@@ -517,7 +517,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         test_count = 0
         for temp_data in self.temp_datasets:
-            if re.search('.*\d+.\d', temp_data.text).group == '8.6':
+            test = re.search('.*\d+.\d', temp_data.text)
+            if test is not None and test.group == '8.6':
                 print(temp_data)
                 print(test_count)
             test_count += 1
