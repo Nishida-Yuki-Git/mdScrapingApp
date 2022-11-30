@@ -516,7 +516,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         first_count = 0
         count = 0
         for temp_data in self.temp_datasets:
-            print(self.temp_datasets)
+            print(temp_data)
             time.sleep(1)
             count += 1
             count -= 10
