@@ -514,6 +514,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         first_data = 0
         first_count = 0
         count = 0
+        print(self.temp_datasets)
         for temp_data in self.temp_datasets:
             count += 1
             count -= 10
@@ -604,7 +605,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         count = 0
         for total_precipitation_data in self.total_precipitation_datasets:
             count += 1
-            count -= 10
+            count -= 23
             if count == 0 or count % 18 == 0:
                 data = re.search('.*', total_precipitation_data.text)
                 if data is not None:
@@ -614,7 +615,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 self.total_precipitation_list.append(data)
             else:
                 pass
-            count += 10
+            count += 23
 
     def __PrecipitationUpToOneHourScraping(self):
         """ 降水量最大1時間データスクレイピング
