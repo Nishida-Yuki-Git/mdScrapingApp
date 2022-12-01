@@ -486,7 +486,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """
 
         bs = BeautifulSoup(self.__UrlRequest().text, 'html.parser')
-        test = bs.select('#tablefix1 > tbody > tr:nth-of-type(5) > td:nth-of-type(12)')
+        test = bs.find_all('td', {'class': 'data_0_0'})
         print(test)
 
         self.temp_datasets = bs.select('td.data_0_0')
