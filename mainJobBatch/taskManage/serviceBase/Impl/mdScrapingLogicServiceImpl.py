@@ -511,11 +511,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ 気温データスクレイピング
         """
 
-        first_data = 0
-        first_count = 0
-        count = 0
         for temp_data in self.temp_datasets:
-
             file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+'scraping_test.txt'
             try:
                 file_a = open(file_path, 'a')
@@ -526,6 +522,11 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 file_write.write(temp_data)
                 file_write.close()
 
+        '''
+        first_data = 0
+        first_count = 0
+        count = 0
+        for temp_data in self.temp_datasets:
             count += 1
             count -= 10
             if count == 0 or count % 18 == 0:
@@ -543,6 +544,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             else:
                 pass
             count += 10
+            '''
 
     def __RhDataScraping(self):
         """ 相対湿度データスクレイピング
