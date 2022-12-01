@@ -486,7 +486,10 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """
 
         bs = BeautifulSoup(self.__UrlRequest().text, 'html.parser')
-        self.temp_datasets = bs.select('td')
+        test = bs.select('#tablefix1 > tbody > tr:nth-child(5) > nth-of-type(12)')
+        print(test)
+
+        self.temp_datasets = bs.select('td.data_0_0')
         self.rh_datasets = bs.select('td.data_0_0')
         self.atmospheric_pressure_local_ave_datasets = bs.select('td.data_0_0')
         self.pressure_sea_level_ave_datasets = bs.select('td.data_0_0')
@@ -511,6 +514,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """ 気温データスクレイピング
         """
 
+        '''
         for temp_data in self.temp_datasets:
             file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+'scraping_test.txt'
             try:
@@ -521,8 +525,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
                 file_write = open(file_path, 'w')
                 file_write.write(temp_data)
                 file_write.close()
-
         '''
+
         first_data = 0
         first_count = 0
         count = 0
@@ -544,7 +548,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             else:
                 pass
             count += 10
-            '''
 
     def __RhDataScraping(self):
         """ 相対湿度データスクレイピング
