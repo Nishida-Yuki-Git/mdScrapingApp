@@ -53,6 +53,8 @@ class Command(BaseCommand):
             md_url_obj.save()
 
         MDItemMT.objects.all().delete()
+        ##全項目の取得は保留
+        '''
         md_item_list = ['平均気温(C)',
                         '平均相対湿度(％)',
                         '絶対湿度(g)',
@@ -74,6 +76,18 @@ class Command(BaseCommand):
                         '最深積雪(cm)',
                         '天気概況昼(06:00-18:00)',
                         '天気概況夜(18:00-翌日06:00)']
+        '''
+        md_item_list = ['平均気温(C)',
+                        '平均相対湿度(％)',
+                        '絶対湿度(g)',
+                        '気圧現地平均(hPa)',
+                        '気圧海面平均(hPa)',
+                        '降水量合計(mm)',
+                        '降水量最大1時間(mm)',
+                        '降水量最大10分間(mm)',
+                        '最高気温(C)',
+                        '最低気温(C)',
+                        '最小相対湿度(%)']
         for md_item in md_item_list:
             md_item_obj = MDItemMT(
                 md_item=md_item)

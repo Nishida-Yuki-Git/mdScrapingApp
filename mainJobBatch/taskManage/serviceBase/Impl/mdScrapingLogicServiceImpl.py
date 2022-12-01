@@ -355,6 +355,9 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__HighestTemperatureScraping()
             self.__LowestTemperatureScraping()
             self.__MinRelativeHumidityScraping()
+
+            ##現状取得できないため保留
+            '''
             self.__AverageWindSpeedScraping()
             self.__MaximumWindSpeedScraping()
             self.__MaximumWindDirectionScraping()
@@ -365,6 +368,8 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
             self.__DeepestSnowScraping()
             self.__WeatherForecastNoonScraping()
             self.__WeatherForecastNightScraping()
+            '''
+
             self.__AbHumidCalc()
             self.__OutputData()
             self.__YearMonthMethod()
@@ -486,9 +491,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """
 
         bs = BeautifulSoup(self.__UrlRequest().text, 'html.parser')
-        test = bs.find_all('td', {'class': 'data_0_0'})
-        print(test)
-
         self.temp_datasets = bs.select('td.data_0_0')
         self.rh_datasets = bs.select('td.data_0_0')
         self.atmospheric_pressure_local_ave_datasets = bs.select('td.data_0_0')
@@ -513,19 +515,6 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
     def __TempDataScraping(self):
         """ 気温データスクレイピング
         """
-
-        '''
-        for temp_data in self.temp_datasets:
-            file_path = os.path.join(Path(__file__).resolve().parent.parent.parent.parent.parent, 'media')+'/file/'+'scraping_test.txt'
-            try:
-                file_a = open(file_path, 'a')
-                file_a.write('\n'+str(temp_data))
-                file_a.close()
-            except FileNotFoundError:
-                file_write = open(file_path, 'w')
-                file_write.write(temp_data)
-                file_write.close()
-        '''
 
         first_data = 0
         first_count = 0
