@@ -486,7 +486,7 @@ class MeteorologicaldataScrapingServiceImpl(MeteorologicaldataScrapingService):
         """
 
         bs = BeautifulSoup(self.__UrlRequest().text, 'html.parser')
-        self.temp_datasets = bs.select('td.data_0_0')
+        self.temp_datasets = bs.select('td')
         self.rh_datasets = bs.select('td.data_0_0')
         self.atmospheric_pressure_local_ave_datasets = bs.select('td.data_0_0')
         self.pressure_sea_level_ave_datasets = bs.select('td.data_0_0')
