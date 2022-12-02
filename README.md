@@ -284,7 +284,7 @@ $ tree
 ```
  
 ## システムURL
-http://www.md-data.net/sendPost  
+https://www.md-data.net/sendPost  
 (上記は本システムのフロントシステムURLで、サーバーサイドAPIにはフロントシステムのサーバー内でアクセスします) 
 
 
