@@ -45,7 +45,7 @@ class OnlineBatchSetting(OnlineBatchSettingClassSingleton):
         self.mail_keisiki = 'plain'
         self.mail_charset = 'utf-8'
         self.file_dl_url = self.decryptInstance.decryptMethod('oUVkS9X4HmuiLYDQojergPTX+aTAZmDkxkQqkMMP69smLp1a1KgVwh4YgqvQu22F')
-        self.sys_url = self.decryptInstance.decryptMethod('oUVkS9X4HmuiLYDQojergPTX+aTAZmDkxkQqkMMP69t10UaP3W+YObE7JO2P84Ko')
+        self.sys_url = self.decryptInstance.decryptMethod('oUVkS9X4HmuiLYDQojergPTX+aTAZmDkxkQqkMMP69tu/otLlZIhIUfn0Eo0PSti')
         self.mail_sender_name = '気象データ明細出力システム'
         self.mail_sender_encode = 'iso-2022-jp'
 
