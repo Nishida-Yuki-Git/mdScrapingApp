@@ -38,14 +38,14 @@ class OnlineBatchSetting(OnlineBatchSettingClassSingleton):
         self.smtp_user = self.decryptInstance.decryptMethod('5P93ybuHj4RdWZJLf/WdnPPgkf1pL5MB1Ky9Dw6UXSc=')
         self.smtp_password = self.decryptInstance.decryptMethod('FZctYTlXWlxWRQh9HVUX5QfoPftJlxRL1LzFIL0M7FQ=')
         self.mail_subject = self.decryptInstance.decryptMethod('Ym8eRw9T4bF7nFa9G+QHwP5OUY4aTOTU01/UM3ytXuSurP3Fe8j94cvRTBQm5H1kISkqKh5yG3AinexERCmHeg==')
-        self.mail_body_text = self.decryptInstance.decryptMethod('c4mo6pbL7j25W6Jg5ETPVTd1Qm9bLfiwiT4lfITxbwsw7qK6zRKy1Ah1YgdqeNfCo5/prkh8JLXrhQEmTsJjTXYCkg6brcAjhCt/hn2fknBH9Ien0sQFhisY8hdwcE8u216QIKl2BtFla5/NRHXWRlIZTpxgVLNp4gEuLaAFA68/7kK6+jM9VCfXv/pnrqmrZPF6AgX0KblBWHMf7sPpBhaKvrVX+JeTtWu7Kw0YIENKY+QTsEzonxv75vUWXyA/USP6B72S8iN9b0ywVaE6mbJUN1AC7BK3R4Y2X12RtV+qdtQ4Ae7/tgDZNexY4keUFPphY/w1df+sh8vDZep0mHNuIEyTdPLQ03CkRC039Rep3T9ZkHgj4BaAcH7GOY5SRkXgdlnvzclP6iVOwqf6rdmGpxu6mc9PW+LP62Nko178sHn1cSblrJeTjG1Ygd3qME4BkY5+GoQ2YcZENygCo4GfpmBhMPhA1/8fmXgiWk8Uci5ZoYh297kEcnxLet53I0/WfvtDuYApjxnHF2eLUxrlznWzUxZOsfVRcU2iJ3qrY6VMMIqorKdRjsDhaNQAsUzhAMXdi7nTgarMMzK8sgJs0Efr90EiN23kqSaqekucoyzHxm1k4ZIltr5lBr/y+5v3NZHbqp+lPVbbT4KNVSdYlmlZa2lc4r4ZfiO0U56d6d/Y5EQMGt+g/o14AA3SDsAVkGst6fowkS4zyLjNn73VcNEinDWAchbgbCAt24RE5VKuU2HhEWci+gMADHowHP+MX+BbzwkgISDaJCBFsXteW+3M6jKmqQ3P5Dwg7t1DsyU5xKBQdlhjQhPl/KZW9FdeVKLCKefwEqAIXvrOwGSDMK3rEwj4XTMxxj1HgmmowQ7tFL3Akz9CSDPRSzDVQNPXmkexS3/Fsp7mgM9viSXe3zaEpLQelTxCl++3IiXeCTgfx+6/yYdNG63CmiX+')
+        self.mail_body_text = self.decryptInstance.decryptMethod('iTw6zYv7JIJsMuod1pqvYYrMZwmmQGHKWLTh+bQhtiB2JcRRKH5lVayr0TSIJf8eg+myACI8BO8DDvAPQcApCe8QIPhsCuURxx5RRx5Y6AbIGWQR5x8n9tUFm8EDwaRr8B5WpekEIZzPkRD+KI7TvRyYdw2nmEennDFN1ucCVPa0Gtp6BIUiOkoMqvtv5tF3bUu7gBq2X780O8U2b0eF/SSGxwjU3vc/d7YvxD+GJeCMLBWgEnfDJt71vu8fNquSUhXW2KhgqJy8kI9XrJv7ypoOQcT1io01sSoyFbtdpcHdPIOtuTMEuhDKUNw6aDsPyE1+H3o1Ca/m03qNK5wwYSh/2AeeSkAgYEdA0lHOkRNPH3q6RdSF/SnA6S4NzzSaQ27jrMGAETKV7DnbTl1eCoLVYrVLoSGhiUYb6qzTOxcEMuymC0mBm9zQTjl3ktb89gqTL6JmyYIgfzYIY86dyBcD9quYPhVSh9QZCGKa8DbpGkBlp6EHbl2ktdb7SQItLt50KQy/g4q6VTrEYXFuUm3WojBACv7Z1Acs2w1HwNlVaCysl2j+U4Tbff2psD/fsgKbgUtOnuUIvhbDYKXbaHaL1lG3ISM7QvuVanIYjYMFyqICset6tpeypfnKd5ZyhyD6dyX/ZkMH7bGM4pda87ebc0CPBlpEbFd56qzK3bGsUgA3k9JaBHVKhbNbu9n9V+92VNfwS8EwcsjZbym3Xi9ZG5V940s3lJ2LgoKuetRHuAQXu51tsvXXKH5l83Ru+xYryE3tQZYFGgKcW80B7SGKPtAojU9o4ulS+cFBVGj42bJlOfna8EtNThe5j3IvyDyFv0uXzhq+a0iXqtuVRh57aBbodooV5qHN9aHYs2JNasAK1vcF+WGzGswsguPubMKk5AyTMpZuvtwTWo8c1KtKXpk9yIrfvHekbaVwqasoZq1Q5IYdRLMN1OV3Z9lDpI5WfqQNsjqd1y5Nzmhohhby1CaP1zfu8b2x79fRCGo=')
         self.mail_from_address = self.decryptInstance.decryptMethod('5P93ybuHj4RdWZJLf/WdnPPgkf1pL5MB1Ky9Dw6UXSc=')
         self.smtp_host = self.decryptInstance.decryptMethod('LEkQtfN2LfBGVtIv6GEvbg==')
         self.smtp_port = int(self.decryptInstance.decryptMethod('LF0biTzquluSHz4s16HAzQ=='))
         self.mail_keisiki = 'plain'
         self.mail_charset = 'utf-8'
-        self.file_dl_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyCHJe/fmyFNGp0W5vuB0MZ')
-        self.sys_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyoSlWj/0o5L7w+mVJAFFVO')
+        self.file_dl_url = self.decryptInstance.decryptMethod('uaLQAmLm6UhX7/HS4sD9OnyiP6FKUrNN9Ozlku1EtjF7NYC8VXbtg+3bngQdnxN3ZdkMT2J4Ba/hyF+Ain6g0Q==')
+        self.sys_url = self.decryptInstance.decryptMethod('uaLQAmLm6UhX7/HS4sD9OnyiP6FKUrNN9Ozlku1EtjHv/Gy6EHjrc37Q163N2l5J')
         self.mail_sender_name = '気象データ明細出力システム'
         self.mail_sender_encode = 'iso-2022-jp'
 
