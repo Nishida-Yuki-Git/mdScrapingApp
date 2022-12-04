@@ -46,7 +46,7 @@ class OnlineBatchSetting(OnlineBatchSettingClassSingleton):
         self.mail_charset = 'utf-8'
         self.file_dl_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyCHJe/fmyFNGp0W5vuB0MZ')
         self.sys_url = self.decryptInstance.decryptMethod('poH1WtpbzBTofiY85B+J9VGr+42Yw7+pmWC5tayiTQyoSlWj/0o5L7w+mVJAFFVO')
-        self.mail_sender_name = '[MD-SYS]気象データ収集システム'
+        self.mail_sender_name = '気象データ明細出力システム'
         self.mail_sender_encode = 'iso-2022-jp'
 
     def getHostId(self):
